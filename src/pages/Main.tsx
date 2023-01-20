@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BACKGROUND_COLOR } from "../color";
+import { BACKGROUND_COLOR, PROJECT_COLOR } from "../color";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { AiTwotoneStar } from "react-icons/ai";
@@ -19,6 +19,9 @@ const Main = () => {
   return (
     <Container>
       <Sidebar>
+        <Title>
+          WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
+        </Title>
         <Place>
           <h2>결과</h2>
           <PlaceCount>170</PlaceCount>
@@ -79,17 +82,24 @@ export default Main;
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  font-family: GmarketSans;
 `;
 
 const Sidebar = styled.div`
   width: 28%;
   height: 100%;
-  background-color: ${BACKGROUND_COLOR};
+  background-color: white;
   box-shadow: 3px 3px 3px #dddddd;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   position: absolute;
   padding: 0 40px;
+`;
+
+const Title = styled.h1`
+  font-size: 40px;
+  font-weight: 900;
+  font-family: GmarketSans;
 `;
 
 const Place = styled.div`
@@ -99,6 +109,7 @@ const Place = styled.div`
 
 const PlaceName = styled.h2`
   margin-bottom: 13px;
+  font-weight: 500;
 `;
 
 const PlaceCount = styled.span`
