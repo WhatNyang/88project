@@ -9,22 +9,11 @@ const Mypage = () => {
       <StyledDivMain>
         <StyledDivOne>
           <div></div>
-          <ProfileImage img={BaseProfile}></ProfileImage>
-          <ProfileList>
-            <ProfileNickname>닉네임</ProfileNickname>
-            <ProfileListLikeReview>
-              <ProfileListLike>
-                <div></div>
-                <div>관심</div>
-                <div>0</div>
-              </ProfileListLike>
-              <ProfileListReview>
-                <div>리뷰</div>
-                <div>0</div>
-              </ProfileListReview>
-            </ProfileListLikeReview>
+          <Profile img={BaseProfile}></Profile>
+          <ProfileList style={{ backgroundColor: "red" }}>
+            나는팔팔하조나는팔팔하조나는팔팔하조나는팔팔하조나는팔팔하조나는팔팔하조
           </ProfileList>
-          <div></div>
+          <div style={{ backgroundColor: "red" }}></div>
         </StyledDivOne>
         <StyledDivTwo>
           <StyledButtonLikes>관심</StyledButtonLikes>
@@ -69,34 +58,19 @@ const StyledDivOne = styled.div`
   grid-template-columns: 10% 20% 60% 10%;
 `;
 
-const ProfileImage = styled.div<{ img: string }>`
+const Profile = styled.div<{ img: string }>`
   width: 100px;
   height: 100px;
   background-size: cover;
   background-image: url(${(props) => props.img});
 `;
 const ProfileList = styled.div`
-  display: grid;
-  grid-template-rows: 40% 60%;
-`;
-const ProfileNickname = styled.div`
-  text-align: left;
+  width: 100px;
   height: 100px;
-  line-height: 100px;
-`;
-const ProfileListLikeReview = styled.div`
-  display: grid;
-  grid-template-columns: 15% 15% 60%;
+  display: flex;
+  justify-content: space-between;
 `;
 
-const ProfileListLike = styled.div`
-  text-align: center;
-  font-size: small;
-`;
-const ProfileListReview = styled.div`
-  font-size: small;
-  text-align: center;
-`;
 const StyledDivTwo = styled.div`
   display: grid;
   grid-template-columns: 15% 15%;

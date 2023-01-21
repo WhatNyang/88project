@@ -1,30 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-
-const imgProfile = "images/profile.png";
+// import logo from "./logo192.png";
+import BaseProfile from "download.png";
+// const BaseProfile = "assets/person.jpg";
 const Mypage = () => {
-  const BaseProfile = null || imgProfile;
   return (
     <StyledDivContainer>
       <StyledDivMain>
-        <StyledDivOne>
-          <div></div>
-          <ProfileImage img={BaseProfile}></ProfileImage>
-          <ProfileList>
-            <ProfileNickname>닉네임</ProfileNickname>
-            <ProfileListLikeReview>
-              <ProfileListLike>
-                <div></div>
-                <div>관심</div>
-                <div>0</div>
-              </ProfileListLike>
-              <ProfileListReview>
-                <div>리뷰</div>
-                <div>0</div>
-              </ProfileListReview>
-            </ProfileListLikeReview>
-          </ProfileList>
-          <div></div>
+        <StyledDivOne style={{ backgroundColor: "red" }}>
+          <div>1</div>
+          <Profile>2{/* <img src="" alt="Logo" /> */}</Profile>
+          {/* <img src={logo} alt="Logo" /> */}
+          <div>3</div>
+          <div>4</div>
         </StyledDivOne>
         <StyledDivTwo>
           <StyledButtonLikes>관심</StyledButtonLikes>
@@ -69,34 +57,13 @@ const StyledDivOne = styled.div`
   grid-template-columns: 10% 20% 60% 10%;
 `;
 
-const ProfileImage = styled.div<{ img: string }>`
+const Profile = styled.div`
   width: 100px;
   height: 100px;
   background-size: cover;
-  background-image: url(${(props) => props.img});
-`;
-const ProfileList = styled.div`
-  display: grid;
-  grid-template-rows: 40% 60%;
-`;
-const ProfileNickname = styled.div`
-  text-align: left;
-  height: 100px;
-  line-height: 100px;
-`;
-const ProfileListLikeReview = styled.div`
-  display: grid;
-  grid-template-columns: 15% 15% 60%;
+  background-image: url(${BaseProfile});
 `;
 
-const ProfileListLike = styled.div`
-  text-align: center;
-  font-size: small;
-`;
-const ProfileListReview = styled.div`
-  font-size: small;
-  text-align: center;
-`;
 const StyledDivTwo = styled.div`
   display: grid;
   grid-template-columns: 15% 15%;

@@ -80,6 +80,7 @@ const ProfileList = styled.div`
   grid-template-rows: 40% 60%;
 `;
 const ProfileNickname = styled.div`
+  padding: 50px;
   text-align: left;
   height: 100px;
   line-height: 100px;

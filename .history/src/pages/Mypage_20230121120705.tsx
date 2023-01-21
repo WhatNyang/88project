@@ -14,7 +14,6 @@ const Mypage = () => {
             <ProfileNickname>닉네임</ProfileNickname>
             <ProfileListLikeReview>
               <ProfileListLike>
-                <div></div>
                 <div>관심</div>
                 <div>0</div>
               </ProfileListLike>
@@ -81,8 +80,6 @@ const ProfileList = styled.div`
 `;
 const ProfileNickname = styled.div`
   text-align: left;
-  height: 100px;
-  line-height: 100px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;

@@ -14,11 +14,10 @@ const Mypage = () => {
             <ProfileNickname>닉네임</ProfileNickname>
             <ProfileListLikeReview>
               <ProfileListLike>
-                <div></div>
                 <div>관심</div>
                 <div>0</div>
               </ProfileListLike>
-              <ProfileListReview>
+              <ProfileListReview style={{ color: "white" }}>
                 <div>리뷰</div>
                 <div>0</div>
               </ProfileListReview>
@@ -80,13 +79,12 @@ const ProfileList = styled.div`
   grid-template-rows: 40% 60%;
 `;
 const ProfileNickname = styled.div`
+  padding: 50px;
   text-align: left;
-  height: 100px;
-  line-height: 100px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;
-  grid-template-columns: 15% 15% 60%;
+  grid-template-columns: 40% 60%;
 `;
 
 const ProfileListLike = styled.div`
@@ -95,7 +93,7 @@ const ProfileListLike = styled.div`
 `;
 const ProfileListReview = styled.div`
   font-size: small;
-  text-align: center;
+  text-align: left;
 `;
 const StyledDivTwo = styled.div`
   display: grid;

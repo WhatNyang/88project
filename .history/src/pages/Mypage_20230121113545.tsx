@@ -11,16 +11,15 @@ const Mypage = () => {
           <div></div>
           <ProfileImage img={BaseProfile}></ProfileImage>
           <ProfileList>
-            <ProfileNickname>닉네임</ProfileNickname>
+            <ProfileNickname style={{ backgroundColor: "red" }}>
+              닉네임
+            </ProfileNickname>
             <ProfileListLikeReview>
-              <ProfileListLike>
-                <div></div>
-                <div>관심</div>
-                <div>0</div>
+              <ProfileListLike style={{ backgroundColor: "white" }}>
+                관심
               </ProfileListLike>
-              <ProfileListReview>
-                <div>리뷰</div>
-                <div>0</div>
+              <ProfileListReview style={{ backgroundColor: "pink" }}>
+                리뷰
               </ProfileListReview>
             </ProfileListLikeReview>
           </ProfileList>
@@ -80,22 +79,21 @@ const ProfileList = styled.div`
   grid-template-rows: 40% 60%;
 `;
 const ProfileNickname = styled.div`
+  padding: 50px;
   text-align: left;
-  height: 100px;
-  line-height: 100px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;
-  grid-template-columns: 15% 15% 60%;
+  grid-template-columns: 40% 60%;
 `;
 
 const ProfileListLike = styled.div`
-  text-align: center;
+  padding: 50px;
   font-size: small;
 `;
 const ProfileListReview = styled.div`
   font-size: small;
-  text-align: center;
+  text-align: left;
 `;
 const StyledDivTwo = styled.div`
   display: grid;

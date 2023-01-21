@@ -81,8 +81,8 @@ const ProfileList = styled.div`
 `;
 const ProfileNickname = styled.div`
   text-align: left;
-  height: 100px;
-  line-height: 100px;
+  height: 10px;
+  line-height: 10px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;

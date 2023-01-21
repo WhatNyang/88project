@@ -9,20 +9,15 @@ const Mypage = () => {
       <StyledDivMain>
         <StyledDivOne>
           <div></div>
-          <ProfileImage img={BaseProfile}></ProfileImage>
-          <ProfileList>
-            <ProfileNickname>닉네임</ProfileNickname>
-            <ProfileListLikeReview>
-              <ProfileListLike>
-                <div></div>
-                <div>관심</div>
-                <div>0</div>
-              </ProfileListLike>
-              <ProfileListReview>
-                <div>리뷰</div>
-                <div>0</div>
-              </ProfileListReview>
-            </ProfileListLikeReview>
+          <Profile img={BaseProfile}></Profile>
+          <ProfileList style={{ backgroundColor: "red" }}>
+            닉네임
+            <ProfileListLike style={{ backgroundColor: "white" }}>
+              관심
+            </ProfileListLike>
+            <ProfileListReview style={{ backgroundColor: "red" }}>
+              리뷰
+            </ProfileListReview>
           </ProfileList>
           <div></div>
         </StyledDivOne>
@@ -69,7 +64,7 @@ const StyledDivOne = styled.div`
   grid-template-columns: 10% 20% 60% 10%;
 `;
 
-const ProfileImage = styled.div<{ img: string }>`
+const Profile = styled.div<{ img: string }>`
   width: 100px;
   height: 100px;
   background-size: cover;
@@ -79,23 +74,11 @@ const ProfileList = styled.div`
   display: grid;
   grid-template-rows: 40% 60%;
 `;
-const ProfileNickname = styled.div`
-  text-align: left;
-  height: 100px;
-  line-height: 100px;
-`;
-const ProfileListLikeReview = styled.div`
-  display: grid;
-  grid-template-columns: 15% 15% 60%;
-`;
-
 const ProfileListLike = styled.div`
-  text-align: center;
-  font-size: small;
+  padding: 50px;
 `;
 const ProfileListReview = styled.div`
-  font-size: small;
-  text-align: center;
+  padding: 50px;
 `;
 const StyledDivTwo = styled.div`
   display: grid;
