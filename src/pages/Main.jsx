@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { PROJECT_COLOR } from "../color";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { AiTwotoneStar } from "react-icons/ai";
 import Location from "../components/Location";
+import { BiSearchAlt } from "react-icons/bi";
 
 // 기능
 // API 조회
@@ -17,12 +18,32 @@ import Location from "../components/Location";
 // 업체 정보 : 업체명, 주소, 전화번호, 리뷰수
 
 const Main = () => {
+  const [text, setText] = useState("");
+  const [place, setPlace] = useState("");
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    setPlace(text);
+    setText("");
+  };
+
   return (
     <Container>
       <Sidebar>
         <Title>
           WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
         </Title>
+        <form onSubmit={onSubmitHandler}>
+          <SearchInput value={text} onChange={(e) => setText(e.target.value)} />
+          <SearchBtn type="submit">
+            <BiSearchAlt
+              style={{
+                fontSize: "30px",
+                marginBottom: "-12px",
+              }}
+            />
+          </SearchBtn>
+        </form>
         <Place>
           <h2>결과</h2>
           <PlaceCount>170</PlaceCount>
@@ -43,7 +64,7 @@ const Main = () => {
           <PlaceInfo>상세보기</PlaceInfo>
         </PlaceList>
       </Sidebar>
-      <Location />
+      <Location place={place} />
     </Container>
   );
 };
@@ -72,6 +93,18 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 900;
   font-family: GmarketSans;
+`;
+
+const SearchInput = styled.input`
+  width: 80%;
+  height: 25px;
+  margin-bottom: 30px;
+`;
+
+const SearchBtn = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
 
 const Place = styled.div`
