@@ -15,16 +15,54 @@ const Mypage = () => {
           <div>4</div>
         </StyledDivOne>
         <StyledDivTwo>
-          <StyledButtonLikes>관심</StyledButtonLikes>
-          <StyledButtonReview>리뷰</StyledButtonReview>
+          <button>관심</button>
+          <button>리뷰</button>
         </StyledDivTwo>
         <StyledDivThree>
-          <StyledDivReviewFoamContainer>
-            <StyledDivReviewFoamProfileImage>1</StyledDivReviewFoamProfileImage>
-            <StyledDivReviewFoamProfileTextContainer>
-              2
-            </StyledDivReviewFoamProfileTextContainer>
-          </StyledDivReviewFoamContainer>
+          <StyledDivReviewFoamMainContainer>
+            <StyledDivReviewFoamImgContainer>
+              <div></div>
+            </StyledDivReviewFoamImgContainer>
+            <StyledDivReviewFoamContentsContainer>
+              <div>
+                <p>X</p>
+              </div>
+              <div>
+                <p>닉네임</p>
+                <p>2023.01.01</p>
+              </div>
+              <div>
+                <p>
+                  리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용
+                  리뷰내용 리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용
+                  리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용
+                  리뷰내용리뷰내용 리뷰내용 리뷰내용
+                </p>
+              </div>
+            </StyledDivReviewFoamContentsContainer>
+          </StyledDivReviewFoamMainContainer>
+          <StyledDivReviewFoamMainContainer>
+            <StyledDivReviewFoamImgContainer>
+              <div></div>
+            </StyledDivReviewFoamImgContainer>
+            <StyledDivReviewFoamContentsContainer>
+              <div>
+                <p>X</p>
+              </div>
+              <div>
+                <p>닉네임</p>
+                <p>2023.01.01</p>
+              </div>
+              <div>
+                <p>
+                  리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용
+                  리뷰내용 리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용
+                  리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용
+                  리뷰내용리뷰내용 리뷰내용 리뷰내용
+                </p>
+              </div>
+            </StyledDivReviewFoamContentsContainer>
+          </StyledDivReviewFoamMainContainer>
         </StyledDivThree>
       </StyledDivMain>
     </StyledDivContainer>
@@ -40,7 +78,6 @@ const StyledDivContainer = styled.div`
   margin-top: 100px;
 `;
 const StyledDivMain = styled.div`
-  display: grid;
   grid-template-rows: 0.4fr 0.1fr 1fr;
   grid-template-columns: repeat(1, 1fr);
   width: 700px;
@@ -53,7 +90,6 @@ const StyledDivMain = styled.div`
 `;
 
 const StyledDivOne = styled.div`
-  display: grid;
   grid-template-columns: 10% 20% 60% 10%;
 `;
 
@@ -63,47 +99,77 @@ const Profile = styled.div`
   background-size: cover;
   background-image: url(${BaseProfile});
 `;
-
+// 버튼항목
 const StyledDivTwo = styled.div`
-  display: grid;
-  grid-template-columns: 15% 15%;
-  align-self: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+
+  button:nth-child(1) {
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    background: #e37b58;
+    border-radius: 30px;
+    padding: 10px 30px;
+    border: none;
+  }
+
+  button:nth-child(2) {
+    width: 100px;
+    height: 40px;
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 10px 30px;
+    border: none;
+    font-size: 20px;
+  }
 `;
 
+// 리뷰창
 const StyledDivThree = styled.div`
-  background-color: #f7f7f7;
   padding: 20px;
   border-radius: 30px;
+  background-color: lightgray;
+  flex-direction: column;
 `;
-const StyledButtonLikes = styled.button`
-  width: 100px;
-  height: 40px;
-  background: #e37b58;
-  border-radius: 30px;
-  padding: 10px 30px;
-`;
-
-const StyledButtonReview = styled.button`
-  width: 100px;
-  height: 40px;
-  background: #ffffff;
-  border-radius: 30px;
-  padding: 10px 30px;
-`;
-
-const StyledDivReviewFoamContainer = styled.div`
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 15% 20%;
+const StyledDivReviewFoamMainContainer = styled.div`
+  padding: 20px 0px 20px 0px;
   background-color: white;
   border-radius: 10px;
+  display: flex;
+  margin: 0px 0px 20px 0px;
+  div {
+  }
 `;
 
-const StyledDivReviewFoamProfileImage = styled.div`
-  background-color: lightblue;
+const StyledDivReviewFoamImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  div:nth-child(1) {
+    width: 70px;
+    height: 70px;
+    border-radius: 70%;
+    overflow: hidden;
+    background-color: lightgray;
+  }
 `;
 
-const StyledDivReviewFoamProfileTextContainer = styled.div`
-  background-color: lightgoldenrodyellow;
+const StyledDivReviewFoamContentsContainer = styled.div`
+  div:nth-child(1) {
+    display: flex;
+    justify-content: right;
+    height: 30px;
+  }
+
+  div:nth-child(2) {
+    display: flex 1;
+    flex-direction: column;
+  }
+
+  div:nth-child(3) {
+  }
 `;
+
 export default Mypage;
