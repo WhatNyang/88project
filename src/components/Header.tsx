@@ -24,5 +24,6 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 900;
   font-family: GmarketSans;
+
   margin-left: 30px;
 `;
