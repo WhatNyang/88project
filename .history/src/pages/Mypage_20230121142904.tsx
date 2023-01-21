@@ -1,13 +1,12 @@
+import React from "react";
 import styled from "styled-components";
 
 const imgProfile = "images/profile.png";
 const Mypage = () => {
   const BaseProfile = null || imgProfile;
-
   return (
-    <StyledDivContainer>.
+    <StyledDivContainer>
       <StyledDivMain>
-        {/* MypageProfile 관련된 것 */}
         <StyledDivOne>
           <div></div>
           <ProfileImage img={BaseProfile}></ProfileImage>
@@ -28,7 +27,6 @@ const Mypage = () => {
           </ProfileList>
           <div></div>
         </StyledDivOne>
-        {/* MypageProfile 관련된 것 */}
         <StyledDivTwo>
           <button>관심</button>
           <button>리뷰</button>
@@ -40,7 +38,7 @@ const Mypage = () => {
             </StyledDivReviewFoamImgContainer>
             <StyledDivReviewFoamContentsContainer>
               <div>
-                <p>⌥</p>
+                <p>X</p>
               </div>
               <div>
                 <p>닉네임</p>
@@ -62,29 +60,7 @@ const Mypage = () => {
             </StyledDivReviewFoamImgContainer>
             <StyledDivReviewFoamContentsContainer>
               <div>
-                <p>⌥</p>
-              </div>
-              <div>
-                <p>닉네임</p>
-                <p>2023.01.01</p>
-              </div>
-              <div>
-                <p>
-                  리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용
-                  리뷰내용 리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용
-                  리뷰내용리뷰내용 리뷰내용 리뷰내용리뷰내용 리뷰내용
-                  리뷰내용리뷰내용 리뷰내용 리뷰내용
-                </p>
-              </div>
-            </StyledDivReviewFoamContentsContainer>
-          </StyledDivReviewFoamMainContainer>
-          <StyledDivReviewFoamMainContainer>
-            <StyledDivReviewFoamImgContainer>
-              <div></div>
-            </StyledDivReviewFoamImgContainer>
-            <StyledDivReviewFoamContentsContainer>
-              <div>
-                <p>⌥</p>
+                <p>X</p>
               </div>
               <div>
                 <p>닉네임</p>
@@ -111,7 +87,7 @@ const StyledDivContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   margin-top: 100px;
 `;
 const StyledDivMain = styled.div`
@@ -129,7 +105,10 @@ const StyledDivMain = styled.div`
 
 const StyledDivOne = styled.div`
   display: grid;
-s: 10% 20% 5% 55% 10%;
+  grid-template-columns: 10% 20% 5% 55% 10%;
+  div {
+    border: 1px solid black;
+  }
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
@@ -147,7 +126,7 @@ const ProfileNickname = styled.div`
   height: 50px;
   line-height: 50px;
   font-size: large;
-  font-weight: 700;
+  font-weight: bolder;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;
@@ -157,6 +136,7 @@ const ProfileListLikeReview = styled.div`
 const ProfileListLike = styled.div`
   text-align: center;
   font-size: small;
+  color: #d9d9d9;
 `;
 const ProfileListReview = styled.div`
   font-size: small;
@@ -168,7 +148,6 @@ const StyledDivTwo = styled.div`
   margin-bottom: 15px;
 
   button:nth-child(1) {
-    margin-left: 10px;
     width: 100px;
     height: 40px;
     font-size: 20px;
@@ -176,14 +155,9 @@ const StyledDivTwo = styled.div`
     border-radius: 30px;
     padding: 10px 30px;
     border: none;
-    &:hover {
-      background-color: #e37b58;
-      color: white;
-    }
   }
 
   button:nth-child(2) {
-    margin-left: 10px;
     width: 100px;
     height: 40px;
     background: #ffffff;
@@ -191,10 +165,6 @@ const StyledDivTwo = styled.div`
     padding: 10px 30px;
     border: none;
     font-size: 20px;
-    &:hover {
-      background-color: #e37b58;
-      color: white;
-    }
   }
 `;
 
@@ -202,7 +172,7 @@ const StyledDivTwo = styled.div`
 const StyledDivThree = styled.div`
   padding: 20px;
   border-radius: 30px;
-  background-color: #f5f5f5;
+  background-color: lightgray;
   flex-direction: column;
 `;
 const StyledDivReviewFoamMainContainer = styled.div`
@@ -210,8 +180,9 @@ const StyledDivReviewFoamMainContainer = styled.div`
   background-color: white;
   border-radius: 10px;
   display: flex;
-
   margin: 0px 0px 20px 0px;
+  div {
+  }
 `;
 
 const StyledDivReviewFoamImgContainer = styled.div`
@@ -229,39 +200,18 @@ const StyledDivReviewFoamImgContainer = styled.div`
 `;
 
 const StyledDivReviewFoamContentsContainer = styled.div`
-  margin-right: 10px;
-
   div:nth-child(1) {
     display: flex;
     justify-content: right;
-    align-items: center;
-    margin-right: 15px;
     height: 30px;
-    p {
-      cursor: pointer;
-    }
   }
 
   div:nth-child(2) {
-    display: flex;
-
-    p:nth-child(1) {
-      font-weight: 700;
-      font-size: 1.2em;
-    }
-
-    p:nth-child(2) {
-      display: flex;
-      font-size: 0.8em;
-      justify-content: center;
-      align-items: center;
-      margin-left: 5px;
-      margin-bottom: 10px;
-    }
+    display: flex 1;
+    flex-direction: column;
   }
 
   div:nth-child(3) {
-    display: flex;
   }
 `;
 
