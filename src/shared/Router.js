@@ -2,6 +2,8 @@ import Main from "../pages/Main";
 import Header from "../components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Detail from "../pages/Detail";
+
+import Mypage from "../pages/Mypage";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 const Router = () => {
