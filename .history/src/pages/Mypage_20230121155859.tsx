@@ -134,8 +134,8 @@ const StyledDivOne = styled.div`
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
   background-size: cover;
   background-image: url(${(props) => props.img});
 `;

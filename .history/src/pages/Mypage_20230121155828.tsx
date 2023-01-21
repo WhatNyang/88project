@@ -130,12 +130,12 @@ const StyledDivMain = styled.div`
 
 const StyledDivOne = styled.div`
   display: grid;
-  grid-template-columns: 10% 20% 5% 55% 10%;
+: 10% 20% 5% 55% 10%;
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
-  width: 100px;
-  height: 100px;
+  /* width: 100px;
+  height: 100px; */
   background-size: cover;
   background-image: url(${(props) => props.img});
 `;
