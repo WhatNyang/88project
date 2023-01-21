@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { BACKGROUND_COLOR, PROJECT_COLOR } from "../color";
+import { PROJECT_COLOR } from "../color";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { AiTwotoneStar } from "react-icons/ai";
+import Location from "../components/Location";
 
 // 기능
 // API 조회
-// 업체 위치 표시 -> 클릭시 업체 정보 간략하게 표시
+// 마커 -> 클릭시 업체 정보 간략하게 표시
 // 북마크
 
 // 필요한 정보
@@ -41,38 +42,8 @@ const Main = () => {
           </PlaceInfo>
           <PlaceInfo>상세보기</PlaceInfo>
         </PlaceList>
-        <PlaceList>
-          <PlaceName>아르반호텔</PlaceName>
-          <PlaceInfo>
-            <MdLocationOn /> 부산 진구 중앙대로 691번길 32
-          </PlaceInfo>
-          <PlaceInfo>
-            <GiRotaryPhone style={{ marginRight: "5px" }} />
-            051-805-9901
-          </PlaceInfo>
-          <PlaceInfo>
-            <AiTwotoneStar style={{ marginRight: "5px" }} />
-            리뷰 23건
-          </PlaceInfo>
-          <PlaceInfo>상세보기</PlaceInfo>
-        </PlaceList>
-        <PlaceList>
-          <PlaceName>아르반호텔</PlaceName>
-          <PlaceInfo>
-            <MdLocationOn /> 부산 진구 중앙대로 691번길 32
-          </PlaceInfo>
-          <PlaceInfo>
-            <GiRotaryPhone style={{ marginRight: "5px" }} />
-            051-805-9901
-          </PlaceInfo>
-          <PlaceInfo>
-            <AiTwotoneStar style={{ marginRight: "5px" }} />
-            리뷰 23건
-          </PlaceInfo>
-          <PlaceInfo>상세보기</PlaceInfo>
-        </PlaceList>
       </Sidebar>
-      <Map>임시</Map>
+      <Location />
     </Container>
   );
 };
@@ -94,6 +65,7 @@ const Sidebar = styled.div`
   border-bottom-right-radius: 10px;
   position: absolute;
   padding: 0 40px;
+  z-index: 999;
 `;
 
 const Title = styled.h1`
@@ -125,10 +97,4 @@ const PlaceList = styled.div`
 const PlaceInfo = styled.div`
   font-size: 18px;
   margin-top: 10px;
-`;
-
-const Map = styled.div`
-  background-color: lavender;
-  width: 100%;
-  height: 100%;
 `;
