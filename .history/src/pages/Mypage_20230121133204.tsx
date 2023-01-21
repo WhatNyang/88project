@@ -103,11 +103,10 @@ const StyledDivMain = styled.div`
 `;
 
 const StyledDivOne = styled.div`
-  display: grid;
   grid-template-columns: 10% 20% 60% 10%;
-  /* div {
+  div {
     border: 1px solid black;
-  } */
+  }
 `;
 
 const ProfileImage = styled.div<{ img: string }>`

@@ -90,7 +90,6 @@ const StyledDivContainer = styled.div`
   margin-top: 100px;
 `;
 const StyledDivMain = styled.div`
-  display: grid;
   grid-template-rows: 0.4fr 0.1fr 1fr;
   grid-template-columns: repeat(1, 1fr);
   width: 700px;
@@ -103,11 +102,7 @@ const StyledDivMain = styled.div`
 `;
 
 const StyledDivOne = styled.div`
-  display: grid;
   grid-template-columns: 10% 20% 60% 10%;
-  /* div {
-    border: 1px solid black;
-  } */
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
@@ -140,6 +135,9 @@ const ProfileListReview = styled.div`
 `;
 // 버튼항목
 const StyledDivTwo = styled.div`
+  display: grid;
+  grid-template-columns: 15% 15%;
+  align-self: center;
   margin-top: 30px;
   margin-bottom: 15px;
 
