@@ -1,17 +1,15 @@
+import React from "react";
 import styled from "styled-components";
 
 const imgProfile = "images/profile.png";
 const Mypage = () => {
   const BaseProfile = null || imgProfile;
-
   return (
     <StyledDivContainer>
       <StyledDivMain>
-        {/* MypageProfile 관련된 것 */}
         <StyledDivOne>
           <div></div>
           <ProfileImage img={BaseProfile}></ProfileImage>
-          <div></div>
           <ProfileList>
             <ProfileNickname>닉네임</ProfileNickname>
             <ProfileListLikeReview>
@@ -28,7 +26,6 @@ const Mypage = () => {
           </ProfileList>
           <div></div>
         </StyledDivOne>
-        {/* MypageProfile 관련된 것 */}
         <StyledDivTwo>
           <button>관심</button>
           <button>리뷰</button>
@@ -94,7 +91,7 @@ const StyledDivContainer = styled.div`
 `;
 const StyledDivMain = styled.div`
   display: grid;
-  grid-template-rows: 0.2fr 0.1fr 1fr;
+  grid-template-rows: 0.4fr 0.1fr 1fr;
   grid-template-columns: repeat(1, 1fr);
   width: 700px;
   height: 100%;
@@ -107,15 +104,15 @@ const StyledDivMain = styled.div`
 
 const StyledDivOne = styled.div`
   display: grid;
-  grid-template-columns: 10% 20% 5% 55% 10%;
-  /* div {
+  grid-template-columns: 10% 20% 60% 10%;
+  div {
     border: 1px solid black;
-  } */
+  }
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
-  /* width: 100px;
-  height: 100px; */
+  width: 100px;
+  height: 100px;
   background-size: cover;
   background-image: url(${(props) => props.img});
 `;
@@ -125,10 +122,8 @@ const ProfileList = styled.div`
 `;
 const ProfileNickname = styled.div`
   text-align: left;
-  height: 50px;
-  line-height: 50px;
-  font-size: large;
-  font-weight: 700;
+  height: 100px;
+  line-height: 100px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;
@@ -145,6 +140,9 @@ const ProfileListReview = styled.div`
 `;
 // 버튼항목
 const StyledDivTwo = styled.div`
+  div {
+    border: 1px solid black;
+  }
   margin-top: 30px;
   margin-bottom: 15px;
 

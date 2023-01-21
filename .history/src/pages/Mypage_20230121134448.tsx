@@ -1,17 +1,15 @@
+import React from "react";
 import styled from "styled-components";
 
 const imgProfile = "images/profile.png";
 const Mypage = () => {
   const BaseProfile = null || imgProfile;
-
   return (
     <StyledDivContainer>
       <StyledDivMain>
-        {/* MypageProfile 관련된 것 */}
         <StyledDivOne>
           <div></div>
           <ProfileImage img={BaseProfile}></ProfileImage>
-          <div></div>
           <ProfileList>
             <ProfileNickname>닉네임</ProfileNickname>
             <ProfileListLikeReview>
@@ -28,7 +26,6 @@ const Mypage = () => {
           </ProfileList>
           <div></div>
         </StyledDivOne>
-        {/* MypageProfile 관련된 것 */}
         <StyledDivTwo>
           <button>관심</button>
           <button>리뷰</button>
@@ -107,7 +104,7 @@ const StyledDivMain = styled.div`
 
 const StyledDivOne = styled.div`
   display: grid;
-  grid-template-columns: 10% 20% 5% 55% 10%;
+  grid-template-columns: 10% 20% 60% 10%;
   /* div {
     border: 1px solid black;
   } */
@@ -125,10 +122,8 @@ const ProfileList = styled.div`
 `;
 const ProfileNickname = styled.div`
   text-align: left;
-  height: 50px;
-  line-height: 50px;
-  font-size: large;
-  font-weight: 700;
+  height: 100px;
+  line-height: 100px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;

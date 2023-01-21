@@ -1,8 +1,12 @@
+import React, { FormEvent } from "react";
 import styled from "styled-components";
 
 const imgProfile = "images/profile.png";
 const Mypage = () => {
   const BaseProfile = null || imgProfile;
+  const handleSubmitClick = (e: FormEvent) => {
+    e.preventDefault();
+  };
 
   return (
     <StyledDivContainer>
@@ -11,7 +15,9 @@ const Mypage = () => {
         <StyledDivOne>
           <div></div>
           <ProfileImage img={BaseProfile}></ProfileImage>
-          <div></div>
+          <form onSubmit={handleSubmitClick}>
+            <button>✍️</button>
+          </form>
           <ProfileList>
             <ProfileNickname>닉네임</ProfileNickname>
             <ProfileListLikeReview>
@@ -26,7 +32,7 @@ const Mypage = () => {
               </ProfileListReview>
             </ProfileListLikeReview>
           </ProfileList>
-          <div></div>
+          <div></div>✏️
         </StyledDivOne>
         {/* MypageProfile 관련된 것 */}
         <StyledDivTwo>
@@ -108,9 +114,9 @@ const StyledDivMain = styled.div`
 const StyledDivOne = styled.div`
   display: grid;
   grid-template-columns: 10% 20% 5% 55% 10%;
-  /* div {
+  div {
     border: 1px solid black;
-  } */
+  }
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
