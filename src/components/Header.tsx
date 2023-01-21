@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PROJECT_COLOR } from "../color.js";
 
 const Header = () => {
-  if (window.location.pathname === "/index" || "/") return null;
+  if (window.location.pathname === "/index") return null;
 
   return (
     <Nav>
