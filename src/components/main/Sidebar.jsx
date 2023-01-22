@@ -36,7 +36,7 @@ const Sidebar = ({ text, setText, setPlace }) => {
         <PlaceCount>170</PlaceCount>
       </Place>
       <PlaceList>
-        <PlaceName>아르반호텔</PlaceName>
+        {/* <PlaceName>아르반호텔</PlaceName>
         <PlaceInfo>
           <MdLocationOn /> 부산 진구 중앙대로 691번길 32
         </PlaceInfo>
@@ -48,7 +48,7 @@ const Sidebar = ({ text, setText, setPlace }) => {
           <AiTwotoneStar style={{ marginRight: "5px" }} />
           리뷰 23건
         </PlaceInfo>
-        <PlaceInfo>상세보기</PlaceInfo>
+        <PlaceInfo>상세보기</PlaceInfo> */}
       </PlaceList>
     </List>
   );

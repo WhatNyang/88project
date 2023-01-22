@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Sidebar from "../components/main/Sidebar";
+import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
 const { kakao } = window;
 
 // 기능
@@ -17,39 +18,70 @@ const Main = () => {
   const [text, setText] = useState("");
   const [place, setPlace] = useState("");
 
-  console.log(place);
-
-  // 지도
-  const mapRef = useRef(null);
-
-  let options = {
-    center: new kakao.maps.LatLng(33.450701, 126.570667),
-    level: 3,
-  };
-
-  // 마커
-  let markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-  let marker = new kakao.maps.Marker({
-    position: markerPosition,
-  });
-  // 마커 인포 윈도우
-  let iwContent = `<div style="padding:8px;">${place}</div>`;
-  let infowindow = new kakao.maps.InfoWindow({
-    position: markerPosition,
-    content: iwContent,
-    removable: true,
-  });
+  const [info, setInfo] = useState();
+  const [markers, setMarkers] = useState([]);
+  const [map, setMap] = useState();
 
   useEffect(() => {
-    const locataion = new kakao.maps.Map(mapRef.current, options);
-    marker.setMap(locataion);
-    infowindow.open(locataion, marker);
-  }, []);
+    if (!map) return;
+    const ps = new kakao.maps.services.Places();
+
+    ps.keywordSearch(place, (data, status, _pagination) => {
+      console.log("검색어:", place);
+      if (status === kakao.maps.services.Status.OK) {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        const bounds = new kakao.maps.LatLngBounds();
+        let markers = [];
+
+        for (var i = 0; i < data.length; i++) {
+          // @ts-ignore
+          markers.push({
+            position: {
+              lat: data[i].y,
+              lng: data[i].x,
+            },
+            content: data[i].place_name,
+          });
+          // @ts-ignore
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        }
+        setMarkers(markers);
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+      }
+    });
+  }, [map]);
 
   return (
     <Container>
       <Sidebar text={text} setText={setText} setPlace={setPlace} />
-      <Map ref={mapRef}></Map>;
+      <Map
+        center={{
+          lat: 37.566826,
+          lng: 126.9786567,
+        }}
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        level={3}
+        onCreate={setMap}
+      >
+        {markers.map((marker) => (
+          <MapMarker
+            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+            position={marker.position}
+            onClick={() => setInfo(marker)}
+          >
+            {info && info.content === marker.content && (
+              <div style={{ color: "#000" }}>{marker.content}</div>
+            )}
+          </MapMarker>
+        ))}
+      </Map>
+      ;
     </Container>
   );
 };
@@ -62,7 +94,7 @@ const Container = styled.div`
   font-family: GmarketSans;
 `;
 
-const Map = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+// const Map = styled.div`
+//   width: 100%;
+//   height: 100%;
+// `;
