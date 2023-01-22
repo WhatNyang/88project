@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { PROJECT_COLOR } from "../color";
-import { MdLocationOn } from "react-icons/md";
-import { GiRotaryPhone } from "react-icons/gi";
-import { AiTwotoneStar } from "react-icons/ai";
-import Location from "../components/Location";
-import { BiSearchAlt } from "react-icons/bi";
+import Sidebar from "../components/main/Sidebar";
+const { kakao } = window;
 
 // 기능
 // API 조회
@@ -21,50 +17,39 @@ const Main = () => {
   const [text, setText] = useState("");
   const [place, setPlace] = useState("");
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    setPlace(text);
-    setText("");
+  console.log(place);
+
+  // 지도
+  const mapRef = useRef(null);
+
+  let options = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667),
+    level: 3,
   };
+
+  // 마커
+  let markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+  let marker = new kakao.maps.Marker({
+    position: markerPosition,
+  });
+  // 마커 인포 윈도우
+  let iwContent = `<div style="padding:8px;">${place}</div>`;
+  let infowindow = new kakao.maps.InfoWindow({
+    position: markerPosition,
+    content: iwContent,
+    removable: true,
+  });
+
+  useEffect(() => {
+    const locataion = new kakao.maps.Map(mapRef.current, options);
+    marker.setMap(locataion);
+    infowindow.open(locataion, marker);
+  }, []);
 
   return (
     <Container>
-      <Sidebar>
-        <Title>
-          WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
-        </Title>
-        <form onSubmit={onSubmitHandler}>
-          <SearchInput value={text} onChange={(e) => setText(e.target.value)} />
-          <SearchBtn type="submit">
-            <BiSearchAlt
-              style={{
-                fontSize: "30px",
-                marginBottom: "-12px",
-              }}
-            />
-          </SearchBtn>
-        </form>
-        <Place>
-          <h2>결과</h2>
-          <PlaceCount>170</PlaceCount>
-        </Place>
-        <PlaceList>
-          <PlaceName>아르반호텔</PlaceName>
-          <PlaceInfo>
-            <MdLocationOn /> 부산 진구 중앙대로 691번길 32
-          </PlaceInfo>
-          <PlaceInfo>
-            <GiRotaryPhone style={{ marginRight: "5px" }} />
-            051-805-9901
-          </PlaceInfo>
-          <PlaceInfo>
-            <AiTwotoneStar style={{ marginRight: "5px" }} />
-            리뷰 23건
-          </PlaceInfo>
-          <PlaceInfo>상세보기</PlaceInfo>
-        </PlaceList>
-      </Sidebar>
-      <Location place={place} />
+      <Sidebar text={text} setText={setText} setPlace={setPlace} />
+      <Map ref={mapRef}></Map>;
     </Container>
   );
 };
@@ -77,57 +62,7 @@ const Container = styled.div`
   font-family: GmarketSans;
 `;
 
-const Sidebar = styled.div`
-  width: 28%;
+const Map = styled.div`
+  width: 100%;
   height: 100%;
-  background-color: white;
-  box-shadow: 3px 3px 3px #dddddd;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  position: absolute;
-  padding: 0 40px;
-  z-index: 999;
-`;
-
-const Title = styled.h1`
-  font-size: 40px;
-  font-weight: 900;
-  font-family: GmarketSans;
-`;
-
-const SearchInput = styled.input`
-  width: 80%;
-  height: 25px;
-  margin-bottom: 30px;
-`;
-
-const SearchBtn = styled.button`
-  border: none;
-  background: none;
-  cursor: pointer;
-`;
-
-const Place = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const PlaceName = styled.h2`
-  margin-bottom: 13px;
-  font-weight: 500;
-`;
-
-const PlaceCount = styled.span`
-  color: #a3a3a3;
-  font-size: 20px;
-  margin-left: 10px;
-`;
-
-const PlaceList = styled.div`
-  margin-bottom: 50px;
-`;
-
-const PlaceInfo = styled.div`
-  font-size: 18px;
-  margin-top: 10px;
 `;
