@@ -6,12 +6,14 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 import { PROJECT_COLOR } from "../../color";
 
-const Sidebar = ({ text, setText, setPlace }) => {
+const Sidebar = ({ text, setText, setPlace, markers }) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     setPlace(text);
     setText("");
   };
+
+  console.log(markers);
 
   return (
     <List>
@@ -33,9 +35,12 @@ const Sidebar = ({ text, setText, setPlace }) => {
       </form>
       <Place>
         <h2>결과</h2>
-        <PlaceCount>170</PlaceCount>
+        <PlaceCount>{markers.length}</PlaceCount>
       </Place>
       <PlaceList>
+        {markers.map((marker) => (
+          <PlaceName>{marker.content}</PlaceName>
+        ))}
         {/* <PlaceName>아르반호텔</PlaceName>
         <PlaceInfo>
           <MdLocationOn /> 부산 진구 중앙대로 691번길 32
