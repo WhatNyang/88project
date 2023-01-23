@@ -38,6 +38,7 @@ function MypageProfile() {
   return (
     <StyledDivOne>
       <div></div>
+      {/* 내 프로필 사진 변경 */}
       <div>
         <ProfileImage img={BaseProfile}></ProfileImage>
         {editmode ? (
@@ -58,6 +59,7 @@ function MypageProfile() {
         )}
       </div>
       <div></div>
+      {/* 내 프로필 닉네임 */}
       <ProfileList>
         {editmode ? (
           <ProfileNicknameEdit defaultValue={profile?.nickname} ref={nameRef} />
@@ -71,6 +73,7 @@ function MypageProfile() {
         <ProfileListLikeReview>
           <ProfileListLike>
             <div></div>
+            {/* 내 프로필 관심, 리뷰*/}
             <div>관심</div>
             <div>{initialState.like}</div>
           </ProfileListLike>
@@ -80,6 +83,7 @@ function MypageProfile() {
           </ProfileListReview>
         </ProfileListLikeReview>
       </ProfileList>
+      {/* 내 프로필 수정, 완료 버튼*/}
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
           완료하기
