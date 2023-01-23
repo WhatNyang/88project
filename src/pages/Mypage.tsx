@@ -12,10 +12,23 @@ const Mypage = () => {
         {/* MypageProfile 관련된 것 */}
         <StyledDivOne>
           <div></div>
-          <ProfileImage img={BaseProfile}></ProfileImage>
+          <div>
+            <ProfileImage img={BaseProfile}></ProfileImage>
+            <button>
+              {" "}
+              <label htmlFor="changeimg">파일선택</label>
+            </button>
+
+            <input
+              hidden
+              id="changeimg"
+              type="file"
+              placeholder="파일선택"
+            ></input>
+          </div>
           <div></div>
           <ProfileList>
-            <ProfileNickname>닉네임</ProfileNickname>
+            <ProfileNickname>나의 이름</ProfileNickname>
             <ProfileListLikeReview>
               <ProfileListLike>
                 <div></div>
@@ -28,7 +41,7 @@ const Mypage = () => {
               </ProfileListReview>
             </ProfileListLikeReview>
           </ProfileList>
-          <div></div>
+          <ProfileEditbButton>수정하기</ProfileEditbButton>
         </StyledDivOne>
         {/* MypageProfile 관련된 것 */}
         <StyledDivTwo>
@@ -107,7 +120,7 @@ const Mypage = () => {
     </StyledDivContainer>
   );
 };
-
+// 상단 Profile
 const StyledDivContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -146,10 +159,9 @@ const ProfileList = styled.div`
 `;
 const ProfileNickname = styled.div`
   text-align: left;
-  height: 50px;
-  line-height: 50px;
   font-size: large;
   font-weight: 700;
+  padding: 5px;
 `;
 const ProfileListLikeReview = styled.div`
   display: grid;
@@ -164,7 +176,21 @@ const ProfileListReview = styled.div`
   font-size: small;
   text-align: center;
 `;
-// 버튼항목
+const ProfileEditbButton = styled.button`
+  font-size: small;
+  text-align: center;
+  border: 0;
+  outline: none;
+  width: 80px;
+  height: 25px;
+  border-radius: 10px;
+  :hover {
+    background-color: #e37b58;
+    transition: 0.7s;
+  }
+`;
+
+// 관심, 리뷰 버튼 항목
 const StyledDivTwo = styled.div`
   margin-top: 30px;
   margin-bottom: 15px;
