@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const { kakao } = window;
 
 const MapContainer = ({ searchPlace }) => {
+  // Detail페이지로 가기위한 navigate
+  const navigate = useNavigate();
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([]);
 
   useEffect(() => {
-    const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    const infoWindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     // let markers = [];
     const container = document.getElementById("myMap");
     const options = {
@@ -22,14 +25,17 @@ const MapContainer = ({ searchPlace }) => {
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
-        let bounds = new kakao.maps.LatLngBounds();
+        console.log(data); //상세정보
+        let bounds = new kakao.maps.LatLngBounds(); // 지도에 검색결과들 마크
 
         for (let i = 0; i < data.length; i++) {
+          // displayMarker 함수의 매개변수로 해당되는 데이터 값을 전달
           displayMarker(data[i]);
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x)); //검색결과 좌표값
         }
 
         map.setBounds(bounds);
+
         // 페이지 목록 보여주는 displayPagination() 추가
         displayPagination(pagination);
         setPlaces(data);
@@ -38,7 +44,7 @@ const MapContainer = ({ searchPlace }) => {
 
     // 검색결과 목록 하단에 페이지 번호 표시
     function displayPagination(pagination) {
-      var paginationEl = document.getElementById("pagination"),
+      let paginationEl = document.getElementById("pagination"),
         fragment = document.createDocumentFragment(),
         i;
 
@@ -48,7 +54,7 @@ const MapContainer = ({ searchPlace }) => {
       }
 
       for (i = 1; i <= pagination.last; i++) {
-        var el = document.createElement("a");
+        let el = document.createElement("a");
         el.href = "#";
         el.innerHTML = i;
 
@@ -74,31 +80,30 @@ const MapContainer = ({ searchPlace }) => {
       });
 
       kakao.maps.event.addListener(marker, "click", function () {
-        infowindow.setContent(
+        infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;">' +
             place.place_name +
             "</div>"
         );
-        infowindow.open(map, marker);
+        infoWindow.open(map, marker);
       });
     }
   }, [searchPlace]);
 
   return (
     <div>
-      <div
-        id="myMap"
-        style={{
-          width: "500px",
-          height: "500px",
-        }}
-      ></div>
+      <div id="myMap" style={{ width: "500px", height: "500px" }}></div>
       <div id="result-list">
         {Places.map((item, i) => (
-          <div key={i} style={{ marginTop: "20px" }}>
+          <div key={i}>
             <span>{i + 1}</span>
             <div>
-              <h5>{item.place_name}</h5>
+              {/* Detail페이지로 이동 */}
+              <button
+                onClick={() => navigate(`/detail/${item.id}`, { state: item })}
+              >
+                {item.place_name}
+              </button>
               {item.road_address_name ? (
                 <div>
                   <span>{item.road_address_name}</span>
