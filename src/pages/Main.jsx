@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Sidebar from "../components/main/Sidebar";
 import MyMenu from "../components/MyMenu";
 import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
+import { useQuery, useQueryClient } from "react-query";
 
 const { kakao } = window;
 
@@ -25,20 +26,33 @@ const Main = () => {
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState();
 
+  const queryClient = useQueryClient();
+
+  const getPlace = () =>
+    fetch(
+      `https://dapi.kakao.com/v2/local/search/address.json?query="강남구"`,
+      {
+        headers: {
+          Authorization: "KakaoAK {de1c6d457684ada5ec64093d0ed3d36e}",
+        },
+      }
+    ).then((res) => res.json);
+
+  const { data: placeData } = useQuery(["Place"], getPlace);
+
+  console.log("레스트api", placeData);
+
   useEffect(() => {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(place, (data, status, _pagination) => {
-      console.log("검색어:", place);
+      console.log("검색어: ", place);
       if (status === kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
         const bounds = new kakao.maps.LatLngBounds();
         let markers = [];
 
         for (var i = 0; i < data.length; i++) {
-          // @ts-ignore
           markers.push({
             position: {
               lat: data[i].y,
@@ -46,12 +60,10 @@ const Main = () => {
             },
             content: data[i].place_name,
           });
-          // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
         setMarkers(markers);
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
       }
     });
