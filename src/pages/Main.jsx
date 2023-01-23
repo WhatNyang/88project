@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+
 import Sidebar from "../components/main/Sidebar";
+import MyMenu from "../components/MyMenu";
 import { Map, CustomOverlayMap, MapMarker } from "react-kakao-maps-sdk";
+
 const { kakao } = window;
 
 // 기능
@@ -27,7 +30,7 @@ const Main = () => {
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(place, (data, status, _pagination) => {
-      console.log("검색어: ", place);
+      console.log("검색어:", place);
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
@@ -56,6 +59,7 @@ const Main = () => {
 
   return (
     <Container>
+      <MyMenu />
       <Sidebar
         text={text}
         setText={setText}
@@ -98,8 +102,3 @@ const Container = styled.div`
   height: 100vh;
   font-family: GmarketSans;
 `;
-
-// const Map = styled.div`
-//   width: 100%;
-//   height: 100%;
-// `;
