@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { POINT_COLOR } from "../color";
+import { authService } from "../firebase";
 
 const MyMenu = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const MyMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const logout = () => {
-    // 로그아웃 실행
+    authService.signOut();
     navigate("/index");
   };
 
