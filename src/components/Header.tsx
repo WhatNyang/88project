@@ -1,12 +1,20 @@
 import styled from "styled-components";
 import { PROJECT_COLOR } from "../color.js";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  if (window.location.pathname === "/") return null;
   if (window.location.pathname === "/index") return null;
 
   return (
     <Nav>
-      <Title>
+      <Title
+        onClick={() => {
+          navigate("/");
+        }}
+      >
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
       </Title>
     </Nav>
@@ -23,6 +31,6 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 900;
   font-family: GmarketSans;
-
   margin-left: 30px;
+  cursor: pointer;
 `;
