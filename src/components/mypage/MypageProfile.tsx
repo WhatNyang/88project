@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 
-import React from "react";
-
-const imgProfile = "images/profile.png";
+const imgProfile = "img/image.jpg";
+type ProfileItemProps = {
+  nickname: string;
+  image: string;
+  like: number;
+  review: number;
+};
 function MypageProfile() {
-  const BaseProfile = null || imgProfile;
+  const [profile, setProfile] = useState<ProfileItemProps>();
+  const BaseProfile = profile?.image || imgProfile;
   return (
     <StyledDivOne>
       <div></div>
