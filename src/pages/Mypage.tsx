@@ -1,34 +1,13 @@
 import styled from "styled-components";
+import React from "react";
 import MypageHonggu from "../components/mypage/MypageHonggu";
+import MypageProfile from "../components/mypage/MypageProfile";
 
-const imgProfile = "images/profile.png";
 const Mypage = () => {
-  const BaseProfile = null || imgProfile;
-
   return (
     <StyledDivContainer>
       <StyledDivMain>
-        {/* MypageProfile 관련된 것 */}
-        <StyledDivOne>
-          <div></div>
-          <ProfileImage img={BaseProfile}></ProfileImage>
-          <div></div>
-          <ProfileList>
-            <ProfileNickname>닉네임</ProfileNickname>
-            <ProfileListLikeReview>
-              <ProfileListLike>
-                <div></div>
-                <div>관심</div>
-                <div>0</div>
-              </ProfileListLike>
-              <ProfileListReview>
-                <div>리뷰</div>
-                <div>0</div>
-              </ProfileListReview>
-            </ProfileListLikeReview>
-          </ProfileList>
-          <ProfileEditbButton>수정하기</ProfileEditbButton>
-        </StyledDivOne>
+        <MypageProfile />
         <MypageHonggu />
       </StyledDivMain>
     </StyledDivContainer>
@@ -54,54 +33,6 @@ const StyledDivMain = styled.div`
   background: #fef6ec;
   border-radius: 30px;
   padding: 50px;
-`;
-
-const StyledDivOne = styled.div`
-  display: grid;
-  grid-template-columns: 10% 20% 5% 55% 10%;
-`;
-
-const ProfileImage = styled.div<{ img: string }>`
-  width: 100px;
-  height: 100px;
-  background-size: cover;
-  background-image: url(${(props) => props.img});
-`;
-const ProfileList = styled.div`
-  display: grid;
-  grid-template-rows: 40% 60%;
-`;
-const ProfileNickname = styled.div`
-  text-align: left;
-  font-size: large;
-  font-weight: 700;
-  padding: 5px;
-`;
-const ProfileListLikeReview = styled.div`
-  display: grid;
-  grid-template-columns: 15% 15% 60%;
-`;
-
-const ProfileListLike = styled.div`
-  text-align: center;
-  font-size: small;
-`;
-const ProfileListReview = styled.div`
-  font-size: small;
-  text-align: center;
-`;
-const ProfileEditbButton = styled.button`
-  font-size: small;
-  text-align: center;
-  border: 0;
-  outline: none;
-  width: 80px;
-  height: 25px;
-  border-radius: 10px;
-  :hover {
-    background-color: #e37b58;
-    transition: 0.7s;
-  }
 `;
 
 export default Mypage;
