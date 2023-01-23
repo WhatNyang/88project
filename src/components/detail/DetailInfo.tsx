@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 import { BACKGROUND_COLOR } from "./../../color";
+import DetailMap from "./DetailMap";
 
 const DetailInfo = () => {
   return (
@@ -15,6 +15,7 @@ const DetailInfo = () => {
         <div>전화번호</div>
         <div>시설정보</div>
         <div>지도보기</div>
+        <DetailMap />
       </InfoBox>
     </InfoContainer>
   );
