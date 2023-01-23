@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { BACKGROUND_COLOR } from "../../color";
 import ReviewForm from "./ReviewForm";
