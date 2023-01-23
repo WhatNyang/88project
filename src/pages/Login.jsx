@@ -1,32 +1,180 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
+import React, { useState, useRef, useEffect } from "react";
+import { emailRegex, pwRegex, userNameRegex } from "../util";
 import styled from "styled-components";
-import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../color";
-import { Link } from "react-router-dom";
+import { BACKGROUND_COLOR, POINT_COLOR } from "../color";
+import { authService } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { logOut } from "../util";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate();
   const [isJoin, setIsJoin] = useState(false);
+  const emailRef = useRef(null);
+  const pwRef = useRef(null);
+  const userNameRef = useRef(null);
   const changeIsJoin = () => {
     setIsJoin((prev) => !prev);
-    console.log(isJoin);
+    setEmail("");
+    setPW("");
+    setUserName("");
   };
+  // const isLogin = () => {
+  //   if (authService.currentUser) {
+  //     navigate("/");
+  //   }
+  // };
+  // useEffect(() => {
+  //   isLogin();
+  // }, []);
+  const [email, setEmail] = useState("");
+  const [pw, setPW] = useState("");
+  const [userName, setUserName] = useState("");
   const Login = () => {
-    console.log("확인용");
+    // 1. 유효성 검사
+    if (validLogInInput()) {
+      return;
+    }
+
+    // 2. login
+    signInWithEmailAndPassword(authService, email, pw)
+      .then(() => {
+        setEmail("");
+        setPW("");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error message: ", error.message);
+
+        // 회원이 아니거나, 비밀번호가 틀린 경우
+        if (error.message.includes("user-not-found")) {
+          alert("일치하는 회원 정보가 없습니다! 회원가입을 진행해주세요.");
+        }
+        if (error.message.includes("wrong-password")) {
+          alert("비밀번호가 틀렸습니다.");
+        }
+      });
   };
   const Join = () => {
-    console.log("바뀐거 확인");
+    //유효성검사
+    if (validInput()) {
+      return;
+    }
+    //회원가입
+    createUserWithEmailAndPassword(authService, email, pw)
+      .then(() => {
+        updateProfile(authService.currentUser, {
+          displayName: userName,
+        })
+          .then(() => {
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        setEmail("");
+        setPW("");
+        setUserName("");
+      })
+      .catch((error) => {
+        console.log("error.message: ", error.message);
+        // 이미 존재하는 회원
+        if (error.message.includes("already-in-use")) {
+          alert("이미 가입한 회원입니다.");
+          return;
+        }
+      });
+  };
+  const emailChangeHandler = (event) => {
+    setEmail(event.target.value);
+  };
+  const pwChangeHandler = (event) => {
+    setPW(event.target.value);
+  };
+  const userNameChangeHandler = (event) => {
+    setUserName(event.target.value);
+  };
+  const validLogInInput = () => {
+    // 공백인 경우
+    if (!email) {
+      alert("email을 입력해주세요.");
+      emailRef.current.focus();
+      return true;
+    }
+    if (!pw) {
+      alert("password를 입력해주세요.");
+      pwRef.current.focus();
+      return true;
+    }
+
+    const correctEmail = email.match(emailRegex);
+    const correctPW = pw.match(pwRegex);
+
+    // 공백은 아니지만 유효성 검사에 걸리는 경우
+    if (correctEmail === null) {
+      alert("이메일 형식에 맞게 입력해 주세요.");
+      emailRef.current.focus();
+      return true;
+    }
+    if (correctPW === null) {
+      alert("비밀번호는 8자리 이상 영문자, 숫자, 특수문자 조합이어야 합니다.");
+      pwRef.current.focus();
+      return true;
+    }
+  };
+  const validInput = () => {
+    if (validLogInInput()) {
+      return true;
+    }
+    if (!userName) {
+      alert("닉네임을 입력해주세요.");
+      userNameRef.current.focus();
+      return true;
+    }
+
+    const correctUserName = userName.match(userNameRegex);
+
+    if (correctUserName === null) {
+      alert(
+        "닉네임은 2자이상, 16자이하 영어 또는 숫자 또는 한글이 조합되어야합니다."
+      );
+      userNameRef.current.focus();
+      return true;
+    }
   };
   return (
     <Container>
       <LoginBox>
         <InputBox height={isJoin ? "60%" : "40%"}>
           <Label htmlFor="email">이메일</Label>
-          <Input id="email" />
+          <Input
+            ref={emailRef}
+            id="email"
+            type="text"
+            value={email}
+            onChange={emailChangeHandler}
+          />
           <Label htmlFor="passWord">비밀번호</Label>
-          <Input id="passWord" />
+          <Input
+            ref={pwRef}
+            id="passWord"
+            type="password"
+            value={pw}
+            onChange={pwChangeHandler}
+          />
           {isJoin ? (
             <>
               <Label htmlFor="nickname">닉네임</Label>
-              <Input id="nickname" />
+              <Input
+                ref={userNameRef}
+                id="nickname"
+                type="text"
+                value={userName}
+                onChange={userNameChangeHandler}
+              />
             </>
           ) : null}
         </InputBox>

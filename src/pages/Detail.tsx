@@ -1,8 +1,6 @@
-import React from "react";
 import DetailInfo from "../components/detail/DetailInfo";
 import Reviews from "../components/detail/Reviews";
 import LandingPage from "../LandingPage";
-
 const Detail = () => {
   return (
     <div>
