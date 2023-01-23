@@ -14,8 +14,10 @@ const Router = () => {
         <Route path="/index" element={<Home />} />
         <Route path="/" element={<Main />} />
         <Route path="/:id" element={<Detail />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
+
       </Routes>
     </BrowserRouter>
   );
