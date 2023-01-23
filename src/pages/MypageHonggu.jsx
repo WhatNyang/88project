@@ -2,14 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import ReviewFoam from "../components/mypage/reviewFoam";
+import ReviewCardForm from "../components/mypage/ReviewCardForm";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { dbService } from "../firebase";
-import ReviewForm from "../components/detail/ReviewForm";
+import ReviewWriteCardForm from "../components/mypage/ReviewWriteCardForm";
 
 const MypageHonggu = () => {
   const [category, setCategory] = useState("review"); // review, bookmark
-  const [foam, setFoam] = useState([]);
+  const [form, setForm] = useState([]);
 
   useEffect(() => {
     onSnapshot(
@@ -19,7 +19,7 @@ const MypageHonggu = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        setFoam(newPosts);
+        setForm(newPosts);
       }
     );
   }, []);
@@ -73,9 +73,13 @@ const MypageHonggu = () => {
             찜
           </button>
         </StyledDivTwo>
-        <ReviewForm />
+        <ReviewWriteCardForm
+          category={category}
+          form={form}
+          setForm={setForm}
+        />
         <StyledDivThree>
-          <ReviewFoam category={category} foam={foam} />
+          <ReviewCardForm category={category} form={form} />
         </StyledDivThree>
       </StyledDivMain>
     </StyledDivContainer>

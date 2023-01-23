@@ -1,11 +1,17 @@
+import { deleteDoc, doc } from "firebase/firestore";
 import React, { useState } from "react";
 import { BiTrash, BiEdit } from "react-icons/bi";
 import styled from "styled-components";
+import { dbService } from "../../firebase";
 
-export default function ReviewFoam({ category, foam }) {
+export default function ReviewCardForm({ category, form }) {
+  const deleteReview = async (id) => {
+    await deleteDoc(doc(dbService, "foam", id));
+  };
+
   return (
     <>
-      {foam
+      {form
         .filter((item) => item.category === category)
         .map((item) => {
           return (
@@ -20,7 +26,8 @@ export default function ReviewFoam({ category, foam }) {
                     <BiTrash
                       style={{ cursor: "pointer" }}
                       onClick={() => {
-                        alert("정말 삭제하시겠습니까?");
+                        deleteReview(item.id);
+                        console.log(item.id);
                       }}
                     />
                   </div>
