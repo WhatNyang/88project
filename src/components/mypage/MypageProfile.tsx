@@ -16,7 +16,9 @@ function MypageProfile() {
     review: 2,
   };
   const [profile, setProfile] = useState<ProfileItemProps>(initialState);
+  // 프로필 기본 이미지
   const BaseProfile = profile?.image || imgProfile;
+  // 프로필 수정하기
   const [editmode, setEdit] = useState(false);
   const profileEdit = () => {
     setEdit(!editmode);
@@ -27,7 +29,6 @@ function MypageProfile() {
     const ProfileItem = {
       nickname: nameRef.current?.value,
       image: img,
-      review: 2,
     };
     nameRef.current?.value &&
       setProfile({ ...profile, nickname: nameRef.current?.value });
