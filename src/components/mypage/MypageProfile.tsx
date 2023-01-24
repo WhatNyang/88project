@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import React, { ChangeEvent, useRef, useState } from "react";
+import { authService } from "../../firebase";
+// import { dbService } from "../../firebase";
 
 const imgProfile = "img/image.jpg";
 type ProfileItemProps = {
@@ -10,11 +12,13 @@ type ProfileItemProps = {
 };
 function MypageProfile() {
   const initialState = {
+    // nickname: authService.currentUser?.displayName,
     nickname: "나의 별명",
     image: imgProfile,
     like: 10,
     review: 2,
   };
+  const [imgFile, setImgFile] = useState<string>();
   const [profile, setProfile] = useState<ProfileItemProps>(initialState);
   // 프로필 기본 이미지
   const BaseProfile = profile?.image || imgProfile;
@@ -23,9 +27,27 @@ function MypageProfile() {
   const profileEdit = () => {
     setEdit(!editmode);
   };
+
+  const imgRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+
+  // 프로필 사진 업로드 변경사항 유지하기
+  const saveImgFile = () => {
+    if (imgRef.current?.files) {
+      const file = imgRef.current.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const resultImg = reader.result;
+        setImgFile(resultImg as string);
+      };
+    }
+  };
+
+  // 프로필 수정 완료 하기
   const profileEditComplete = () => {
     const img = null || profile.image;
+    // 닉네임 변경사항 유지하기
     const ProfileItem = {
       nickname: nameRef.current?.value,
       image: img,
@@ -36,23 +58,28 @@ function MypageProfile() {
     setEdit(!editmode);
   };
 
+  // console.log(authService.currentUser);
   return (
     <StyledDivOne>
       <div></div>
       {/* 내 프로필 사진 변경 */}
       <div>
-        <ProfileImage img={BaseProfile}></ProfileImage>
+        <ProfileImage img={imgFile ? imgFile : BaseProfile}></ProfileImage>
         {editmode ? (
           <>
             <button>
               {" "}
-              <label htmlFor="changeimg">파일선택</label>
+              <ProfileImageLabel htmlFor="changeimg">
+                파일선택
+              </ProfileImageLabel>
             </button>
             <input
               hidden
               id="changeimg"
               type="file"
               placeholder="파일선택"
+              onChange={saveImgFile}
+              ref={imgRef}
             ></input>
           </>
         ) : (
@@ -107,6 +134,15 @@ const ProfileImage = styled.div<{ img: string }>`
   background-size: contain;
   background-image: url(${(props) => props.img});
 `;
+const ProfileImageLabel = styled.label`
+  /* margin: 5px 0 20px 0;
+  font-weight: bold;
+  color: white;
+  background-color: #e37b58;
+  display: inline-block; */
+  cursor: pointer;
+`;
+
 const ProfileList = styled.div`
   display: grid;
   grid-template-rows: 40% 60%;
@@ -151,7 +187,9 @@ const ProfileNicknameEdit = styled.input`
   :hover {
     background-color: #e37b58;
     transition: 0.7s;
-    border: none;
+  }
+  :focus {
+    outline: none;
   }
 `;
 export default MypageProfile;

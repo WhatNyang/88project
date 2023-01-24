@@ -11,7 +11,7 @@ const Main = () => {
   const [places, setPlaces] = useState([]);
 
   useEffect(() => {
-    const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    const infoWindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     const container = document.getElementById("myMap");
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -35,7 +35,6 @@ const Main = () => {
         map.setBounds(bounds);
         displayPagination(pagination);
         setPlaces(data);
-        console.log(data);
       }
     }
 
@@ -75,12 +74,12 @@ const Main = () => {
       });
 
       kakao.maps.event.addListener(marker, "click", function () {
-        infowindow.setContent(
+        infoWindow.setContent(
           '<div style="padding:5px;font-size:12px;">' +
             place.place_name +
             "</div>"
         );
-        infowindow.open(map, marker);
+        infoWindow.open(map, marker);
       });
     }
   }, [place]);
