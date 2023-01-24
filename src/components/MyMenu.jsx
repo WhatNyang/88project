@@ -17,8 +17,13 @@ const MyMenu = () => {
 
   return (
     <>
-      {/* 프로필 이미지 추가 예정 */}
-      <Profile onClick={() => setIsOpen(!isOpen)} />
+      <Profile onClick={() => setIsOpen(!isOpen)}>
+        {authService.currentUser.photoURL ? (
+          <ProfileImg src={authService.currentUser.photoURL} />
+        ) : (
+          <ProfileImg src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
+        )}
+      </Profile>
       {isOpen === true ? (
         <Menu>
           <MenuItem onClick={() => navigate("/mypage")}>마이페이지</MenuItem>
@@ -39,10 +44,16 @@ const Profile = styled.div`
   width: 70px;
   height: 70px;
   border-radius: 50px;
-  border: 1px solid ${POINT_COLOR};
-  box-shadow: 1px 1px 2px ${POINT_COLOR};
+  box-shadow: 2px 2px 1px ${POINT_COLOR};
   background-color: white;
   cursor: pointer;
+`;
+
+const ProfileImg = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  object-fit: cover;
 `;
 
 const Menu = styled.div`
@@ -54,7 +65,7 @@ const Menu = styled.div`
   background-color: ${POINT_COLOR};
   border: 1px 1px #eee;
   border-radius: 5px;
-  box-shadow: 1px 1px 2px ${POINT_COLOR};
+  box-shadow: 1px 1px 1px ${POINT_COLOR};
   z-index: 999;
   text-align: center;
   color: white;
