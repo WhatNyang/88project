@@ -35,8 +35,11 @@ export default function MypageContents({ category }) {
 
   return (
     <StyledDivThree>
-      <MypageContentsBookmark category={category} bookmark={bookmark} />
-      <MypageContentsReview category={category} review={review} />
+      {category === "bookmark" ? (
+        <MypageContentsBookmark category={category} bookmark={bookmark} />
+      ) : (
+        <MypageContentsReview category={category} review={review} />
+      )}
     </StyledDivThree>
   );
 }

@@ -19,7 +19,11 @@ export default function MypageContentsBookmark({ category, bookmark }) {
           <div key={item.id}>
             <StyledDivMainContainer>
               <StyledDivBookmarkIconContainer>
-                <FcBookmark size={"50px"} style={{ cursor: "pointer" }} />
+                <FcBookmark
+                  size={"50px"}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => deletebookmark(item.id)}
+                />
               </StyledDivBookmarkIconContainer>
 
               <CardContent>

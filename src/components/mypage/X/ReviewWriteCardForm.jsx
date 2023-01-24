@@ -1,20 +1,23 @@
 // import { addDoc, collection } from "firebase/firestore";
 // import React, { useEffect, useState } from "react";
 // import styled from "styled-components";
+// import { authService } from "../../../firebase";
 // import { dbService } from "../../firebase";
 
 // const ReviewWriteCardForm = ({ category, setForm }) => {
 //   const [contents, setContents] = useState("");
 
 //   const newReview = {
-//     category,
-//     contents,
+//     userId: authService.currentUser?.uid,
 //     createdAt: Date.now(),
-//     nickname: "닉네임",
+//     place: item.place_name,
+//     address: item.address_name,
+//     roadAddress: item.road_address_name,
+//     phone: item.phone,
 //   };
 
 //   const addReview = async () => {
-//     await addDoc(collection(dbService, "foam"), newReview);
+//     await addDoc(collection(dbService, "review"), newReview);
 //     setForm("");
 //   };
 

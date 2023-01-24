@@ -7,9 +7,21 @@ import CardContent from "@mui/material/CardContent";
 
 import Typography from "@mui/material/Typography";
 
-import { FcBookmark, FcSettings } from "react-icons/fc";
+import { FcBookmark, FcMenu } from "react-icons/fc";
+import {
+  Button,
+  FormControl,
+  Input,
+  InputAdornment,
+  InputLabel,
+} from "@mui/material";
+import { useState } from "react";
+import { AiOutlineEdit } from "react-icons/ai";
 
 export default function MypageContentsReview({ category, review }) {
+  const [isEdit, setIsEdit] = useState(false);
+  const [editText, setEditText] = useState("");
+
   const deleteReview = async (id) => {
     await deleteDoc(doc(dbService, "bookmark", id));
   };
@@ -31,13 +43,43 @@ export default function MypageContentsReview({ category, review }) {
                 <Typography variant="body2" color="text.secondary">
                   2022.13.21
                 </Typography>
-                <Typography variant="body1">
-                  좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요
-                </Typography>
+                {isEdit ? (
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+                      <InputLabel htmlFor="standard-adornment-amount">
+                        수정하기
+                      </InputLabel>
+                      <Input
+                        id="standard-adornment-amount"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <AiOutlineEdit />
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                    <Button variant="contained" color="success">
+                      수정
+                    </Button>
+                    <Button variant="contained" color="warning">
+                      취소
+                    </Button>
+                  </div>
+                ) : (
+                  <Typography variant="body1" paddingTop={"5px"}>
+                    좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요
+                  </Typography>
+                )}
               </CardContent>
 
               <StyledDivSettingsIcon>
-                <FcSettings size={"25px"} style={{ cursor: "pointer" }} />
+                <FcMenu
+                  size={"25px"}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setIsEdit(!isEdit);
+                  }}
+                />
               </StyledDivSettingsIcon>
             </StyledDivMainContainer>
           </div>
