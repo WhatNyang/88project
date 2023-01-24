@@ -59,7 +59,7 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
         <PlaceList key={i}>
           <PlaceName
             onClick={() => {
-              navigate(`/${item.id}`);
+              navigate(`/detail/${item.id}`, { state: item });
             }}
           >
             {item.place_name}

@@ -2,6 +2,8 @@ import { useLocation } from "react-router";
 import styled from "styled-components";
 import { BACKGROUND_COLOR } from "./../../color";
 import DetailMap from "./DetailMap";
+import { MdPhone, MdInfoOutline, MdHome } from "react-icons/md";
+import { FiMapPin } from "react-icons/fi";
 
 const DetailInfo = () => {
   // navigate로 전달한 props받기
@@ -11,14 +13,23 @@ const DetailInfo = () => {
   return (
     <InfoContainer>
       <InfoBox>
-        <div>업체명 : {item.place_name}</div>
-        <div>
-          주소 : {item.road_address_name} ({item.address_name})
-        </div>
-        <div>홈페이지 : {item.place_url}</div>
-        <div>전화번호 : {item.phone}</div>
-        <div>시설정보 : {item.category_group_name}</div>
-        <div>지도보기</div>
+        <InfoTitle>{item.place_name}</InfoTitle>
+        <StyledText>
+          <FiMapPin />
+          &nbsp; {item.road_address_name} ({item.address_name})
+        </StyledText>
+        <StyledText>
+          <MdPhone />
+          &nbsp; {item.phone}
+        </StyledText>
+        <StyledText>
+          <MdInfoOutline />
+          &nbsp; {item.category_group_name}
+        </StyledText>
+        <StyledText>
+          <MdHome />
+          &nbsp; {item.place_url}
+        </StyledText>
         <DetailMap />
       </InfoBox>
     </InfoContainer>
@@ -40,4 +51,11 @@ const InfoContainer = styled.div`
 `;
 const InfoBox = styled.div`
   margin: 20px;
+`;
+const InfoTitle = styled.div`
+  margin-bottom: 20px;
+  font-size: 20px;
+`;
+const StyledText = styled.div`
+  margin-bottom: 10px;
 `;
