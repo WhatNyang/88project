@@ -64,27 +64,29 @@ function MypageProfile() {
       <div></div>
       {/* 내 프로필 사진 변경 */}
       <div>
-        <ProfileImage img={imgFile ? imgFile : BaseProfile}></ProfileImage>
-        {editmode ? (
-          <>
-            <button>
-              {" "}
-              <ProfileImageLabel htmlFor="changeimg">
-                파일선택
-              </ProfileImageLabel>
-            </button>
-            <input
-              hidden
-              id="changeimg"
-              type="file"
-              placeholder="파일선택"
-              onChange={saveImgFile}
-              ref={imgRef}
-            ></input>
-          </>
-        ) : (
-          ""
-        )}
+        <>
+          <ProfileImage img={imgFile ? imgFile : BaseProfile}></ProfileImage>
+          {editmode ? (
+            <>
+              <button>
+                {" "}
+                <ProfileImageLabel htmlFor="changeimg">
+                  파일선택
+                </ProfileImageLabel>
+              </button>
+              <input
+                hidden
+                id="changeimg"
+                type="file"
+                placeholder="파일선택"
+                onChange={saveImgFile}
+                ref={imgRef}
+              ></input>
+            </>
+          ) : (
+            ""
+          )}
+        </>
       </div>
       <div></div>
       {/* 내 프로필 닉네임 */}
@@ -125,14 +127,18 @@ function MypageProfile() {
 const StyledDivOne = styled.div`
   display: grid;
   grid-template-columns: 10% 20% 5% 55% 10%;
+  /* div {
+    border: 1px solid black;
+  } */
 `;
 
 const ProfileImage = styled.div<{ img: string }>`
   width: 100px;
   height: 100px;
-  /* background-repeat: no-repeat; */
-  background-size: contain;
+  border-radius: 50px;
+  background-size: cover;
   background-image: url(${(props) => props.img});
+  background-position: center center;
 `;
 const ProfileImageLabel = styled.label`
   /* margin: 5px 0 20px 0;
@@ -141,6 +147,7 @@ const ProfileImageLabel = styled.label`
   background-color: #e37b58;
   display: inline-block; */
   cursor: pointer;
+  padding: 20px;
 `;
 
 const ProfileList = styled.div`
@@ -167,6 +174,7 @@ const ProfileListReview = styled.div`
   text-align: center;
 `;
 const ProfileEditButton = styled.button`
+  cursor: pointer;
   font-size: small;
   text-align: center;
   border: 0;
