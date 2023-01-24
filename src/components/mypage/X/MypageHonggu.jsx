@@ -2,10 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import ReviewCardForm from "./ReviewCardForm";
+import ReviewCardForm from "../MypageContentsReview";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { dbService } from "../../firebase";
-// import ReviewWriteCardForm from "./ReviewWriteCardForm";
+import { dbService } from "../../../firebase";
 
 const MypageHonggu = () => {
   const [category, setCategory] = useState("review"); // review, bookmark

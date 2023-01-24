@@ -1,14 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components";
-import React from "react";
-import MypageHonggu from "../components/mypage/MypageHonggu";
+import MypageButton from "../components/mypage/MypageButton";
 import MypageProfile from "../components/mypage/MypageProfile";
+import MypageContents from "../components/mypage/MypageContents";
 
 const Mypage = () => {
+  const [category, setCategory] = useState("bookmark"); // review, bookmark
+
   return (
     <StyledDivContainer>
       <StyledDivMain>
         <MypageProfile />
-        <MypageHonggu />
+        <MypageButton category={category} setCategory={setCategory} />
+        <MypageContents category={category} />
       </StyledDivMain>
     </StyledDivContainer>
   );
