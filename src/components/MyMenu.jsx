@@ -1,42 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { POINT_COLOR } from "../color";
+import { authService } from "../firebase";
 
 const MyMenu = () => {
   const navigate = useNavigate();
 
   // 드롭다운
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef(null);
 
   const logout = () => {
-    // 로그아웃
+    authService.signOut();
     navigate("/index");
   };
 
-  useEffect(() => {
-    const onClick = (e) => {
-      if (menuRef.current !== null && !menuRef.current.containes(e.target)) {
-        setIsOpen(!isOpen);
-      }
-    };
-    if (isOpen) {
-      window.addEventListener("click", onClick);
-    }
-
-    return () => {
-      window.removeEventListener("click", onClick);
-    };
-  }, [isOpen]);
-
   return (
     <>
-      <Profile />
-      <Menu>
-        <MenuItem onClick={() => navigate("/mypage")}>마이페이지</MenuItem>
-        <MenuItem onClick={logout}>로그아웃</MenuItem>
-      </Menu>
+      {/* 프로필 이미지 추가 예정 */}
+      <Profile onClick={() => setIsOpen(!isOpen)} />
+      {isOpen === true ? (
+        <Menu>
+          <MenuItem onClick={() => navigate("/mypage")}>마이페이지</MenuItem>
+          <MenuItem onClick={logout}>로그아웃</MenuItem>
+        </Menu>
+      ) : null}
     </>
   );
 };
