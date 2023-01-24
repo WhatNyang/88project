@@ -4,13 +4,11 @@ import styled from "styled-components";
 import { dbService } from "../../firebase";
 
 import CardContent from "@mui/material/CardContent";
-
 import Typography from "@mui/material/Typography";
-
-import { FcBookmark, FcSettings } from "react-icons/fc";
+import { FcBookmark } from "react-icons/fc";
 
 export default function MypageContentsBookmark({ category, bookmark }) {
-  const deleteReview = async (id) => {
+  const deletebookmark = async (id) => {
     await deleteDoc(doc(dbService, "bookmark", id));
   };
 
@@ -21,28 +19,20 @@ export default function MypageContentsBookmark({ category, bookmark }) {
           <div key={item.id}>
             <StyledDivMainContainer>
               <StyledDivBookmarkIconContainer>
-                <FcBookmark size={"50px"} />
+                <FcBookmark size={"50px"} style={{ cursor: "pointer" }} />
               </StyledDivBookmarkIconContainer>
 
               <CardContent>
-                <Typography gutterBottom variant="h4" component="div">
+                <Typography gutterBottom variant="h4">
                   {item.place}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  marginLeft={"10px"}
-                >
-                  2022.13.21
+                <Typography variant="body1" color="text.frimary">
+                  {item.address}
                 </Typography>
-                <Typography variant="body1" marginLeft={"10px"}>
-                  좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요
+                <Typography variant="body2" color="text.secondary">
+                  Tel: {item.phone}
                 </Typography>
               </CardContent>
-
-              <div style={{ marginLeft: "120px" }}>
-                <FcSettings size={"25px"} style={{ cursor: "pointer" }} />
-              </div>
             </StyledDivMainContainer>
           </div>
         );
@@ -58,13 +48,9 @@ const StyledDivMainContainer = styled.div`
   display: flex;
 
   margin: 0px 0px 20px 0px;
-
-  div:nth-child(3) {
-    width: 50px;
-  }
 `;
 
 const StyledDivBookmarkIconContainer = styled.div`
   padding-left: 30px;
-  padding-top: 10px;
+  padding-top: 15px;
 `;

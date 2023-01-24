@@ -25,24 +25,20 @@ export default function MypageContentsReview({ category, review }) {
               </StyledDivBookmarkIconContainer>
 
               <CardContent>
-                <Typography gutterBottom variant="h4" component="div">
-                  힐스퀘어
+                <Typography gutterBottom variant="h4">
+                  헬스퀘어
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  marginLeft={"10px"}
-                >
+                <Typography variant="body2" color="text.secondary">
                   2022.13.21
                 </Typography>
-                <Typography variant="body1" marginLeft={"10px"}>
+                <Typography variant="body1">
                   좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요
                 </Typography>
               </CardContent>
 
-              <div style={{ marginLeft: "120px" }}>
+              <StyledDivSettingsIcon>
                 <FcSettings size={"25px"} style={{ cursor: "pointer" }} />
-              </div>
+              </StyledDivSettingsIcon>
             </StyledDivMainContainer>
           </div>
         );
@@ -56,15 +52,14 @@ const StyledDivMainContainer = styled.div`
   background-color: white;
   border-radius: 10px;
   display: flex;
-
   margin: 0px 0px 20px 0px;
-
-  div:nth-child(3) {
-    width: 50px;
-  }
 `;
 
 const StyledDivBookmarkIconContainer = styled.div`
   padding-left: 30px;
-  padding-top: 10px;
+  padding-top: 15px;
+`;
+
+const StyledDivSettingsIcon = styled.div`
+  margin-left: 45px;
 `;
