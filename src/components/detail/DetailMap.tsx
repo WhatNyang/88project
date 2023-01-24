@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
 
 declare global {
@@ -8,11 +9,14 @@ declare global {
 }
 
 const DetailMap = () => {
+  const location = useLocation();
+  const item = location.state;
+
   useEffect(() => {
     const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+      center: new window.kakao.maps.LatLng(item.x, item.y), //지도의 중심좌표.
       level: 3, //지도의 레벨(확대, 축소 정도)
     };
 
@@ -33,7 +37,7 @@ const DetailMap = () => {
     map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
 
     // 마커가 표시될 위치
-    const markerPosition = new window.kakao.maps.LatLng(33.450701, 126.570667);
+    const markerPosition = new window.kakao.maps.LatLng(item.x, item.y);
 
     // 마커를 생성
     const marker = new window.kakao.maps.Marker({
