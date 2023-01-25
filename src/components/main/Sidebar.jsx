@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn, MdInfoOutline } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { BiSearchAlt } from "react-icons/bi";
-import { POINT_COLOR, PROJECT_COLOR } from "../../color";
+import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
-import { dbService } from "../../firebase";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import Bookmark from "./Bookmark";
+import Bookmark from "../Bookmark";
 
 const Sidebar = ({ text, setText, setPlace, places }) => {
   const navigate = useNavigate();
-  const [list, setList] = useState([]);
+  const sessionData = JSON.parse(sessionStorage.getItem("SearchPlace"));
+  const sessionKeyword = sessionStorage.getItem("SearchKeyword");
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -19,28 +18,8 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
     setText("");
   };
 
-  // const { data: bookmarkData } = useQuery(["bookmark"], getBookmark, {
-  //   onSuccess: () => {},
-  //   onError: (error) => {
-  //     console.log("error", error);
-  //   },
-  // });
-
-  useEffect(() => {
-    const q = query(
-      collection(dbService, "bookmark"),
-      orderBy("createdAt", "desc")
-    );
-    const data = onSnapshot(q, (snapshot) => {
-      const newData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setList(newData);
-    });
-    return data;
-  }, []);
+  // 디테일 페이지에서 뒤로 가기 실행시 검색 결과 유지
+  // 검색 결과 클릭시 지도 인포윈도우 반환
 
   return (
     <List>
@@ -60,21 +39,16 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
           </SearchBtn>
         </Search>
       </form>
-      {places.length > 0 ? (
+      {sessionKeyword ? (
         <Place>
-          <h2>결과</h2>
-          <PlaceCount>{places.length}</PlaceCount>
+          <h2>'{sessionKeyword}' 결과</h2>
+          <PlaceCount>{sessionData?.length}</PlaceCount>
         </Place>
       ) : null}
-      {places.map((item, i) => (
+      {sessionData?.map((item, i) => (
         <PlaceList key={i}>
-          <PlaceName
-            onClick={() => {
-              navigate(`/detail/${item.id}`, { state: item });
-            }}
-          >
-            {item.place_name}
-          </PlaceName>
+          <Bookmark item={item} />
+          <PlaceName>{item.place_name}</PlaceName>
           {item.road_address_name ? (
             <>
               <PlaceInfo>
@@ -96,7 +70,14 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
               {item.phone}
             </PlaceInfo>
           ) : null}
-          <Bookmark list={list} item={item} />
+          <PlaceLink
+            onClick={() => {
+              navigate(`/detail/${item.id}`, { state: item });
+            }}
+          >
+            <MdInfoOutline style={{ margin: "0 5px -2px 0" }} />
+            상세보기
+          </PlaceLink>
         </PlaceList>
       ))}
       <div
@@ -160,19 +141,20 @@ const PlaceCount = styled.span`
 `;
 
 const PlaceList = styled.div`
-  margin: 0 0 10px -20px;
-  padding: 1px 0px 10px 20px;
+  margin: 0 0 10px -10px;
+  padding: 10px 10px;
+  transition: 0.1s ease-out;
+  cursor: pointer;
+  &:hover {
+    background-color: ${BACKGROUND_COLOR};
+    transition: 0.1s ease-out;
+  }
 `;
 
 const PlaceName = styled.span`
   font-size: 18px;
   font-weight: 500;
-  cursor: pointer;
-  transition: 0.1s ease-out;
-  &:hover {
-    color: ${POINT_COLOR};
-    transition: 0.1s ease-out;
-  }
+  margin-top: -1px;
 `;
 
 const PlaceInfo = styled.div`
@@ -185,4 +167,16 @@ const PlaceInfoRoadAddress = styled.div`
   font-size: 12px;
   font-weight: 300;
   margin: 3px 0 0 22px;
+`;
+
+const PlaceLink = styled.div`
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: 5px;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  &:hover {
+    color: ${POINT_COLOR};
+    transition: 0.1s ease-out;
+  }
 `;

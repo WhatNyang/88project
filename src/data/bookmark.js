@@ -10,6 +10,5 @@ export const addBookmark = async (newData) => {
 
 // Delete
 export const deleteBookmark = async (id) => {
-  console.log("삭제할 id", id);
   await deleteDoc(doc(dbService, "bookmark", id));
 };

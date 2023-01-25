@@ -44,6 +44,8 @@ const Main = () => {
         setPlaces(data);
         map.setBounds(bounds);
         displayPagination(_pagination);
+        sessionStorage.setItem("SearchPlace", JSON.stringify(data));
+        sessionStorage.setItem("SearchKeyword", place);
       }
     });
   }, [place]);

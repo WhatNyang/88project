@@ -23,7 +23,7 @@ const StyledDivContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   margin-top: 100px;
 `;
 const StyledDivMain = styled.div`

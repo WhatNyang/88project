@@ -1,24 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCs3OtP4bwHc4DzziKLIzM4vlJMhyuflEg",
-  authDomain: "reactnative-dbdad.firebaseapp.com",
-  databaseURL: "https://reactnative-dbdad-default-rtdb.firebaseio.com",
-  projectId: "reactnative-dbdad",
-  storageBucket: "reactnative-dbdad.appspot.com",
-  messagingSenderId: "103307494325",
-  appId: "1:103307494325:web:cb3f1b74c60ccc2bba8ffc",
-
-  // apiKey: "AIzaSyBXYCqBiZDv7uLsB_hLmFQLFteRpRpo3nk",
-  // authDomain: "whatyang-9c03d.firebaseapp.com",
-  // projectId: "whatyang-9c03d",
-  // storageBucket: "whatyang-9c03d.appspot.com",
-  // messagingSenderId: "721665672842",
-  // appId: "1:721665672842:web:36d9ffbe3fba6246a6cf73",
-  // measurementId: "G-0EMJKTT5KF",
   // 유진
+  apiKey: "AIzaSyBXYCqBiZDv7uLsB_hLmFQLFteRpRpo3nk",
+  authDomain: "whatyang-9c03d.firebaseapp.com",
+  projectId: "whatyang-9c03d",
+  storageBucket: "whatyang-9c03d.appspot.com",
+  messagingSenderId: "721665672842",
+  appId: "1:721665672842:web:36d9ffbe3fba6246a6cf73",
+  measurementId: "G-0EMJKTT5KF",
 
   //홍구
   // apiKey: "AIzaSyB5xX9z_mcn_bnWdLw5UHC7uSh6FLGW2l0",
@@ -38,7 +31,7 @@ const firebaseConfig = {
   // measurementId: "G-WM0WC6YDE3",
 };
 
-// export const storage = getStorage(app);
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const dbService = getFirestore(app);
 export const authService = getAuth(app);
+export const storage = getStorage(app);
