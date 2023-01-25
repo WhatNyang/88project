@@ -1,15 +1,17 @@
 import styled from "styled-components";
-import React, { ChangeEvent, useRef, useState } from "react";
-import { authService } from "../../firebase";
+import React, { useRef, useState } from "react";
+// import { authService, storageService } from "../../firebase";
 // import { dbService } from "../../firebase";
 
 const imgProfile = "img/image.jpg";
+
 type ProfileItemProps = {
   nickname: string;
   image: string;
   like: number;
   review: number;
 };
+
 function MypageProfile() {
   const initialState = {
     // nickname: authService.currentUser?.displayName,
@@ -18,10 +20,12 @@ function MypageProfile() {
     like: 10,
     review: 2,
   };
-  const [imgFile, setImgFile] = useState<string>();
   const [profile, setProfile] = useState<ProfileItemProps>(initialState);
+  const [imgFile, setImgFile] = useState<string>();
+
   // 프로필 기본 이미지
   const BaseProfile = profile?.image || imgProfile;
+
   // 프로필 수정하기
   const [editmode, setEdit] = useState(false);
   const profileEdit = () => {
@@ -104,7 +108,7 @@ function MypageProfile() {
           <ProfileListLike>
             <div></div>
             {/* 내 프로필 관심, 리뷰*/}
-            <div>관심</div>
+            <div>북마크</div>
             <div>{initialState.like}</div>
           </ProfileListLike>
           <ProfileListReview>
@@ -124,6 +128,7 @@ function MypageProfile() {
     </StyledDivOne>
   );
 }
+
 const StyledDivOne = styled.div`
   display: grid;
   grid-template-columns: 10% 20% 5% 55% 10%;
@@ -131,7 +136,6 @@ const StyledDivOne = styled.div`
     border: 1px solid black;
   } */
 `;
-
 const ProfileImage = styled.div<{ img: string }>`
   width: 100px;
   height: 100px;
@@ -149,7 +153,6 @@ const ProfileImageLabel = styled.label`
   cursor: pointer;
   padding: 20px;
 `;
-
 const ProfileList = styled.div`
   display: grid;
   grid-template-rows: 40% 60%;
