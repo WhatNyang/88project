@@ -14,14 +14,14 @@ import MypageContentsBookmark from "./MypageContentsBookmark";
 export default function MypageContents({ category }) {
   const [bookmark, setBookmark] = useState([]);
   const [review, setReview] = useState([]);
-  const user = authService.currentUser;
-
+  const user = JSON.parse(localStorage.getItem("User"));
+  console.log(user);
   useEffect(() => {
     onSnapshot(
       query(
         collection(dbService, "bookmark"),
-        orderBy("createdAt", "desc")
-        // where("userId", "==", user.uid)
+        orderBy("createdAt", "desc"),
+        where("userId", "==", user.uid)
       ),
       (snapshot) => {
         const newBookmark = snapshot.docs.map((doc) => ({
@@ -35,8 +35,8 @@ export default function MypageContents({ category }) {
     onSnapshot(
       query(
         collection(dbService, "review"),
-        orderBy("createdAt", "desc")
-        // where("userId", "==", user.uid)
+        orderBy("createdAt", "desc"),
+        where("userId", "==", user.uid)
       ),
       (snapshot) => {
         const newReview = snapshot.docs.map((doc) => ({
@@ -46,7 +46,7 @@ export default function MypageContents({ category }) {
         setReview(newReview);
       }
     );
-  }, [user]);
+  }, []);
 
   return (
     <StyledDivThree>

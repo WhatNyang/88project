@@ -36,6 +36,7 @@ export default function Login() {
       .then(() => {
         setEmail("");
         setPW("");
+        console.log(authService.currentUser);
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
         navigate("/");
       })
@@ -61,6 +62,8 @@ export default function Login() {
       .then(() => {
         updateProfile(authService.currentUser, {
           displayName: userName,
+          photoURL:
+            "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000",
         })
           .then(() => {
             localStorage.setItem(
