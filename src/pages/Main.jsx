@@ -4,6 +4,7 @@ import Sidebar from "../components/main/Sidebar";
 import MyMenu from "../components/MyMenu";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
+import { authService } from "../firebase";
 
 const { kakao } = window;
 
