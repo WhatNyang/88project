@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
-import { BsBookmarkPlus } from "react-icons/bs";
 import { BiSearchAlt } from "react-icons/bi";
-import { PROJECT_COLOR } from "../../color";
+import { POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
-import { authService, dbService } from "../../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { dbService } from "../../firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import Bookmark from "./Bookmark";
 
 const Sidebar = ({ text, setText, setPlace, places }) => {
   const navigate = useNavigate();
+  const [list, setList] = useState([]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -18,19 +19,28 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
     setText("");
   };
 
-  const onBookmark = async (e, item) => {
-    e.preventDefault();
-    const newData = {
-      userId: authService.currentUser?.uid,
-      createdAt: Date.now(),
-      place: item.place_name,
-      address: item.address_name,
-      roadAddress: item.road_address_name,
-      phone: item.phone,
-    };
-    await addDoc(collection(dbService, "bookmark"), newData);
-    alert("추가 완료");
-  };
+  // const { data: bookmarkData } = useQuery(["bookmark"], getBookmark, {
+  //   onSuccess: () => {},
+  //   onError: (error) => {
+  //     console.log("error", error);
+  //   },
+  // });
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "bookmark"),
+      orderBy("createdAt", "desc")
+    );
+    const data = onSnapshot(q, (snapshot) => {
+      const newData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setList(newData);
+    });
+    return data;
+  }, []);
 
   return (
     <List>
@@ -50,11 +60,12 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
           </SearchBtn>
         </Search>
       </form>
-
-      <Place>
-        <h2>결과</h2>
-        <PlaceCount>{places.length}</PlaceCount>
-      </Place>
+      {places.length > 0 ? (
+        <Place>
+          <h2>결과</h2>
+          <PlaceCount>{places.length}</PlaceCount>
+        </Place>
+      ) : null}
       {places.map((item, i) => (
         <PlaceList key={i}>
           <PlaceName
@@ -85,13 +96,7 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
               {item.phone}
             </PlaceInfo>
           ) : null}
-          <PlaceInfo
-            onClick={(e) => onBookmark(e, item)}
-            style={{ cursor: "pointer" }}
-          >
-            <BsBookmarkPlus style={{ margin: "0 5px -2.5px 0" }} />
-            북마크 추가
-          </PlaceInfo>
+          <Bookmark list={list} item={item} />
         </PlaceList>
       ))}
       <div
@@ -99,7 +104,7 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
         style={{
           fontSize: "25px",
           fontWeight: "bold",
-          letterSpacing: "10px",
+          letterSpacing: "20px",
           textAlign: "center",
           marginBottom: "30px",
         }}
@@ -111,13 +116,11 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
 export default Sidebar;
 
 const List = styled.div`
-  width: 28%;
-  height: 100%;
-  background-color: white;
+  width: 23%;
+  height: 100vh;
   box-shadow: 3px 3px 3px #dddddd;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  position: fixed;
   padding: 0 40px;
   z-index: 999;
   overflow-y: auto;
@@ -130,11 +133,11 @@ const Title = styled.h1`
 `;
 
 const Search = styled.div`
-  width: 90%;
+  width: 100%;
 `;
 
 const SearchInput = styled.input`
-  width: 75%;
+  width: 80%;
   height: 25px;
   margin-bottom: 30px;
 `;
@@ -157,26 +160,29 @@ const PlaceCount = styled.span`
 `;
 
 const PlaceList = styled.div`
-  margin: 0 0 20px -20px;
+  margin: 0 0 10px -20px;
   padding: 1px 0px 10px 20px;
 `;
 
 const PlaceName = styled.span`
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+  transition: 0.1s ease-out;
   &:hover {
-    text-decoration: underline;
+    color: ${POINT_COLOR};
+    transition: 0.1s ease-out;
   }
 `;
 
 const PlaceInfo = styled.div`
-  font-size: 18px;
-  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 300;
+  margin-top: 5px;
 `;
 
 const PlaceInfoRoadAddress = styled.div`
-  font-size: 16px;
+  font-size: 12px;
+  font-weight: 300;
   margin: 3px 0 0 22px;
-  color: grey;
 `;

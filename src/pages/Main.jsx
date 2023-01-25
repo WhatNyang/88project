@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../components/main/Sidebar";
 import MyMenu from "../components/MyMenu";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { displayPagination } from "../data/kakao";
 
 const { kakao } = window;
 
@@ -9,99 +11,96 @@ const Main = () => {
   const [text, setText] = useState("");
   const [place, setPlace] = useState("");
   const [places, setPlaces] = useState([]);
+  const [info, setInfo] = useState();
+  const [markers, setMarkers] = useState([]);
+  const [map, setMap] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onMarkerHandler = (marker) => {
+    setInfo(marker);
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
-    const infoWindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    const container = document.getElementById("myMap");
-    const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
-    };
-    const map = new kakao.maps.Map(container, options);
-
+    if (!map) return;
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch(place, placesSearchCB);
-
-    function placesSearchCB(data, status, pagination) {
+    ps.keywordSearch(place, (data, status, _pagination) => {
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();
+        let markers = [];
 
-        for (let i = 0; i < data.length; i++) {
-          displayMarker(data[i]);
+        for (var i = 0; i < data.length; i++) {
+          markers.push({
+            position: {
+              lat: data[i].y,
+              lng: data[i].x,
+            },
+            content: data[i].place_name,
+          });
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
-
-        map.setBounds(bounds);
-        displayPagination(pagination);
+        setMarkers(markers);
         setPlaces(data);
+        map.setBounds(bounds);
+        displayPagination(_pagination);
       }
-    }
-
-    function displayPagination(pagination) {
-      var paginationEl = document.getElementById("pagination"),
-        fragment = document.createDocumentFragment(),
-        i;
-
-      while (paginationEl.hasChildNodes()) {
-        paginationEl.removeChild(paginationEl.lastChild);
-      }
-
-      for (i = 1; i <= pagination.last; i++) {
-        var el = document.createElement("a");
-        el.href = "#";
-        el.innerHTML = i;
-
-        if (i === pagination.current) {
-          el.className = "on";
-        } else {
-          el.onclick = (function (i) {
-            return function () {
-              pagination.gotoPage(i);
-            };
-          })(i);
-        }
-
-        fragment.appendChild(el);
-      }
-      paginationEl.appendChild(fragment);
-    }
-
-    function displayMarker(place) {
-      let marker = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(place.y, place.x),
-      });
-
-      kakao.maps.event.addListener(marker, "click", function () {
-        infoWindow.setContent(
-          '<div style="padding:5px;font-size:12px;">' +
-            place.place_name +
-            "</div>"
-        );
-        infoWindow.open(map, marker);
-      });
-    }
+    });
   }, [place]);
 
   return (
     <>
       <MyMenu />
-      <Sidebar
-        text={text}
-        setText={setText}
-        setPlace={setPlace}
-        places={places}
-      />
-      <Container id="myMap" />
+      <Content>
+        <Sidebar
+          text={text}
+          setText={setText}
+          setPlace={setPlace}
+          places={places}
+        />
+        <Map
+          center={{
+            lat: 37.566826,
+            lng: 126.9786567,
+          }}
+          style={{
+            width: "70vw",
+            height: "100vh",
+            float: "right",
+            fontFamily: "GmarketSans",
+          }}
+          level={3}
+          onCreate={setMap}
+        >
+          {markers.map((marker) => (
+            <MapMarker
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+              position={marker.position}
+              onClick={() => onMarkerHandler(marker)}
+            >
+              {info &&
+                info.content === marker.content &&
+                (isOpen ? <InfoWindow>{marker.content}</InfoWindow> : null)}
+            </MapMarker>
+          ))}
+        </Map>
+      </Content>
     </>
   );
 };
 
 export default Main;
 
-const Container = styled.div`
-  width: 100vw;
+const Content = styled.div`
+  display: flex;
+  width: 105vw;
   height: 100vh;
-  font-family: GmarketSans;
+`;
+
+const InfoWindow = styled.div`
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  padding: 5px;
+  font-size: 13px;
 `;
