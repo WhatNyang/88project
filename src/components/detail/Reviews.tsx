@@ -5,17 +5,17 @@ import ReviewItem from "./ReviewItem";
 
 const Reviews = () => {
   return (
-    <ReviewContainer>
-      <ReviewTitle>리뷰(2)</ReviewTitle>
+    <StyledContainer>
+      <StyledTitle>리뷰()</StyledTitle>
       <ReviewForm />
       <ReviewItem />
-    </ReviewContainer>
+    </StyledContainer>
   );
 };
 
 export default Reviews;
 
-const ReviewContainer = styled.div`
+const StyledContainer = styled.div`
   width: 700px;
   margin: 0 auto;
   padding: 10px;
@@ -26,6 +26,6 @@ const ReviewContainer = styled.div`
   justify-content: center;
 `;
 
-const ReviewTitle = styled.div`
+const StyledTitle = styled.div`
   margin-left: 20px;
 `;

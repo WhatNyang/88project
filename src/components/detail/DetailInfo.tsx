@@ -13,23 +13,25 @@ const DetailInfo = () => {
   return (
     <InfoContainer>
       <InfoBox>
-        <InfoTitle>{item.place_name}</InfoTitle>
-        <StyledText>
-          <FiMapPin />
-          &nbsp; {item.road_address_name} ({item.address_name})
-        </StyledText>
-        <StyledText>
-          <MdPhone />
-          &nbsp; {item.phone}
-        </StyledText>
-        <StyledText>
-          <MdInfoOutline />
-          &nbsp; {item.category_group_name}
-        </StyledText>
-        <StyledText>
-          <MdHome />
-          &nbsp; {item.place_url}
-        </StyledText>
+        <InfoTextBox>
+          <InfoTitle>{item.place_name}</InfoTitle>
+          <StyledText>
+            <FiMapPin />
+            &nbsp; {item.road_address_name} ({item.address_name})
+          </StyledText>
+          <StyledText>
+            <MdPhone />
+            &nbsp; {item.phone}
+          </StyledText>
+          <StyledText>
+            <MdInfoOutline />
+            &nbsp; {item.category_group_name}
+          </StyledText>
+          <StyledText>
+            <MdHome />
+            &nbsp; {item.place_url}
+          </StyledText>
+        </InfoTextBox>
         <DetailMap />
       </InfoBox>
     </InfoContainer>
@@ -39,17 +41,20 @@ const DetailInfo = () => {
 export default DetailInfo;
 
 const InfoContainer = styled.div`
-  width: 700px;
+  max-width: 700px;
+  width: 100%;
   margin: 0 auto;
   margin-bottom: 20px;
   padding: 10px;
   background-color: ${BACKGROUND_COLOR};
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 const InfoBox = styled.div`
+  width: 100%;
+`;
+const InfoTextBox = styled.div`
+  width: 100%;
+  height: 100%;
   margin: 20px;
 `;
 const InfoTitle = styled.div`

@@ -1,27 +1,33 @@
 import styled from "styled-components";
-import React, { useRef, useState } from "react";
-// import { authService, storageService } from "../../firebase";
+import React, { ChangeEvent, useRef, useState } from "react";
+import { updateProfile } from "firebase/auth";
+import { authService } from "../../firebase";
 // import { dbService } from "../../firebase";
 
-const imgProfile = "img/image.jpg";
+const imgProfile =
+  "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
 
 type ProfileItemProps = {
   nickname: string;
   image: string;
-  like: number;
+  bookmark: number;
   review: number;
 };
 
 function MypageProfile() {
+  const currentUser = JSON.parse(localStorage.getItem("User") as string);
+  console.log(currentUser);
   const initialState = {
-    // nickname: authService.currentUser?.displayName,
-    nickname: "나의 별명",
+    nickname: currentUser.displayName,
     image: imgProfile,
-    like: 10,
+    bookmark: 10,
     review: 2,
   };
   const [profile, setProfile] = useState<ProfileItemProps>(initialState);
-  const [imgFile, setImgFile] = useState<string>();
+  const [imgFile, setImgFile] = useState<string>(currentUser.photoURL);
+  const [nicknameEdit, setNicknameEdit] = useState<string>(
+    currentUser.displayName
+  );
 
   // 프로필 기본 이미지
   const BaseProfile = profile?.image || imgProfile;
@@ -50,26 +56,35 @@ function MypageProfile() {
 
   // 프로필 수정 완료 하기
   const profileEditComplete = () => {
-    const img = null || profile.image;
-    // 닉네임 변경사항 유지하기
-    const ProfileItem = {
-      nickname: nameRef.current?.value,
-      image: img,
-    };
-    nameRef.current?.value &&
-      setProfile({ ...profile, nickname: nameRef.current?.value });
-
-    setEdit(!editmode);
+    console.log(nicknameEdit);
+    updateProfile(authService.currentUser as any, {
+      displayName: nicknameEdit,
+      photoURL: imgFile,
+    })
+      .then(() => {
+        localStorage.setItem("User", JSON.stringify(authService.currentUser));
+        setEdit(!editmode);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // console.log(authService.currentUser);
+
+  const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNicknameEdit(e.target.value);
+  };
+  console.log(nicknameEdit);
   return (
     <StyledDivOne>
       <div></div>
       {/* 내 프로필 사진 변경 */}
       <div>
         <>
-          <ProfileImage img={imgFile ? imgFile : BaseProfile}></ProfileImage>
+          <ProfileImage
+            img={editmode ? imgFile : currentUser.photoURL}
+          ></ProfileImage>
           {editmode ? (
             <>
               <button>
@@ -96,26 +111,31 @@ function MypageProfile() {
       {/* 내 프로필 닉네임 */}
       <ProfileList>
         {editmode ? (
-          <ProfileNicknameEdit defaultValue={profile?.nickname} ref={nameRef} />
+          <ProfileNicknameEdit
+            onChange={handleNicknameChange}
+            defaultValue={profile?.nickname}
+            ref={nameRef}
+            value={nicknameEdit || ""}
+          />
         ) : (
           <>
             {" "}
-            <ProfileNickname>{profile?.nickname}</ProfileNickname>
+            <ProfileNickname>{currentUser.displayName}</ProfileNickname>
           </>
         )}
 
-        <ProfileListLikeReview>
-          <ProfileListLike>
+        <ProfileListBookmarkReview>
+          <ProfileListBookmark>
             <div></div>
             {/* 내 프로필 관심, 리뷰*/}
             <div>북마크</div>
-            <div>{initialState.like}</div>
-          </ProfileListLike>
+            <div>{initialState.bookmark}</div>
+          </ProfileListBookmark>
           <ProfileListReview>
             <div>리뷰</div>
             <div>{initialState.review}</div>
           </ProfileListReview>
-        </ProfileListLikeReview>
+        </ProfileListBookmarkReview>
       </ProfileList>
       {/* 내 프로필 수정, 완료 버튼*/}
       {editmode ? (
@@ -163,12 +183,12 @@ const ProfileNickname = styled.div`
   font-weight: 700;
   padding: 5px;
 `;
-const ProfileListLikeReview = styled.div`
+const ProfileListBookmarkReview = styled.div`
   display: grid;
   grid-template-columns: 15% 15% 60%;
 `;
 
-const ProfileListLike = styled.div`
+const ProfileListBookmark = styled.div`
   text-align: center;
   font-size: small;
 `;

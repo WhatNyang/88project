@@ -1,11 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-import { authService } from "../../firebase";
+import { authService } from "../firebase";
 import { useMutation } from "react-query";
-import { addBookmark, deleteBookmark } from "../../data/bookmark";
+import { addBookmark, deleteBookmark } from "../data/bookmark";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
+import Snackbar from "@mui/material/Snackbar";
 
 const Bookmark = ({ list, item }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = <React.Fragment />;
+
   const filteredUser = list.filter((data) => {
     if (authService.currentUser.uid === data.userId) {
       return data;
@@ -44,7 +61,7 @@ const Bookmark = ({ list, item }) => {
 
     try {
       add(newData);
-      alert("추가 완료"); // 모달로 구현하기
+      handleClick();
     } catch (error) {
       console.log("error", error);
     }
@@ -65,7 +82,7 @@ const Bookmark = ({ list, item }) => {
     e.preventDefault();
     try {
       del(fiteredId);
-      alert("해제 완료");
+      handleClick();
     } catch (error) {
       console.log("error", error);
     }
@@ -83,6 +100,23 @@ const Bookmark = ({ list, item }) => {
           <BsBookmarkPlus style={{ margin: "0 5px -2.5px 0" }} />
           북마크 추가
         </PlaceInfo>
+      )}
+      {filteredData[0] !== undefined ? (
+        <Snackbar
+          open={open}
+          autoHideDuration={700}
+          onClose={handleClose}
+          message="추가 완료"
+          action={action}
+        />
+      ) : (
+        <Snackbar
+          open={open}
+          autoHideDuration={700}
+          onClose={handleClose}
+          message="해제 완료"
+          action={action}
+        />
       )}
     </div>
   );

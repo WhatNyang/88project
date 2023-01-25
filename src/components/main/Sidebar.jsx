@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { BiSearchAlt } from "react-icons/bi";
-import { POINT_COLOR, PROJECT_COLOR } from "../../color";
+import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 import { dbService } from "../../firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import Bookmark from "./Bookmark";
+import Bookmark from "../Bookmark";
 
 const Sidebar = ({ text, setText, setPlace, places }) => {
   const navigate = useNavigate();
@@ -160,8 +160,14 @@ const PlaceCount = styled.span`
 `;
 
 const PlaceList = styled.div`
-  margin: 0 0 10px -20px;
-  padding: 1px 0px 10px 20px;
+  margin: 0 0 10px -10px;
+  padding: 10px 10px;
+  transition: 0.1s ease-out;
+  cursor: pointer;
+  &:hover {
+    background-color: ${BACKGROUND_COLOR};
+    transition: 0.1s ease-out;
+  }
 `;
 
 const PlaceName = styled.span`
