@@ -19,7 +19,7 @@ import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiEdit, BiTrash } from "react-icons/bi";
 
-export default function MypageContentsReview({ review }) {
+export default function MypageContentsReview({ review, user }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const deleteReview = async (id) => {
@@ -35,7 +35,7 @@ export default function MypageContentsReview({ review }) {
               <StyledDivBookmarkIconContainer>
                 <Avatar
                   alt="Avatar"
-                  src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"
+                  src={user?.photoURL ? user?.photoURL : null}
                 />
               </StyledDivBookmarkIconContainer>
 
