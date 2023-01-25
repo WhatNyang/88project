@@ -1,4 +1,4 @@
-type PlaceDetailInfo = {
+type TypePlaceInfo = {
   place_name: string;
   distance: string;
   place_url: string;
@@ -13,4 +13,4 @@ type PlaceDetailInfo = {
   y: string;
 };
 
-export default PlaceDetailInfo;
+export default TypePlaceInfo;

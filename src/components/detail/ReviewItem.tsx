@@ -1,18 +1,46 @@
 import styled from "styled-components";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { dbService } from "../../firebase";
+import { useEffect, useState } from "react";
+import TypeReview from "../../modules/typeReview";
 
 const ReviewItem = () => {
+  const [reviews, setReviews] = useState<TypeReview[]>([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "reviews"),
+      orderBy("createdAt", "desc")
+      // 최근 작성한 순으로 불러오기
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newReviews: any = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReviews(newReviews);
+    });
+    return unsubscribe;
+  }, []);
+
   return (
     <>
-      <ItemBox>
-        <StyledPhoto>사진</StyledPhoto>
-        <ContentBox>
-          <ReviewInfoBox>
-            <StyledNickname>닉네임</StyledNickname>
-            <CreateDate>2023-01-02</CreateDate>
-          </ReviewInfoBox>
-          <ReviewContent>리뷰내용...</ReviewContent>
-        </ContentBox>
-      </ItemBox>
+      {reviews.map((item) => {
+        return (
+          <ItemBox key={item.createdAt}>
+            <StyledPhoto>사진</StyledPhoto>
+            <ContentBox>
+              <ReviewInfoBox>
+                <StyledNickname>{item.userNickName}</StyledNickname>
+                <CreateDate>
+                  {new Date(item.createdAt).toLocaleDateString("kr")}
+                </CreateDate>
+              </ReviewInfoBox>
+              <ReviewContent>{item.contents}</ReviewContent>
+            </ContentBox>
+          </ItemBox>
+        );
+      })}
     </>
   );
 };
