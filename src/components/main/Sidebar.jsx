@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
-import { BsBookmarkPlus } from "react-icons/bs";
 import { BiSearchAlt } from "react-icons/bi";
 import { POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
-import { authService } from "../../firebase";
-import { useMutation, useQuery } from "react-query";
-import { addBookmark, getBookmark } from "../../data/bookmark";
+import { dbService } from "../../firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import Bookmark from "./Bookmark";
 
 const Sidebar = ({ text, setText, setPlace, places }) => {
   const navigate = useNavigate();
+  const [list, setList] = useState([]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -19,51 +19,28 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
     setText("");
   };
 
-  const { mutate: add } = useMutation(
-    ["addBookmark"],
-    (body) => addBookmark(body),
-    {
-      onSuccess: () => {},
-      onError: (error) => {
-        console.log("error", error);
-      },
-    }
-  );
+  // const { data: bookmarkData } = useQuery(["bookmark"], getBookmark, {
+  //   onSuccess: () => {},
+  //   onError: (error) => {
+  //     console.log("error", error);
+  //   },
+  // });
 
-  const onAddBookmark = (e, item) => {
-    const newData = {
-      userId: authService.currentUser?.uid,
-      createdAt: Date.now(),
-      place: item.place_name,
-      address: item.address_name,
-      roadAddress: item.road_address_name,
-      phone: item.phone,
-    };
-    e.preventDefault();
-    try {
-      add(newData);
-      alert("추가 완료");
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "bookmark"),
+      orderBy("createdAt", "desc")
+    );
+    const data = onSnapshot(q, (snapshot) => {
+      const newData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-  const { data } = useQuery(["bookmark"], getBookmark, {
-    onSuccess: () => {},
-    onError: (error) => {
-      console.log("error", error);
-    },
-  });
-
-  console.log(data);
-
-  // addBookmark
-  // bookmark 콜렉션 안에 이름 & 장소가 일치하는 데이터가 없거나,
-  // 일치하되 그 중 currentUser.uid와 게시글의 userId가 일치하는 데이터가 없는 경우
-
-  // deleteBookmark
-  // bookmark 콜렉션 안에 이름 & 장소가 일치하는 데이터 중에서
-  // currentUser.uid와 게시글의 userId가 일치하는 경우
+      setList(newData);
+    });
+    return data;
+  }, []);
 
   return (
     <List>
@@ -83,11 +60,12 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
           </SearchBtn>
         </Search>
       </form>
-
-      <Place>
-        <h2>결과</h2>
-        <PlaceCount>{places.length}</PlaceCount>
-      </Place>
+      {places.length > 0 ? (
+        <Place>
+          <h2>결과</h2>
+          <PlaceCount>{places.length}</PlaceCount>
+        </Place>
+      ) : null}
       {places.map((item, i) => (
         <PlaceList key={i}>
           <PlaceName
@@ -118,13 +96,7 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
               {item.phone}
             </PlaceInfo>
           ) : null}
-          <PlaceInfo
-            onClick={(e) => onAddBookmark(e, item)}
-            style={{ cursor: "pointer" }}
-          >
-            <BsBookmarkPlus style={{ margin: "0 5px -2.5px 0" }} />
-            북마크 추가
-          </PlaceInfo>
+          <Bookmark list={list} item={item} />
         </PlaceList>
       ))}
       <div
@@ -144,13 +116,11 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
 export default Sidebar;
 
 const List = styled.div`
-  width: 28%;
-  height: 100%;
-  background-color: white;
+  width: 23%;
+  height: 100vh;
   box-shadow: 3px 3px 3px #dddddd;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  position: fixed;
   padding: 0 40px;
   z-index: 999;
   overflow-y: auto;
@@ -163,11 +133,11 @@ const Title = styled.h1`
 `;
 
 const Search = styled.div`
-  width: 90%;
+  width: 100%;
 `;
 
 const SearchInput = styled.input`
-  width: 75%;
+  width: 80%;
   height: 25px;
   margin-bottom: 30px;
 `;

@@ -4,6 +4,7 @@ import Sidebar from "../components/main/Sidebar";
 import MyMenu from "../components/MyMenu";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
+
 const { kakao } = window;
 
 const Main = () => {
@@ -50,43 +51,51 @@ const Main = () => {
   return (
     <>
       <MyMenu />
-      <Sidebar
-        text={text}
-        setText={setText}
-        setPlace={setPlace}
-        places={places}
-      />
-      <Map
-        center={{
-          lat: 37.566826,
-          lng: 126.9786567,
-        }}
-        style={{
-          width: "70vw",
-          height: "100vh",
-          float: "right",
-          fontFamily: "GmarketSans",
-        }}
-        level={3}
-        onCreate={setMap}
-      >
-        {markers.map((marker) => (
-          <MapMarker
-            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-            position={marker.position}
-            onClick={() => onMarkerHandler(marker)}
-          >
-            {info &&
-              info.content === marker.content &&
-              (isOpen ? <InfoWindow>{marker.content}</InfoWindow> : null)}
-          </MapMarker>
-        ))}
-      </Map>
+      <Content>
+        <Sidebar
+          text={text}
+          setText={setText}
+          setPlace={setPlace}
+          places={places}
+        />
+        <Map
+          center={{
+            lat: 37.566826,
+            lng: 126.9786567,
+          }}
+          style={{
+            width: "70vw",
+            height: "100vh",
+            float: "right",
+            fontFamily: "GmarketSans",
+          }}
+          level={3}
+          onCreate={setMap}
+        >
+          {markers.map((marker) => (
+            <MapMarker
+              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+              position={marker.position}
+              onClick={() => onMarkerHandler(marker)}
+            >
+              {info &&
+                info.content === marker.content &&
+                (isOpen ? <InfoWindow>{marker.content}</InfoWindow> : null)}
+            </MapMarker>
+          ))}
+        </Map>
+      </Content>
     </>
   );
 };
 
 export default Main;
+
+const Content = styled.div`
+  display: flex;
+  width: 105vw;
+  height: 100vh;
+`;
 
 const InfoWindow = styled.div`
   cursor: pointer;

@@ -6,8 +6,6 @@ import { authService } from "../firebase";
 
 const MyMenu = () => {
   const navigate = useNavigate();
-
-  // 드롭다운
   const [isOpen, setIsOpen] = useState(false);
 
   const logout = () => {
@@ -18,8 +16,8 @@ const MyMenu = () => {
   return (
     <>
       <Profile onClick={() => setIsOpen(!isOpen)}>
-        {authService.currentUser.photoURL ? (
-          <ProfileImg src={authService.currentUser.photoURL} />
+        {authService.currentUser?.photoURL ? (
+          <ProfileImg src={authService.currentUser?.photoURL} />
         ) : (
           <ProfileImg src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
         )}
