@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { dbService } from "../firebase";
 
 // Create
@@ -7,11 +7,9 @@ export const addBookmark = async (newData) => {
 };
 
 // Read
-export const getBookmark = async () => {
-  await getDoc(doc(dbService, "bookmark"));
-};
 
 // Delete
-export const deleteBookmark = async (e, id) => {
+export const deleteBookmark = async (id) => {
+  console.log("삭제할 id", id);
   await deleteDoc(doc(dbService, "bookmark", id));
 };

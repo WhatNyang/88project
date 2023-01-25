@@ -101,6 +101,7 @@ const ProfileImage = styled.div<{ img: string }>`
   /* background-repeat: no-repeat; */
   background-size: contain;
   background-image: url(${(props) => props.img});
+  object-fit: cover;
 `;
 const ProfileList = styled.div`
   display: grid;
