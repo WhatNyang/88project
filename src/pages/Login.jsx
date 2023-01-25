@@ -22,14 +22,6 @@ export default function Login() {
     setPW("");
     setUserName("");
   };
-  // const isLogin = () => {
-  //   if (authService.currentUser) {
-  //     navigate("/");
-  //   }
-  // };
-  // useEffect(() => {
-  //   isLogin();
-  // }, []);
   const [email, setEmail] = useState("");
   const [pw, setPW] = useState("");
   const [userName, setUserName] = useState("");
@@ -44,6 +36,7 @@ export default function Login() {
       .then(() => {
         setEmail("");
         setPW("");
+        localStorage.setItem("User", JSON.stringify(authService.currentUser));
         navigate("/");
       })
       .catch((error) => {
@@ -70,6 +63,10 @@ export default function Login() {
           displayName: userName,
         })
           .then(() => {
+            localStorage.setItem(
+              "User",
+              JSON.stringify(authService.currentUser)
+            );
             navigate("/");
           })
           .catch((error) => {
@@ -145,6 +142,9 @@ export default function Login() {
       return true;
     }
   };
+  authService.onAuthStateChanged((user) => {
+    if (user) navigate("/");
+  });
   return (
     <Container>
       <LoginBox>
