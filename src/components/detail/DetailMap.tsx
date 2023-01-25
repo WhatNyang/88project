@@ -62,6 +62,8 @@ const DetailMap = () => {
 export default DetailMap;
 
 const MapSize = styled.div`
-  width: 500px;
+  width: 660px;
   height: 300px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 `;

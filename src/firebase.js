@@ -3,6 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
+
   // apiKey: "AIzaSyBXYCqBiZDv7uLsB_hLmFQLFteRpRpo3nk",
   // authDomain: "whatyang-9c03d.firebaseapp.com",
   // projectId: "whatyang-9c03d",
@@ -28,6 +29,7 @@ const firebaseConfig = {
   // messagingSenderId: "412199444502",
   // appId: "1:412199444502:web:b5b06bdc61f234a843d537",
   // measurementId: "G-WM0WC6YDE3",
+
 };
 
 // export const storage = getStorage(app);
