@@ -1,20 +1,7 @@
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-
 import styled from "styled-components";
 import { dbService } from "../../firebase";
-
-import CardContent from "@mui/material/CardContent";
-
-import Typography from "@mui/material/Typography";
-
-import {
-  Avatar,
-  Button,
-  FormControl,
-  Input,
-  InputAdornment,
-  InputLabel,
-} from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiEdit, BiTrash } from "react-icons/bi";
@@ -46,104 +33,118 @@ export default function MypageContentsReview({ review, user }) {
     <>
       {review.map((item) => {
         return (
-          <div key={item.id}>
-            <StyledDivMainContainer>
-              <StyledDivBookmarkIconContainer>
-                <Avatar
-                  alt="Avatar"
-                  src={user?.photoURL ? user?.photoURL : null}
-                />
-              </StyledDivBookmarkIconContainer>
+          <Container key={item.id}>
+            <ReviewProfile>
+              <Avatar
+                alt="Avatar"
+                src={user?.photoURL ? user?.photoURL : null}
+              />
+            </ReviewProfile>
 
-              <CardContent>
-                <Typography gutterBottom variant="h4">
-                  헬스퀘어
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  2022.13.21
-                </Typography>
-                {isEdit ? (
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-                      <InputLabel htmlFor="standard-adornment-amount">
-                        수정하기
-                      </InputLabel>
-                      <Input
-                        id="standard-adornment-amount"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <AiOutlineEdit />
-                          </InputAdornment>
-                        }
-                        onChange={onChangeText}
-                      />
-                    </FormControl>
-                    <Button
-                      variant="contained"
-                      color="success"
-                      style={{ marginRight: "2px" }}
-                      onClick={() => {
-                        setIsEdit(false);
-                      }}
-                    >
-                      수정
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="warning"
-                      onClick={() => {
-                        setIsEdit(false);
-                      }}
-                    >
-                      취소
-                    </Button>
-                  </div>
-                ) : (
-                  <Typography variant="body1" paddingTop={"5px"}>
-                    좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요
-                    좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요 좋아요
-                    좋아요
-                  </Typography>
-                )}
-              </CardContent>
-
-              <StyledDivSettingsIcon>
-                <BiEdit
-                  size={"30px"}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    setIsEdit(!isEdit);
-                  }}
-                />
-                <BiTrash
-                  size={"30px"}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => deleteButtonConfirm(item.id)}
-                />
-              </StyledDivSettingsIcon>
-            </StyledDivMainContainer>
-          </div>
+            <ReviewCard>
+              <div style={{ display: "flex" }}>
+                <div>
+                  <ReviewInfo>헬스퀘어</ReviewInfo>
+                  <div>2023.01.01</div>
+                </div>
+                <ReviewBtnArea>
+                  <BiEdit
+                    size={"30px"}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      setIsEdit(!isEdit);
+                    }}
+                  />
+                  <BiTrash
+                    size={"30px"}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => deleteButtonConfirm(item.id)}
+                  />
+                </ReviewBtnArea>
+              </div>
+              {isEdit ? (
+                <>
+                  <ReviewEditor>
+                    <ReviewTextArea />
+                    {/* <Input
+                    id="standard-adornment-amount"
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <AiOutlineEdit />
+                      </InputAdornment>
+                    }
+                    onChange={onChangeText}
+                  /> */}
+                  </ReviewEditor>
+                  <ReviewEditBtn
+                    variant="contained"
+                    color="success"
+                    style={{ marginRight: "2px" }}
+                    onClick={() => {
+                      setIsEdit(false);
+                    }}
+                  >
+                    수정
+                  </ReviewEditBtn>
+                  <ReviewEditBtn
+                    variant="contained"
+                    color="warning"
+                    onClick={() => {
+                      setIsEdit(false);
+                    }}
+                  >
+                    취소
+                  </ReviewEditBtn>
+                </>
+              ) : (
+                <div>
+                  좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요
+                  좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요 좋아요
+                  좋아요
+                </div>
+              )}
+            </ReviewCard>
+          </Container>
         );
       })}
     </>
   );
 }
 
-const StyledDivMainContainer = styled.div`
+const Container = styled.div`
   padding: 20px 0px 20px 0px;
-  background-color: white;
   border-radius: 10px;
   display: flex;
   margin: 0px 0px 20px 0px;
 `;
 
-const StyledDivBookmarkIconContainer = styled.div`
-  padding-left: 30px;
-  padding-top: 15px;
+const ReviewCard = styled.div`
+  width: 600px;
 `;
 
-const StyledDivSettingsIcon = styled.div`
+const ReviewProfile = styled.div`
+  margin-right: 20px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ReviewInfo = styled.div`
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const ReviewEditor = styled.div`
+  width: 100%;
+`;
+
+const ReviewBtnArea = styled.div`
   display: flex;
-
-  padding-right: 20px;
+  margin-left: auto;
 `;
+
+const ReviewTextArea = styled.textarea`
+  width: 100%;
+  height: 100px;
+`;
+
+const ReviewEditBtn = styled.button``;

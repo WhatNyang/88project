@@ -64,7 +64,4 @@ const StyledDivThree = styled.div`
   border-radius: 30px;
   background-color: #f5f5f5;
   flex-direction: column;
-  div {
-    border: 1px solid black;
-  }
 `;
