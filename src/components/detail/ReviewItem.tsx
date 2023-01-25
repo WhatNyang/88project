@@ -1,17 +1,27 @@
 import styled from "styled-components";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { dbService } from "../../firebase";
 import { useEffect, useState } from "react";
 import TypeReview from "../../modules/typeReview";
+import { useLocation } from "react-router-dom";
 
 const ReviewItem = () => {
+  const location = useLocation();
+  const item = location.state;
   const [reviews, setReviews] = useState<TypeReview[]>([]);
 
   useEffect(() => {
     const q = query(
       collection(dbService, "reviews"),
-      orderBy("createdAt", "desc")
+      orderBy("createdAt", "desc"),
       // 최근 작성한 순으로 불러오기
+      where("detailId", "==", item.id)
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newReviews: any = snapshot.docs.map((doc) => ({
@@ -33,7 +43,10 @@ const ReviewItem = () => {
               <ReviewInfoBox>
                 <StyledNickname>{item.userNickName}</StyledNickname>
                 <CreateDate>
-                  {new Date(item.createdAt).toLocaleDateString("kr")}
+                  {new Date(item.createdAt)
+                    .toLocaleDateString()
+                    .replace(/\./g, "")
+                    .replace(/\s/g, " / ")}
                 </CreateDate>
               </ReviewInfoBox>
               <ReviewContent>{item.contents}</ReviewContent>
@@ -56,6 +69,8 @@ const ItemBox = styled.div`
 const ContentBox = styled.div``;
 const ReviewInfoBox = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 500px;
 `;
 const ReviewContent = styled.div`
   margin: 20px;
@@ -69,7 +84,11 @@ const StyledPhoto = styled.div`
 `;
 const StyledNickname = styled.div`
   margin: 20px;
+  color: darkgray;
+  font-size: 13px;
 `;
 const CreateDate = styled.div`
   margin: 20px;
+  color: darkgray;
+  font-size: 13px;
 `;

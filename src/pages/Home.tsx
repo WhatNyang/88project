@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { BiSearchAlt } from "react-icons/bi";
 import { POINT_COLOR, PROJECT_COLOR } from "../color";
