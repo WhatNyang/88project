@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { authService, dbService } from "../firebase";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useMutation } from "react-query";
 import { addBookmark, deleteBookmark } from "../data/bookmark";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";

@@ -9,6 +9,8 @@ import Bookmark from "../Bookmark";
 
 const Sidebar = ({ text, setText, setPlace, places }) => {
   const navigate = useNavigate();
+  const sessionData = JSON.parse(sessionStorage.getItem("SearchPlace"));
+  const sessionKeyword = sessionStorage.getItem("SearchKeyword");
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
     setText("");
   };
 
-  // 디테일 페이지에서 뒤로 가기 클릭시 검색 결과 유지
+  // 디테일 페이지에서 뒤로 가기 실행시 검색 결과 유지
   // 검색 결과 클릭시 지도 인포윈도우 반환
 
   return (
@@ -37,13 +39,13 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
           </SearchBtn>
         </Search>
       </form>
-      {places.length > 0 ? (
+      {sessionKeyword ? (
         <Place>
-          <h2>결과</h2>
-          <PlaceCount>{places.length}</PlaceCount>
+          <h2>'{sessionKeyword}' 결과</h2>
+          <PlaceCount>{sessionData?.length}</PlaceCount>
         </Place>
       ) : null}
-      {places.map((item, i) => (
+      {sessionData?.map((item, i) => (
         <PlaceList key={i}>
           <Bookmark item={item} />
           <PlaceName>{item.place_name}</PlaceName>
