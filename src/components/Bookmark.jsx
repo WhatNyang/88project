@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { authService } from "../firebase";
+import { authService, dbService } from "../firebase";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { useMutation } from "react-query";
 import { addBookmark, deleteBookmark } from "../data/bookmark";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import Snackbar from "@mui/material/Snackbar";
+import { POINT_COLOR } from "../color";
 
-const Bookmark = ({ list, item }) => {
+const Bookmark = ({ item }) => {
+  const [list, setList] = useState([]);
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -30,7 +39,7 @@ const Bookmark = ({ list, item }) => {
   });
 
   const filteredData = filteredUser.filter((data) => {
-    if (data.place === item.place_name) {
+    if (data.place === item.place_name && data.address === item.address_name) {
       return data.id;
     }
   });
@@ -88,18 +97,49 @@ const Bookmark = ({ list, item }) => {
     }
   };
 
+  useEffect(() => {
+    const q = query(
+      collection(dbService, "bookmark"),
+      orderBy("createdAt", "desc")
+    );
+    const data = onSnapshot(q, (snapshot) => {
+      const newData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setList(newData);
+    });
+    return data;
+  }, []);
+
+  // const { data: bookmarkData } = useQuery(["bookmark"], getBookmark, {
+  //   onSuccess: () => {},
+  //   onError: (error) => {
+  //     console.log("error", error);
+  //   },
+  // });
+
   return (
-    <div>
+    <>
       {filteredData[0] !== undefined ? (
-        <PlaceInfo onClick={(e) => onDeleteBookmark(e, item)}>
-          <BsBookmarkDashFill style={{ margin: "0 5px -2.5px 0" }} />
-          북마크 해제
-        </PlaceInfo>
+        <BsBookmarkDashFill
+          onClick={(e) => onDeleteBookmark(e, item)}
+          style={{
+            margin: "0 4px -3.5px -2px",
+            fontSize: "20px",
+            color: POINT_COLOR,
+          }}
+        />
       ) : (
-        <PlaceInfo onClick={(e) => onAddBookmark(e, item)}>
-          <BsBookmarkPlus style={{ margin: "0 5px -2.5px 0" }} />
-          북마크 추가
-        </PlaceInfo>
+        <BsBookmarkPlus
+          onClick={(e) => onAddBookmark(e, item)}
+          style={{
+            margin: "0 4px -3.5px -2px",
+            fontSize: "20px",
+            color: POINT_COLOR,
+          }}
+        />
       )}
       {filteredData[0] !== undefined ? (
         <Snackbar
@@ -118,15 +158,8 @@ const Bookmark = ({ list, item }) => {
           action={action}
         />
       )}
-    </div>
+    </>
   );
 };
 
 export default Bookmark;
-
-const PlaceInfo = styled.div`
-  font-size: 15px;
-  font-weight: 300;
-  margin-top: 5px;
-  cursor: pointer;
-`;
