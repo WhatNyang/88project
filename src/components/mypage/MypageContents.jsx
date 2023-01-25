@@ -10,23 +10,18 @@ import {
 import { authService, dbService } from "../../firebase";
 import MypageContentsReview from "./MypageContentsReview";
 import MypageContentsBookmark from "./MypageContentsBookmark";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { getAuth } from "firebase/auth";
 
 export default function MypageContents({ category }) {
   const [bookmark, setBookmark] = useState([]);
   const [review, setReview] = useState([]);
   const user = authService.currentUser;
 
-  console.log(user);
-
   useEffect(() => {
     onSnapshot(
       query(
         collection(dbService, "bookmark"),
-        orderBy("createdAt", "desc"),
-        where("userId", "==", user.uid)
+        orderBy("createdAt", "desc")
+        // where("userId", "==", user.uid)
       ),
       (snapshot) => {
         const newBookmark = snapshot.docs.map((doc) => ({
@@ -51,7 +46,7 @@ export default function MypageContents({ category }) {
         setReview(newReview);
       }
     );
-  }, []);
+  }, [user]);
 
   return (
     <StyledDivThree>
@@ -69,4 +64,7 @@ const StyledDivThree = styled.div`
   border-radius: 30px;
   background-color: #f5f5f5;
   flex-direction: column;
+  div {
+    border: 1px solid black;
+  }
 `;
