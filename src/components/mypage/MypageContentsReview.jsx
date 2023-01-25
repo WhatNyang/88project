@@ -1,4 +1,4 @@
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 import styled from "styled-components";
 import { dbService } from "../../firebase";
@@ -19,13 +19,29 @@ import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiEdit, BiTrash } from "react-icons/bi";
 
-export default function MypageContentsReview({ review }) {
+export default function MypageContentsReview({ review, user }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [editText, setEditText] = useState("");
 
   const deleteReview = async (id) => {
-    await deleteDoc(doc(dbService, "bookmark", id));
+    await deleteDoc(doc(dbService, "review", id));
   };
 
+  const onChangeText = function (event) {
+    setEditText(event.target.value);
+  };
+
+  const editReview = async (id) => {
+    await updateDoc(doc(dbService, "review", id), {
+      text: editText,
+    });
+  };
+
+  const deleteButtonConfirm = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      alert("삭제되었습니다.");
+    }
+  };
   return (
     <>
       {review.map((item) => {
@@ -35,7 +51,7 @@ export default function MypageContentsReview({ review }) {
               <StyledDivBookmarkIconContainer>
                 <Avatar
                   alt="Avatar"
-                  src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"
+                  src={user?.photoURL ? user?.photoURL : null}
                 />
               </StyledDivBookmarkIconContainer>
 
@@ -59,6 +75,7 @@ export default function MypageContentsReview({ review }) {
                             <AiOutlineEdit />
                           </InputAdornment>
                         }
+                        onChange={onChangeText}
                       />
                     </FormControl>
                     <Button
@@ -101,9 +118,7 @@ export default function MypageContentsReview({ review }) {
                 <BiTrash
                   size={"30px"}
                   style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    window.confirm("삭제하시겠습니까?");
-                  }}
+                  onClick={() => deleteButtonConfirm(item.id)}
                 />
               </StyledDivSettingsIcon>
             </StyledDivMainContainer>
