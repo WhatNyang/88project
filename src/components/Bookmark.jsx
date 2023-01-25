@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { authService } from "../firebase";
 import { useMutation } from "react-query";
 import { addBookmark, deleteBookmark } from "../data/bookmark";
-import {
-  BsBookmarkPlus,
-  BsBookmarkDashFill,
-  BsCheckCircle,
-} from "react-icons/bs";
+import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import Snackbar from "@mui/material/Snackbar";
 
 const Bookmark = ({ list, item }) => {
