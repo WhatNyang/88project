@@ -4,7 +4,6 @@ import Sidebar from "../components/main/Sidebar";
 import MyMenu from "../components/MyMenu";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
-import { authService } from "../firebase";
 
 const { kakao } = window;
 
@@ -45,6 +44,8 @@ const Main = () => {
         setPlaces(data);
         map.setBounds(bounds);
         displayPagination(_pagination);
+        sessionStorage.setItem("SearchPlace", JSON.stringify(data));
+        sessionStorage.setItem("SearchKeyword", place);
       }
     });
   }, [place]);
