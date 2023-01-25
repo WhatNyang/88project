@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { FcBookmark } from "react-icons/fc";
 
-export default function MypageContentsBookmark({ category, bookmark }) {
+export default function MypageContentsBookmark({ bookmark }) {
   const deletebookmark = async (id) => {
     await deleteDoc(doc(dbService, "bookmark", id));
   };

@@ -7,8 +7,8 @@ import CardContent from "@mui/material/CardContent";
 
 import Typography from "@mui/material/Typography";
 
-import { FcBookmark, FcMenu } from "react-icons/fc";
 import {
+  Avatar,
   Button,
   FormControl,
   Input,
@@ -17,10 +17,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
+import { BiEdit, BiTrash } from "react-icons/bi";
 
-export default function MypageContentsReview({ category, review }) {
+export default function MypageContentsReview({ review }) {
   const [isEdit, setIsEdit] = useState(false);
-  const [editText, setEditText] = useState("");
 
   const deleteReview = async (id) => {
     await deleteDoc(doc(dbService, "bookmark", id));
@@ -33,7 +33,10 @@ export default function MypageContentsReview({ category, review }) {
           <div key={item.id}>
             <StyledDivMainContainer>
               <StyledDivBookmarkIconContainer>
-                <FcBookmark size={"50px"} />
+                <Avatar
+                  alt="Avatar"
+                  src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"
+                />
               </StyledDivBookmarkIconContainer>
 
               <CardContent>
@@ -58,26 +61,48 @@ export default function MypageContentsReview({ category, review }) {
                         }
                       />
                     </FormControl>
-                    <Button variant="contained" color="success">
+                    <Button
+                      variant="contained"
+                      color="success"
+                      style={{ marginRight: "2px" }}
+                      onClick={() => {
+                        setIsEdit(false);
+                      }}
+                    >
                       수정
                     </Button>
-                    <Button variant="contained" color="warning">
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      onClick={() => {
+                        setIsEdit(false);
+                      }}
+                    >
                       취소
                     </Button>
                   </div>
                 ) : (
                   <Typography variant="body1" paddingTop={"5px"}>
-                    좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요
+                    좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요
+                    좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요 좋아요
+                    좋아요
                   </Typography>
                 )}
               </CardContent>
 
               <StyledDivSettingsIcon>
-                <FcMenu
-                  size={"25px"}
+                <BiEdit
+                  size={"30px"}
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     setIsEdit(!isEdit);
+                  }}
+                />
+                <BiTrash
+                  size={"30px"}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    window.confirm("삭제하시겠습니까?");
                   }}
                 />
               </StyledDivSettingsIcon>
@@ -103,5 +128,7 @@ const StyledDivBookmarkIconContainer = styled.div`
 `;
 
 const StyledDivSettingsIcon = styled.div`
-  margin-left: 45px;
+  display: flex;
+
+  padding-right: 20px;
 `;
