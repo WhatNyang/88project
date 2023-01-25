@@ -4,6 +4,7 @@ declare type TypeReview = {
   createdAt: string | number;
   userNickName: string;
   date: string | number;
+  userId: string;
 };
 
 export default TypeReview;
