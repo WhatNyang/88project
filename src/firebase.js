@@ -20,12 +20,12 @@ const firebaseConfig = {
   // appId: "1:721665672842:web:36d9ffbe3fba6246a6cf73",
   // measurementId: "G-0EMJKTT5KF",
   //홍구
-  // apiKey: "AIzaSyB5xX9z_mcn_bnWdLw5UHC7uSh6FLGW2l0",
-  // authDomain: "whatnyang-b00f1.firebaseapp.com",
-  // projectId: "whatnyang-b00f1",
-  // storageBucket: "whatnyang-b00f1.appspot.com",
-  // messagingSenderId: "939703503768",
-  // appId: "1:939703503768:web:86075cc0aa7976e08d39ed",
+  apiKey: "AIzaSyB5xX9z_mcn_bnWdLw5UHC7uSh6FLGW2l0",
+  authDomain: "whatnyang-b00f1.firebaseapp.com",
+  projectId: "whatnyang-b00f1",
+  storageBucket: "whatnyang-b00f1.appspot.com",
+  messagingSenderId: "939703503768",
+  appId: "1:939703503768:web:86075cc0aa7976e08d39ed",
   // 시윤
   // apiKey: "AIzaSyBxwMsO8gzmNCM4MT7MlbhdOMQID5ATtYA",
   // authDomain: "rn-todolist-94a8d.firebaseapp.com",
@@ -35,12 +35,12 @@ const firebaseConfig = {
   // appId: "1:412199444502:web:b5b06bdc61f234a843d537",
   // measurementId: "G-WM0WC6YDE3",
   //진수
-  apiKey: "AIzaSyA7urirbxoXBsC8h7DHN1LDxa1IDoei4MM",
-  authDomain: "fir-dd60a.firebaseapp.com",
-  projectId: "fir-dd60a",
-  storageBucket: "fir-dd60a.appspot.com",
-  messagingSenderId: "487503040464",
-  appId: "1:487503040464:web:c2de2dc22f763be3bbb3d5",
+  // apiKey: "AIzaSyA7urirbxoXBsC8h7DHN1LDxa1IDoei4MM",
+  // authDomain: "fir-dd60a.firebaseapp.com",
+  // projectId: "fir-dd60a",
+  // storageBucket: "fir-dd60a.appspot.com",
+  // messagingSenderId: "487503040464",
+  // appId: "1:487503040464:web:c2de2dc22f763be3bbb3d5",
 };
 
 export const app = initializeApp(firebaseConfig);
