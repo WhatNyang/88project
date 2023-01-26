@@ -26,7 +26,13 @@ const Main = () => {
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(place, (data, status, _pagination) => {
-      if (status === kakao.maps.services.Status.OK) {
+      console.log(
+        data.filter((item) => item.address_name.substring(0, 2) === "서울")
+      );
+      if (
+        status === kakao.maps.services.Status.OK /* &&
+        data.address_name.substring(0, 2) === "서울" */
+      ) {
         let bounds = new kakao.maps.LatLngBounds();
         let markers = [];
 
