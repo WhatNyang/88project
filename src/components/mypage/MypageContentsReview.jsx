@@ -1,12 +1,14 @@
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { dbService } from "../../firebase";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { Navigate, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+
+import AlertDialog from "./DeleteModal";
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
@@ -83,11 +85,12 @@ export default function MypageContentsReview({ reviews, user }) {
                       editButtonHanler(item.id);
                     }}
                   />
-                  <BiTrash
+                  <AlertDialog item={item} />
+                  {/* <BiTrash
                     size={"30px"}
                     style={{ cursor: "pointer" }}
                     onClick={() => deleteButtonConfirm(item.id)}
-                  />
+                  /> */}
                 </ReviewBtnArea>
               </div>
               {thisItem === item.id && isEdit ? (
