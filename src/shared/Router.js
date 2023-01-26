@@ -5,6 +5,7 @@ import Detail from "../pages/Detail";
 import Mypage from "../pages/Mypage";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import List from "../pages/List.jsx";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/list" element={<List />} />
       </Routes>
     </BrowserRouter>
   );

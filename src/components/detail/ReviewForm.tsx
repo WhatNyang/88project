@@ -18,6 +18,7 @@ const ReviewForm = () => {
       userNickName: authService.currentUser?.displayName,
       detailId: item.id,
       date: new Date(),
+      place_name: item.place_name,
     });
   };
 
