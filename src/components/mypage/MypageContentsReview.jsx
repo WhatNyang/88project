@@ -5,8 +5,10 @@ import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiEdit, BiTrash } from "react-icons/bi";
-
+import { Navigate, useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 export default function MypageContentsReview({ reviews, user }) {
+  const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
@@ -36,6 +38,11 @@ export default function MypageContentsReview({ reviews, user }) {
       deleteReview(id);
     }
   };
+
+  const navigateDetail = function (item) {
+    console.log("item", item);
+    navigate(`../detail/${item.detailId}`);
+  };
   return (
     <>
       {reviews.map((item) => {
@@ -47,13 +54,25 @@ export default function MypageContentsReview({ reviews, user }) {
                 src={user?.photoURL ? user?.photoURL : null}
               />
             </ReviewProfile>
+            {/* <button
+              onClick={() => {
+                navigateDetail(item);
+              }}
+            >
+              상세보기
+            </button> */}
 
             <ReviewCard>
               <div style={{ display: "flex" }}>
                 <div>
-                  <ReviewInfo></ReviewInfo>
+                  <ReviewInfo>{item.place_name}</ReviewInfo>
                   <div>
-                    <p>{toString(item.date)}</p>
+                    <Typography variant="body2" color="text.secondary">
+                      {new Date(item.createdAt)
+                        .toLocaleDateString()
+                        .replace(/\./g, "")
+                        .replace(/\s/g, " / ")}
+                    </Typography>
                   </div>
                 </div>
                 <ReviewBtnArea>
@@ -74,7 +93,9 @@ export default function MypageContentsReview({ reviews, user }) {
               {thisItem === item.id && isEdit ? (
                 <>
                   <ReviewEditor>
-                    <ReviewTextArea onChange={onChangeText} />
+                    <ReviewTextArea onChange={onChangeText}>
+                      {item.contents}
+                    </ReviewTextArea>
                   </ReviewEditor>
                   <ReviewEditBtn
                     variant="contained"
@@ -110,24 +131,25 @@ export default function MypageContentsReview({ reviews, user }) {
 
 const Container = styled.div`
   padding: 20px 0px 20px 0px;
+  background-color: white;
   border-radius: 10px;
   display: flex;
   margin: 0px 0px 20px 0px;
 `;
 
 const ReviewCard = styled.div`
-  width: 600px;
+  width: 550px;
 `;
 
 const ReviewProfile = styled.div`
   margin-right: 20px;
-  justify-content: center;
-  align-items: center;
+  margin-left: 20px;
 `;
 
 const ReviewInfo = styled.div`
   margin-bottom: 5px;
   font-weight: bold;
+  font-size: 20px;
 `;
 
 const ReviewEditor = styled.div`

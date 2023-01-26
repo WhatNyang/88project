@@ -10,11 +10,22 @@ import {
 import { authService, dbService } from "../../firebase";
 import MypageContentsReview from "./MypageContentsReview";
 import MypageContentsBookmark from "./MypageContentsBookmark";
+import { Navigate, useParams } from "react-router-dom";
 
 export default function MypageContents({ category }) {
   const [bookmark, setBookmark] = useState([]);
   const [reviews, setReviews] = useState([]);
   const user = JSON.parse(localStorage.getItem("User"));
+  // function convertDate(time) {
+  //   let dateInMillis = time * 1000;
+  //   let date = new Date(dateInMillis);
+  //   let myDate = date.toLocaleDateString();
+  //   let myTime = date.toLocaleTimeString();
+  //   myDate = myDate.replaceAll("/", "-");
+  //   return myDate + " " + myTime;
+  // }
+
+  const params = useParams();
 
   useEffect(() => {
     onSnapshot(
@@ -41,6 +52,7 @@ export default function MypageContents({ category }) {
       (snapshot) => {
         const newReview = snapshot.docs.map((doc) => ({
           id: doc.id,
+          // converted_date: convertDate(doc.date),
           ...doc.data(),
         }));
         setReviews(newReview);
