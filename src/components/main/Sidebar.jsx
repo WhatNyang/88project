@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { MdLocationOn, MdInfoOutline } from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { BiSearchAlt } from "react-icons/bi";
 import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Bookmark";
 
-const Sidebar = ({ setPlace }) => {
+const Sidebar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
+
   const sessionPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
   const sessionKeyword = sessionStorage.getItem("SearchKeyword");
+
+  const onResetPlace = () => {
+    window.location.reload();
+    sessionStorage.clear();
+  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -19,12 +25,17 @@ const Sidebar = ({ setPlace }) => {
     setText("");
   };
 
-  const onResetPlace = () => {
-    window.location.reload();
-    sessionStorage.clear();
+  const onFilteredMarker = (item) => {
+    const filteredData = {
+      position: {
+        lat: item.y,
+        lng: item.x,
+      },
+      content: item.place_name,
+    };
+    setInfo(filteredData);
+    setIsOpen(!isOpen);
   };
-
-  // 검색 결과 클릭시 지도 인포윈도우 반환
 
   return (
     <List>
@@ -51,7 +62,7 @@ const Sidebar = ({ setPlace }) => {
         </Place>
       ) : null}
       {sessionPlace?.map((item, i) => (
-        <PlaceList key={i}>
+        <PlaceList key={i} onClick={() => onFilteredMarker(item)}>
           <Bookmark item={item} />
           <PlaceName>{item.place_name}</PlaceName>
           {item.road_address_name ? (
