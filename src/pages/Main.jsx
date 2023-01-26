@@ -13,6 +13,8 @@ const Main = () => {
   const [places, setPlaces] = useState([]);
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState(null);
+  const [info, setInfo] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   const sessionKeyword = sessionStorage.getItem("SearchKeyword");
   const sessionMarkers = JSON.parse(sessionStorage.getItem("SearchMarkers"));
@@ -64,7 +66,14 @@ const Main = () => {
     <>
       <MyMenu />
       <Content>
-        <Sidebar setPlace={setPlace} place={place} places={places} />
+        <Sidebar
+          setPlace={setPlace}
+          places={places}
+          info={info}
+          setInfo={setInfo}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
         {sessionMarkers ? (
           <Map
             center={{
@@ -80,7 +89,14 @@ const Main = () => {
             level={3}
             onCreate={setMap}
           >
-            <Markers markers={markers} sessionMarkers={sessionMarkers} />
+            <Markers
+              info={info}
+              setInfo={setInfo}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              markers={markers}
+              sessionMarkers={sessionMarkers}
+            />
           </Map>
         ) : (
           <Map
@@ -97,7 +113,15 @@ const Main = () => {
             level={3}
             onCreate={setMap}
           >
-            <Markers markers={markers} sessionMarkers={sessionMarkers} />
+            <Markers
+              info={info}
+              setInfo={setInfo}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              places={places}
+              markers={markers}
+              sessionMarkers={sessionMarkers}
+            />
           </Map>
         )}
       </Content>
@@ -109,6 +133,6 @@ export default Main;
 
 const Content = styled.div`
   display: flex;
-  width: 105vw;
+  width: 100vw;
   height: 100vh;
 `;

@@ -7,6 +7,11 @@ import { uploadString, getDownloadURL, ref } from "firebase/storage";
 const imgProfile =
   "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
 
+interface propsType {
+  bookmarkCount: number;
+  reviewsCount: number;
+}
+
 type ProfileItemProps = {
   nickname: string;
   image: string;
@@ -14,7 +19,7 @@ type ProfileItemProps = {
   review: number;
 };
 
-function MypageProfile() {
+function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const currentUser = JSON.parse(localStorage.getItem("User") as string);
 
   const initialState = {
@@ -136,11 +141,11 @@ function MypageProfile() {
             <div></div>
             {/* 내 프로필 관심, 리뷰*/}
             <div>북마크</div>
-            <div>{initialState.bookmark}</div>
+            <div>{bookmarkCount}</div>
           </ProfileListBookmark>
           <ProfileListReview>
             <div>리뷰</div>
-            <div>{initialState.review}</div>
+            <div>{reviewsCount}</div>
           </ProfileListReview>
         </ProfileListBookmarkReview>
       </ProfileList>

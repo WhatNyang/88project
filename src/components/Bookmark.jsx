@@ -50,7 +50,7 @@ const Bookmark = ({ item }) => {
   );
 
   const onAddBookmark = (e, item) => {
-    e.preventDefault();
+    e.stopPropagation();
     const newData = {
       userId: authService.currentUser?.uid,
       createdAt: Date.now(),
@@ -80,7 +80,7 @@ const Bookmark = ({ item }) => {
   );
 
   const onDeleteBookmark = (e) => {
-    e.preventDefault();
+    e.stopPropagation();
     try {
       del(filteredId);
       handleClick();

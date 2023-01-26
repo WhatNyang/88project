@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { MapMarker } from "react-kakao-maps-sdk";
+import { POINT_COLOR } from "../../color";
 
-const Markers = ({ markers, sessionMarkers }) => {
-  const [info, setInfo] = useState();
-  const [isOpen, setIsOpen] = useState(false);
-
+const Markers = ({
+  info,
+  setInfo,
+  isOpen,
+  setIsOpen,
+  markers,
+  sessionMarkers,
+}) => {
   const onMarkerHandler = (marker) => {
     setInfo(marker);
     setIsOpen(!isOpen);
@@ -46,6 +51,9 @@ const InfoWindow = styled.div`
   cursor: pointer;
   width: 150px;
   text-align: center;
-  padding: 5px;
-  font-size: 13px;
+  padding: 15px;
+  font-size: 16px;
+  background-color: ${POINT_COLOR};
+  color: white;
+  border: none;
 `;
