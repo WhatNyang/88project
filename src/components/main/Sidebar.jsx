@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { MdLocationOn, MdInfoOutline } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
@@ -7,9 +7,10 @@ import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Bookmark";
 
-const Sidebar = ({ text, setText, setPlace, places }) => {
+const Sidebar = ({ setPlace }) => {
+  const [text, setText] = useState("");
   const navigate = useNavigate();
-  const sessionData = JSON.parse(sessionStorage.getItem("SearchPlace"));
+  const sessionPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
   const sessionKeyword = sessionStorage.getItem("SearchKeyword");
 
   const onSubmitHandler = (e) => {
@@ -18,12 +19,16 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
     setText("");
   };
 
-  // 디테일 페이지에서 뒤로 가기 실행시 검색 결과 유지
+  const onResetPlace = () => {
+    window.location.reload();
+    sessionStorage.clear();
+  };
+
   // 검색 결과 클릭시 지도 인포윈도우 반환
 
   return (
     <List>
-      <Title>
+      <Title onClick={onResetPlace}>
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
       </Title>
       <form onSubmit={onSubmitHandler}>
@@ -42,10 +47,10 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
       {sessionKeyword ? (
         <Place>
           <h2>'{sessionKeyword}' 결과</h2>
-          <PlaceCount>{sessionData?.length}</PlaceCount>
+          <PlaceCount>{sessionPlace?.length}</PlaceCount>
         </Place>
       ) : null}
-      {sessionData?.map((item, i) => (
+      {sessionPlace?.map((item, i) => (
         <PlaceList key={i}>
           <Bookmark item={item} />
           <PlaceName>{item.place_name}</PlaceName>
@@ -75,8 +80,7 @@ const Sidebar = ({ text, setText, setPlace, places }) => {
               navigate(`/detail/${item.id}`, { state: item });
             }}
           >
-            <MdInfoOutline style={{ margin: "0 5px -2px 0" }} />
-            상세보기
+            정보 보기
           </PlaceLink>
         </PlaceList>
       ))}
@@ -111,6 +115,7 @@ const List = styled.div`
 const Title = styled.h1`
   font-size: 40px;
   font-weight: 900;
+  cursor: pointer;
 `;
 
 const Search = styled.div`
@@ -145,6 +150,7 @@ const PlaceList = styled.div`
   padding: 10px 10px;
   transition: 0.1s ease-out;
   cursor: pointer;
+  border-radius: 10px;
   &:hover {
     background-color: ${BACKGROUND_COLOR};
     transition: 0.1s ease-out;
@@ -169,14 +175,20 @@ const PlaceInfoRoadAddress = styled.div`
   margin: 3px 0 0 22px;
 `;
 
-const PlaceLink = styled.div`
+const PlaceLink = styled.button`
   font-size: 15px;
-  font-weight: 300;
-  margin-top: 5px;
+  font-family: GmarketSans;
+  margin-top: 7px;
+  padding: 5px 10px;
+  border: 1px solid ${POINT_COLOR};
+  border-radius: 50px;
+  background-color: ${BACKGROUND_COLOR};
+  color: ${POINT_COLOR};
   cursor: pointer;
   transition: 0.1s ease-out;
   &:hover {
-    color: ${POINT_COLOR};
     transition: 0.1s ease-out;
+    background-color: ${POINT_COLOR};
+    color: white;
   }
 `;

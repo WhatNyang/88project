@@ -25,19 +25,18 @@ const Bookmark = ({ item }) => {
 
   const action = <React.Fragment />;
 
-  const filteredUser = list.filter((data) => {
+  const filteredData = list.filter((data) => {
     if (authService.currentUser.uid === data.userId) {
-      return data;
+      if (
+        data.place === item.place_name &&
+        data.address === item.address_name
+      ) {
+        return data;
+      }
     }
   });
 
-  const filteredData = filteredUser.filter((data) => {
-    if (data.place === item.place_name && data.address === item.address_name) {
-      return data.id;
-    }
-  });
-
-  const fiteredId = filteredData[0] !== undefined ? filteredData[0].id : null;
+  const filteredId = filteredData[0] !== undefined ? filteredData[0].id : null;
 
   const { mutate: add } = useMutation(
     ["addBookmark"],
@@ -70,7 +69,7 @@ const Bookmark = ({ item }) => {
   };
 
   const { mutate: del } = useMutation(
-    ["deleteBookmark", fiteredId],
+    ["deleteBookmark", filteredId],
     (body) => deleteBookmark(body),
     {
       onSuccess: () => {},
@@ -83,7 +82,7 @@ const Bookmark = ({ item }) => {
   const onDeleteBookmark = (e) => {
     e.preventDefault();
     try {
-      del(fiteredId);
+      del(filteredId);
       handleClick();
     } catch (error) {
       console.log("error", error);
@@ -105,13 +104,6 @@ const Bookmark = ({ item }) => {
     });
     return data;
   }, []);
-
-  // const { data: bookmarkData } = useQuery(["bookmark"], getBookmark, {
-  //   onSuccess: () => {},
-  //   onError: (error) => {
-  //     console.log("error", error);
-  //   },
-  // });
 
   return (
     <>
