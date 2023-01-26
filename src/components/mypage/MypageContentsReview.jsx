@@ -6,12 +6,14 @@ import { useState } from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiEdit, BiTrash } from "react-icons/bi";
 
-export default function MypageContentsReview({ review, user }) {
+export default function MypageContentsReview({ reviews, user }) {
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("");
+  const [thisItem, setThisItem] = useState();
 
-  const deleteReview = async (id) => {
-    await deleteDoc(doc(dbService, "review", id));
+  const editButtonHanler = function (item) {
+    setThisItem(item);
+    setIsEdit(!isEdit);
   };
 
   const onChangeText = function (event) {
@@ -19,19 +21,24 @@ export default function MypageContentsReview({ review, user }) {
   };
 
   const editReview = async (id) => {
-    await updateDoc(doc(dbService, "review", id), {
-      text: editText,
+    await updateDoc(doc(dbService, "reviews", id), {
+      contents: editText,
     });
   };
 
-  const deleteButtonConfirm = () => {
+  const deleteReview = async (id) => {
+    await deleteDoc(doc(dbService, "reviews", id));
+    alert("삭제되었습니다");
+  };
+
+  const deleteButtonConfirm = (id) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      alert("삭제되었습니다.");
+      deleteReview(id);
     }
   };
   return (
     <>
-      {review.map((item) => {
+      {reviews.map((item) => {
         return (
           <Container key={item.id}>
             <ReviewProfile>
@@ -44,15 +51,17 @@ export default function MypageContentsReview({ review, user }) {
             <ReviewCard>
               <div style={{ display: "flex" }}>
                 <div>
-                  <ReviewInfo>헬스퀘어</ReviewInfo>
-                  <div>2023.01.01</div>
+                  <ReviewInfo></ReviewInfo>
+                  <div>
+                    <p>{toString(item.date)}</p>
+                  </div>
                 </div>
                 <ReviewBtnArea>
                   <BiEdit
                     size={"30px"}
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      setIsEdit(!isEdit);
+                      editButtonHanler(item.id);
                     }}
                   />
                   <BiTrash
@@ -62,25 +71,17 @@ export default function MypageContentsReview({ review, user }) {
                   />
                 </ReviewBtnArea>
               </div>
-              {isEdit ? (
+              {thisItem === item.id && isEdit ? (
                 <>
                   <ReviewEditor>
-                    <ReviewTextArea />
-                    {/* <Input
-                    id="standard-adornment-amount"
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <AiOutlineEdit />
-                      </InputAdornment>
-                    }
-                    onChange={onChangeText}
-                  /> */}
+                    <ReviewTextArea onChange={onChangeText} />
                   </ReviewEditor>
                   <ReviewEditBtn
                     variant="contained"
                     color="success"
                     style={{ marginRight: "2px" }}
                     onClick={() => {
+                      editReview(item.id);
                       setIsEdit(false);
                     }}
                   >
@@ -97,11 +98,7 @@ export default function MypageContentsReview({ review, user }) {
                   </ReviewEditBtn>
                 </>
               ) : (
-                <div>
-                  좋아요 좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요
-                  좋아요 좋아요좋아요 좋아요 좋아요좋아요 좋아요 좋아요 좋아요
-                  좋아요
-                </div>
+                <p>{item.contents}</p>
               )}
             </ReviewCard>
           </Container>
@@ -144,7 +141,7 @@ const ReviewBtnArea = styled.div`
 
 const ReviewTextArea = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 50px;
 `;
 
 const ReviewEditBtn = styled.button``;

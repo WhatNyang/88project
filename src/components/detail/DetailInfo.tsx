@@ -19,18 +19,21 @@ const DetailInfo = () => {
             <FiMapPin />
             &nbsp; {item.road_address_name} ({item.address_name})
           </StyledText>
-          <StyledText>
-            <MdPhone />
-            &nbsp; {item.phone}
-          </StyledText>
-          <StyledText>
-            <MdInfoOutline />
-            &nbsp; {item.category_group_name}
-          </StyledText>
-          <StyledText>
-            <MdHome />
-            &nbsp; {item.place_url}
-          </StyledText>
+          {item.phone ? (
+            <StyledText>
+              <MdPhone /> {item.phone}
+            </StyledText>
+          ) : null}
+          {item.category_group_name ? (
+            <StyledText>
+              <MdInfoOutline /> {item.category_group_name}
+            </StyledText>
+          ) : null}
+          {item.place_url ? (
+            <StyledText>
+              <MdHome /> {item.place_url}
+            </StyledText>
+          ) : null}
         </InfoTextBox>
         <DetailMap />
       </InfoBox>
