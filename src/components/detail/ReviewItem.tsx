@@ -3,7 +3,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -14,7 +13,7 @@ import { useEffect, useState } from "react";
 import TypeReview from "../../modules/typeReview";
 import { useLocation } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 const ReviewItem = () => {
   const location = useLocation();
@@ -70,23 +69,29 @@ const ReviewItem = () => {
       {reviews.map((item) => {
         return (
           <ItemBox key={item.createdAt}>
-            <StyledPhoto>사진</StyledPhoto>
+            {item.photoUrl ? (
+              <StyledPhoto src={item.photoUrl} />
+            ) : (
+              <StyledPhoto src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
+            )}
             <ContentBox>
-              <ReviewInfoBox>
+              <InfoBox>
                 <StyledNickname>{item.userNickName}</StyledNickname>
-                <CreateDate>
-                  {new Date(item.createdAt)
-                    .toLocaleDateString()
-                    .replace(/\./g, "")
-                    .replace(/\s/g, " / ")}
-                </CreateDate>
-                {authService.currentUser?.uid === item.userId ? (
-                  <RiDeleteBinLine
-                    onClick={() => handleDeleteBtn(item.id)}
-                    // 매개변수가 필요하기 때문에 콜백으로 넣어줘야한다
-                  ></RiDeleteBinLine>
-                ) : null}
-              </ReviewInfoBox>
+                <RightBox>
+                  <CreateDate>
+                    {new Date(item.createdAt)
+                      .toLocaleDateString()
+                      .replace(/\./g, "")
+                      .replace(/\s/g, " / ")}
+                  </CreateDate>
+                  {authService.currentUser?.uid === item.userId ? (
+                    <RiDeleteBinLine
+                      onClick={() => handleDeleteBtn(item.id)}
+                      // 매개변수가 필요하기 때문에 콜백으로 넣어줘야한다
+                    ></RiDeleteBinLine>
+                  ) : null}
+                </RightBox>
+              </InfoBox>
               <ReviewContent>{item.contents}</ReviewContent>
             </ContentBox>
           </ItemBox>
@@ -105,9 +110,14 @@ const ItemBox = styled.div`
   display: flex;
 `;
 const ContentBox = styled.div``;
-const ReviewInfoBox = styled.div`
+const InfoBox = styled.div`
   display: flex;
   width: 500px;
+  justify-content: space-between;
+`;
+const RightBox = styled.div`
+  display: flex;
+  align-items: center;
 `;
 const CreateDate = styled.div`
   margin: 20px;
@@ -118,11 +128,10 @@ const ReviewContent = styled.div`
   margin: 20px;
   margin-top: 0;
 `;
-const StyledPhoto = styled.div`
+const StyledPhoto = styled.img`
   margin: 20px;
-  width: 70px;
+  width: 95px;
   height: 70px;
-  background-color: black;
 `;
 const StyledNickname = styled.div`
   margin: 20px;
