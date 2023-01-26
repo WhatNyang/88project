@@ -4,13 +4,14 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCs3OtP4bwHc4DzziKLIzM4vlJMhyuflEg",
-  authDomain: "reactnative-dbdad.firebaseapp.com",
-  databaseURL: "https://reactnative-dbdad-default-rtdb.firebaseio.com",
-  projectId: "reactnative-dbdad",
-  storageBucket: "reactnative-dbdad.appspot.com",
-  messagingSenderId: "103307494325",
-  appId: "1:103307494325:web:cb3f1b74c60ccc2bba8ffc",
+  // 채하
+  // apiKey: "AIzaSyCs3OtP4bwHc4DzziKLIzM4vlJMhyuflEg",
+  // authDomain: "reactnative-dbdad.firebaseapp.com",
+  // databaseURL: "https://reactnative-dbdad-default-rtdb.firebaseio.com",
+  // projectId: "reactnative-dbdad",
+  // storageBucket: "reactnative-dbdad.appspot.com",
+  // messagingSenderId: "103307494325",
+  // appId: "1:103307494325:web:cb3f1b74c60ccc2bba8ffc",
   // 유진
   // apiKey: "AIzaSyBXYCqBiZDv7uLsB_hLmFQLFteRpRpo3nk",
   // authDomain: "whatyang-9c03d.firebaseapp.com",
@@ -27,13 +28,13 @@ const firebaseConfig = {
   // messagingSenderId: "939703503768",
   // appId: "1:939703503768:web:86075cc0aa7976e08d39ed",
   // 시윤
-  // apiKey: "AIzaSyBxwMsO8gzmNCM4MT7MlbhdOMQID5ATtYA",
-  // authDomain: "rn-todolist-94a8d.firebaseapp.com",
-  // projectId: "rn-todolist-94a8d",
-  // storageBucket: "rn-todolist-94a8d.appspot.com",
-  // messagingSenderId: "412199444502",
-  // appId: "1:412199444502:web:b5b06bdc61f234a843d537",
-  // measurementId: "G-WM0WC6YDE3",
+  apiKey: "AIzaSyBxwMsO8gzmNCM4MT7MlbhdOMQID5ATtYA",
+  authDomain: "rn-todolist-94a8d.firebaseapp.com",
+  projectId: "rn-todolist-94a8d",
+  storageBucket: "rn-todolist-94a8d.appspot.com",
+  messagingSenderId: "412199444502",
+  appId: "1:412199444502:web:b5b06bdc61f234a843d537",
+  measurementId: "G-WM0WC6YDE3",
 };
 
 export const app = initializeApp(firebaseConfig);
