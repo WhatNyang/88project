@@ -27,9 +27,6 @@ const StyledDivContainer = styled.div`
   margin-top: 100px;
 `;
 const StyledDivMain = styled.div`
-  display: grid;
-  grid-template-rows: 0.2fr 0.1fr 1fr;
-  grid-template-columns: repeat(1, 1fr);
   width: 700px;
   height: 100%;
   left: 225px;
