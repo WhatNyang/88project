@@ -29,6 +29,9 @@ const Main = () => {
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();
         let markers = [];
+        // console.log(
+        //   data.filter((item) => item.address_name.substring(0, 2) === "서울")
+        // );
 
         for (var i = 0; i < data.length; i++) {
           markers.push({

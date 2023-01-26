@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import styled from "styled-components";
 
 declare global {
-  interface Window {
+  export interface Window {
     kakao: any;
   }
 }
