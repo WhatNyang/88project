@@ -5,13 +5,13 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   // 채하
-  apiKey: "AIzaSyCs3OtP4bwHc4DzziKLIzM4vlJMhyuflEg",
-  authDomain: "reactnative-dbdad.firebaseapp.com",
-  databaseURL: "https://reactnative-dbdad-default-rtdb.firebaseio.com",
-  projectId: "reactnative-dbdad",
-  storageBucket: "reactnative-dbdad.appspot.com",
-  messagingSenderId: "103307494325",
-  appId: "1:103307494325:web:cb3f1b74c60ccc2bba8ffc",
+  // apiKey: "AIzaSyCs3OtP4bwHc4DzziKLIzM4vlJMhyuflEg",
+  // authDomain: "reactnative-dbdad.firebaseapp.com",
+  // databaseURL: "https://reactnative-dbdad-default-rtdb.firebaseio.com",
+  // projectId: "reactnative-dbdad",
+  // storageBucket: "reactnative-dbdad.appspot.com",
+  // messagingSenderId: "103307494325",
+  // appId: "1:103307494325:web:cb3f1b74c60ccc2bba8ffc",
   // 유진
   // apiKey: "AIzaSyBXYCqBiZDv7uLsB_hLmFQLFteRpRpo3nk",
   // authDomain: "whatyang-9c03d.firebaseapp.com",
