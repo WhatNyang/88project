@@ -31,10 +31,6 @@ const ReviewForm = () => {
     },
   });
 
-  // if (mutation.isSuccess) {
-  //   console.log("mutation", mutation);
-  // }
-
   // 에러메세지
   const getErrorMsg = (errorCode: any, params: any) => {
     switch (errorCode) {

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {
   collection,
   deleteDoc,
+  doc,
   getDocs,
   onSnapshot,
   orderBy,
@@ -13,7 +14,7 @@ import { useEffect, useState } from "react";
 import TypeReview from "../../modules/typeReview";
 import { useLocation } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const ReviewItem = () => {
   const location = useLocation();
@@ -38,17 +39,20 @@ const ReviewItem = () => {
     return unsubscribe;
   }, []);
 
-  const deleteReview = async () => {
-    const q = query(
-      collection(dbService, "reviews"),
-      where("userId", "==", authService.currentUser?.uid)
-    );
-    const data = await getDocs(q);
-    if (data.docs.length !== 0) {
-      await deleteDoc(data.docs[0].ref);
-    }
-  };
+  // const deleteReview = async (id: string) => {
+  //   await deleteDoc(doc(dbService, "reviews", id));
+  // };
+  // return undefined가 생략되어있음
+  // 요청은 서버로가지만 mutation이 서버상태관리를하지못한다
 
+  // const deleteReview = async (id: string) => {
+  //   return await deleteDoc(doc(dbService, "reviews", id));
+  // };
+  // return을 앞에 써주면 되지만 그러면 async await을 쓰는 의미가 없음
+
+  const deleteReview = (id: string) => {
+    return deleteDoc(doc(dbService, "reviews", id));
+  };
   const mutation = useMutation(deleteReview, {
     onSuccess: () => {
       queryClient.invalidateQueries("reviews");
@@ -57,11 +61,9 @@ const ReviewItem = () => {
       console.log(error);
     },
   });
-
-  // const handleDeleteBtn = (e) => {
-  //   e.preventDefault();
-  //   mutation.mutate(??)
-  // };
+  const handleDeleteBtn = (id: string) => {
+    mutation.mutate(id);
+  };
 
   return (
     <>
@@ -79,7 +81,10 @@ const ReviewItem = () => {
                     .replace(/\s/g, " / ")}
                 </CreateDate>
                 {authService.currentUser?.uid === item.userId ? (
-                  <RiDeleteBinLine onClick={deleteReview}></RiDeleteBinLine>
+                  <RiDeleteBinLine
+                    onClick={() => handleDeleteBtn(item.id)}
+                    // 매개변수가 필요하기 때문에 콜백으로 넣어줘야한다
+                  ></RiDeleteBinLine>
                 ) : null}
               </ReviewInfoBox>
               <ReviewContent>{item.contents}</ReviewContent>

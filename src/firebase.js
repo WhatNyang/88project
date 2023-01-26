@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
+
   // apiKey: "AIzaSyCs3OtP4bwHc4DzziKLIzM4vlJMhyuflEg",
   // authDomain: "reactnative-dbdad.firebaseapp.com",
   // databaseURL: "https://reactnative-dbdad-default-rtdb.firebaseio.com",
