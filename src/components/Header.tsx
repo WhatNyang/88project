@@ -13,6 +13,7 @@ const Header = () => {
       <Title
         onClick={() => {
           navigate("/");
+          sessionStorage.clear();
         }}
       >
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>

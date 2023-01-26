@@ -11,6 +11,7 @@ const MyMenu = () => {
   const logout = () => {
     authService.signOut();
     navigate("/index");
+    sessionStorage.clear();
   };
 
   return (
@@ -67,6 +68,7 @@ const Menu = styled.div`
   z-index: 999;
   text-align: center;
   color: white;
+  font-family: GmarketSans;
 `;
 
 const MenuItem = styled.p`

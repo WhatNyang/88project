@@ -2,27 +2,25 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Sidebar from "../components/main/Sidebar";
 import MyMenu from "../components/MyMenu";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
+import Markers from "../components/main/Markers";
 
 const { kakao } = window;
 
 const Main = () => {
-  const [text, setText] = useState("");
   const [place, setPlace] = useState("");
   const [places, setPlaces] = useState([]);
-  const [info, setInfo] = useState();
   const [markers, setMarkers] = useState([]);
-  const [map, setMap] = useState();
-  const [isOpen, setIsOpen] = useState(false);
+  const [map, setMap] = useState(null);
 
-  const onMarkerHandler = (marker) => {
-    setInfo(marker);
-    setIsOpen(!isOpen);
-  };
+  const sessionKeyword = sessionStorage.getItem("SearchKeyword");
+  const sessionMarkers = JSON.parse(sessionStorage.getItem("SearchMarkers"));
+
+  const sessionLat = sessionMarkers ? sessionMarkers[0].position.lat : null;
+  const sessionLng = sessionMarkers ? sessionMarkers[0].position.lng : null;
 
   useEffect(() => {
-    if (!map) return;
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(place, (data, status, _pagination) => {
@@ -40,52 +38,65 @@ const Main = () => {
           });
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
+
         setMarkers(markers);
         setPlaces(data);
         map.setBounds(bounds);
         displayPagination(_pagination);
-        sessionStorage.setItem("SearchPlace", JSON.stringify(data));
+
         sessionStorage.setItem("SearchKeyword", place);
+        sessionStorage.setItem("SearchPlace", JSON.stringify(data));
+        sessionStorage.setItem("SearchBounds", JSON.stringify(bounds));
+        sessionStorage.setItem("SearchMarkers", JSON.stringify(markers));
       }
     });
   }, [place]);
+
+  useEffect(() => {
+    if (!sessionMarkers) return;
+    setMarkers(sessionMarkers);
+  }, [sessionKeyword]);
 
   return (
     <>
       <MyMenu />
       <Content>
-        <Sidebar
-          text={text}
-          setText={setText}
-          setPlace={setPlace}
-          places={places}
-        />
-        <Map
-          center={{
-            lat: 37.566826,
-            lng: 126.9786567,
-          }}
-          style={{
-            width: "70vw",
-            height: "100vh",
-            float: "right",
-            fontFamily: "GmarketSans",
-          }}
-          level={3}
-          onCreate={setMap}
-        >
-          {markers.map((marker) => (
-            <MapMarker
-              key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
-              position={marker.position}
-              onClick={() => onMarkerHandler(marker)}
-            >
-              {info &&
-                info.content === marker.content &&
-                (isOpen ? <InfoWindow>{marker.content}</InfoWindow> : null)}
-            </MapMarker>
-          ))}
-        </Map>
+        <Sidebar setPlace={setPlace} place={place} places={places} />
+        {sessionMarkers ? (
+          <Map
+            center={{
+              lat: sessionLat,
+              lng: sessionLng,
+            }}
+            style={{
+              width: "70vw",
+              height: "100vh",
+              float: "right",
+              fontFamily: "GmarketSans",
+            }}
+            level={3}
+            onCreate={setMap}
+          >
+            <Markers markers={markers} sessionMarkers={sessionMarkers} />
+          </Map>
+        ) : (
+          <Map
+            center={{
+              lat: 37.566826,
+              lng: 126.9786567,
+            }}
+            style={{
+              width: "70vw",
+              height: "100vh",
+              float: "right",
+              fontFamily: "GmarketSans",
+            }}
+            level={3}
+            onCreate={setMap}
+          >
+            <Markers markers={markers} sessionMarkers={sessionMarkers} />
+          </Map>
+        )}
       </Content>
     </>
   );
@@ -97,12 +108,4 @@ const Content = styled.div`
   display: flex;
   width: 105vw;
   height: 100vh;
-`;
-
-const InfoWindow = styled.div`
-  cursor: pointer;
-  width: 150px;
-  text-align: center;
-  padding: 5px;
-  font-size: 13px;
 `;
