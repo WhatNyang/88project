@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import React, { ChangeEvent, useRef, useState } from "react";
 import { updateProfile } from "firebase/auth";
-import { authService } from "../../firebase";
+import { authService, storage } from "../../firebase";
+import { uploadString, getDownloadURL, ref } from "firebase/storage";
 // import { dbService } from "../../firebase";
-
 const imgProfile =
   "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
+
+interface propsType {
+  bookmarkCount: number;
+  reviewsCount: number;
+}
 
 type ProfileItemProps = {
   nickname: string;
@@ -14,7 +19,7 @@ type ProfileItemProps = {
   review: number;
 };
 
-function MypageProfile() {
+function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const currentUser = JSON.parse(localStorage.getItem("User") as string);
   console.log(currentUser);
   const initialState = {
@@ -55,11 +60,18 @@ function MypageProfile() {
   };
 
   // 프로필 수정 완료 하기
-  const profileEditComplete = () => {
-    console.log(nicknameEdit);
+  const profileEditComplete = async () => {
+    const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
+
+    const imgDataUrl = imgFile;
+    let downloadUrl;
+    if (imgDataUrl) {
+      const response = await uploadString(imgRef, imgDataUrl, "data_url");
+      downloadUrl = await getDownloadURL(response.ref);
+    }
     updateProfile(authService.currentUser as any, {
       displayName: nicknameEdit,
-      photoURL: imgFile,
+      photoURL: downloadUrl,
     })
       .then(() => {
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
@@ -129,11 +141,11 @@ function MypageProfile() {
             <div></div>
             {/* 내 프로필 관심, 리뷰*/}
             <div>북마크</div>
-            <div>{initialState.bookmark}</div>
+            <div>{bookmarkCount}</div>
           </ProfileListBookmark>
           <ProfileListReview>
             <div>리뷰</div>
-            <div>{initialState.review}</div>
+            <div>{reviewsCount}</div>
           </ProfileListReview>
         </ProfileListBookmarkReview>
       </ProfileList>
