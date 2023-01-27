@@ -6,10 +6,13 @@ import { addBookmark, deleteBookmark } from "../data/bookmark";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import Snackbar from "@mui/material/Snackbar";
 import { POINT_COLOR } from "../color";
+import { user } from "../pages/Mypage";
 
 const Bookmark = ({ item }) => {
   const [list, setList] = useState([]);
   const [open, setOpen] = React.useState(false);
+
+  const userId = authService.currentUser ? authService.currentUser.uid : user;
 
   const handleClick = () => {
     setOpen(true);
@@ -26,7 +29,7 @@ const Bookmark = ({ item }) => {
   const action = <React.Fragment />;
 
   const filteredData = list.filter((data) => {
-    if (authService.currentUser.uid === data.userId) {
+    if (userId === data.userId) {
       if (
         data.place === item.place_name &&
         data.address === item.address_name
@@ -52,7 +55,7 @@ const Bookmark = ({ item }) => {
   const onAddBookmark = (e, item) => {
     e.stopPropagation();
     const newData = {
-      userId: authService.currentUser?.uid,
+      userId,
       createdAt: Date.now(),
       place: item.place_name,
       address: item.address_name,

@@ -7,7 +7,7 @@ import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Bookmark";
 
-const Sidebar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
+const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
 
@@ -31,7 +31,8 @@ const Sidebar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
         lat: item.y,
         lng: item.x,
       },
-      content: item.place_name,
+      place_name: item.place_name,
+      address_name: item.address_name,
     };
     setInfo(filteredData);
     setIsOpen(!isOpen);
@@ -109,7 +110,7 @@ const Sidebar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
   );
 };
 
-export default Sidebar;
+export default Searchbar;
 
 const List = styled.div`
   width: 23%;

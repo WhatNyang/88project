@@ -15,6 +15,10 @@ export default function MypageContentsReview({ reviews, user }) {
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
 
+  const sessionPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
+
+  console.log(sessionPlace);
+
   const editButtonHanler = function (item) {
     setThisItem(item);
     setIsEdit(!isEdit);
@@ -43,7 +47,7 @@ export default function MypageContentsReview({ reviews, user }) {
 
   const navigateDetail = function (item) {
     console.log("item", item);
-    navigate(`../detail/${item.detailId}`);
+    // navigate(`../detail/${item.detailId}`);
   };
   return (
     <>
@@ -64,7 +68,7 @@ export default function MypageContentsReview({ reviews, user }) {
               상세보기
             </button> */}
 
-            <ReviewCard>
+            <ReviewCard onClick={navigateDetail}>
               <div style={{ display: "flex" }}>
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>

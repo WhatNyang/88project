@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Sidebar from "../components/main/Sidebar";
+import Searchbar from "../components/main/Searchbar";
 import MyMenu from "../components/MyMenu";
 import { Map } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
@@ -39,8 +39,17 @@ const Main = () => {
               lat: data[i].y,
               lng: data[i].x,
             },
-            content: data[i].place_name,
+            place_name: data[i].place_name,
+            address_name: data[i].address_name,
+            road_address_name: data[i].road_address_name,
+            phone: data[i].phone,
+            category_group_name: data[i].category_group_name,
+            place_url: data[i].place_url,
+            id: data[i].id,
+            x: data[i].x,
+            y: data[i].y,
           });
+          console.log(data);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
 
@@ -66,7 +75,7 @@ const Main = () => {
     <>
       <MyMenu />
       <Content>
-        <Sidebar
+        <Searchbar
           setPlace={setPlace}
           places={places}
           info={info}
@@ -118,7 +127,6 @@ const Main = () => {
               setInfo={setInfo}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
-              places={places}
               markers={markers}
               sessionMarkers={sessionMarkers}
             />
