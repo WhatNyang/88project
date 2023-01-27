@@ -21,7 +21,7 @@ type ProfileItemProps = {
 
 function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const currentUser = JSON.parse(localStorage.getItem("User") as string);
-  console.log(currentUser);
+
   const initialState = {
     nickname: currentUser.displayName,
     image: imgProfile,
@@ -87,7 +87,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNicknameEdit(e.target.value);
   };
-  console.log(nicknameEdit);
+  console.log("nicknameEdit", nicknameEdit);
   return (
     <StyledDivOne>
       <div></div>

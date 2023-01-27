@@ -5,6 +5,7 @@ declare type TypeReview = {
   userNickName: string;
   date: string | number;
   userId: string;
+  photoUrl: string | undefined;
 };
 
 export default TypeReview;

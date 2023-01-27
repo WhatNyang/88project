@@ -19,6 +19,7 @@ const ReviewForm = () => {
       detailId: item.id,
       date: new Date(),
       place_name: item.place_name,
+      photoUrl: authService.currentUser?.photoURL,
     });
   };
 
@@ -30,10 +31,6 @@ const ReviewForm = () => {
       console.log(error);
     },
   });
-
-  // if (mutation.isSuccess) {
-  //   console.log("mutation", mutation);
-  // }
 
   // 에러메세지
   const getErrorMsg = (errorCode: any, params: any) => {
