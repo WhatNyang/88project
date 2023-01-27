@@ -76,6 +76,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
     })
       .then(() => {
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
+        localStorage.removeItem("imgURL");
         setEdit(!editmode);
       })
       .catch((error) => {
