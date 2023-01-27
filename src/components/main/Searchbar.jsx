@@ -6,6 +6,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Bookmark";
+import Reviews from "./Reviews";
 
 const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
   const [text, setText] = useState("");
@@ -65,41 +66,47 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
           <h2>'{searchKeyword}' 결과</h2>
           <PlaceCount>{searchPlace?.length}</PlaceCount>
         </Place>
-      ) : null}
-      {searchPlace?.map((item, i) => (
-        <PlaceList key={i} onClick={() => onFilteredMarker(item)}>
-          <Bookmark item={item} />
-          <PlaceName>{item.place_name}</PlaceName>
-          {item.road_address_name ? (
-            <>
+      ) : (
+        <h2>어디로 떠날지 고민되시나요?</h2>
+      )}
+      {searchPlace ? (
+        searchPlace.map((item, i) => (
+          <PlaceList key={i} onClick={() => onFilteredMarker(item)}>
+            <Bookmark item={item} />
+            <PlaceName>{item.place_name}</PlaceName>
+            {item.road_address_name ? (
+              <>
+                <PlaceInfo>
+                  <MdLocationOn style={{ marginBottom: "-2px" }} />{" "}
+                  {item.address_name}
+                </PlaceInfo>
+                <PlaceInfoRoadAddress>
+                  (도로명: {item.road_address_name})
+                </PlaceInfoRoadAddress>
+              </>
+            ) : (
               <PlaceInfo>
-                <MdLocationOn style={{ marginBottom: "-2px" }} />{" "}
-                {item.address_name}
+                <MdLocationOn /> {item.address_name}
               </PlaceInfo>
-              <PlaceInfoRoadAddress>
-                (도로명: {item.road_address_name})
-              </PlaceInfoRoadAddress>
-            </>
-          ) : (
-            <PlaceInfo>
-              <MdLocationOn /> {item.address_name}
-            </PlaceInfo>
-          )}
-          {item.phone ? (
-            <PlaceInfo>
-              <GiRotaryPhone style={{ margin: "0 5px -2px 0" }} />
-              {item.phone}
-            </PlaceInfo>
-          ) : null}
-          <PlaceLink
-            onClick={() => {
-              navigate(`/detail/${item.id}`, { state: item });
-            }}
-          >
-            정보 보기
-          </PlaceLink>
-        </PlaceList>
-      ))}
+            )}
+            {item.phone ? (
+              <PlaceInfo>
+                <GiRotaryPhone style={{ margin: "0 5px -2px 0" }} />
+                {item.phone}
+              </PlaceInfo>
+            ) : null}
+            <PlaceLink
+              onClick={() => {
+                navigate(`/detail/${item.id}`, { state: item });
+              }}
+            >
+              정보 보기
+            </PlaceLink>
+          </PlaceList>
+        ))
+      ) : (
+        <Reviews />
+      )}
       <div
         id="pagination"
         style={{
