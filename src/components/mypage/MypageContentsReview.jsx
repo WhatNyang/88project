@@ -15,10 +15,6 @@ export default function MypageContentsReview({ reviews, user }) {
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
 
-  const sessionPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
-
-  console.log(sessionPlace);
-
   const editButtonHanler = function (item) {
     setThisItem(item);
     setIsEdit(!isEdit);
