@@ -54,6 +54,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         const resultImg = reader.result;
+        localStorage.setItem("imgURL", resultImg as string);
         setImgFile(resultImg as string);
       };
     }
@@ -63,7 +64,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const profileEditComplete = async () => {
     const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
 
-    const imgDataUrl = imgFile;
+    const imgDataUrl = localStorage.getItem("imgURL");
     let downloadUrl;
     if (imgDataUrl) {
       const response = await uploadString(imgRef, imgDataUrl, "data_url");
@@ -71,7 +72,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
     }
     updateProfile(authService.currentUser as any, {
       displayName: nicknameEdit,
-      photoURL: downloadUrl,
+      photoURL: downloadUrl ? downloadUrl : null,
     })
       .then(() => {
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
@@ -100,7 +101,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
           {editmode ? (
             <>
               <button>
-                {" "}
                 <ProfileImageLabel htmlFor="changeimg">
                   파일선택
                 </ProfileImageLabel>
@@ -112,7 +112,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
                 placeholder="파일선택"
                 onChange={saveImgFile}
                 ref={imgRef}
-              ></input>
+              />
             </>
           ) : (
             ""
@@ -125,9 +125,8 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         {editmode ? (
           <ProfileNicknameEdit
             onChange={handleNicknameChange}
-            defaultValue={profile?.nickname}
             ref={nameRef}
-            value={nicknameEdit || ""}
+            value={nicknameEdit || profile.nickname}
           />
         ) : (
           <>
