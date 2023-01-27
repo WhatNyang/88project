@@ -12,12 +12,12 @@ import {
   where,
 } from "firebase/firestore";
 import { dbService } from "../firebase";
+export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
   const [category, setCategory] = useState("bookmark"); // review, bookmark
   const [bookmark, setBookmark] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const user = JSON.parse(localStorage.getItem("User"));
   const bookmarkCount = bookmark.length;
   const reviewsCount = reviews.length;
   useEffect(() => {

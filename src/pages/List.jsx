@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Sidebar from "../components/main/Sidebar";
+import Sidebar from "../components/main/Searchbar";
 import MyMenu from "../components/MyMenu";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";

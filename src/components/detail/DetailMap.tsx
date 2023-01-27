@@ -13,6 +13,8 @@ const DetailMap = () => {
   const location_x = location.state.x;
   const location_y = location.state.y;
 
+  console.log(location_x, location_y);
+
   useEffect(() => {
     const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
