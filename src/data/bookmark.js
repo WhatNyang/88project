@@ -1,4 +1,13 @@
-import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { dbService } from "../firebase";
 
 // Create
@@ -7,6 +16,8 @@ export const addBookmark = async (newData) => {
 };
 
 // Read
+
+// Update
 
 // Delete
 export const deleteBookmark = async (id) => {

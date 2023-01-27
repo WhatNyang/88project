@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 import AlertDialog from "./DeleteModal";
 export default function MypageContentsReview({ reviews, user }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
@@ -34,21 +34,12 @@ export default function MypageContentsReview({ reviews, user }) {
     });
   };
 
-  const deleteReview = async (id) => {
-    await deleteDoc(doc(dbService, "reviews", id));
-    alert("삭제되었습니다");
-  };
 
-  const deleteButtonConfirm = (id) => {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      deleteReview(id);
-    }
-  };
+  // const navigateDetail = function (item) {
+  //   console.log("item", item);
+  //   navigate(`../detail/${item.detailId}`);
+  // };
 
-  const navigateDetail = function (item) {
-    console.log("item", item);
-    // navigate(`../detail/${item.detailId}`);
-  };
   return (
     <>
       {reviews.map((item) => {

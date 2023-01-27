@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { deleteDoc, doc } from "firebase/firestore";
 import { dbService } from "../../firebase";
+import { deletereview } from "../../data/review";
 export default function AlertDialog({ item }) {
   const [open, setOpen] = React.useState(false);
 
@@ -19,8 +20,8 @@ export default function AlertDialog({ item }) {
     setOpen(false);
   };
 
-  const deleteReview = async (id) => {
-    await deleteDoc(doc(dbService, "reviews", id));
+  const deleteReviewHandler = async (id) => {
+    deletereview(id);
     handleClose(false);
   };
 
@@ -45,7 +46,7 @@ export default function AlertDialog({ item }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={() => deleteReview(item.id)} autoFocus>
+          <Button onClick={() => deleteReviewHandler(item.id)} autoFocus>
             삭제
           </Button>
         </DialogActions>

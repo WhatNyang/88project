@@ -6,12 +6,9 @@ import { dbService } from "../../firebase";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { FcBookmark } from "react-icons/fc";
+import { deleteBookmark } from "../../data/bookmark";
 
 export default function MypageContentsBookmark({ bookmark }) {
-  const deletebookmark = async (id) => {
-    await deleteDoc(doc(dbService, "bookmark", id));
-  };
-
   return (
     <>
       {bookmark.map((item) => {
@@ -22,7 +19,7 @@ export default function MypageContentsBookmark({ bookmark }) {
                 <FcBookmark
                   size={"50px"}
                   style={{ cursor: "pointer" }}
-                  onClick={() => deletebookmark(item.id)}
+                  onClick={() => deleteBookmark(item.id)}
                 />
               </StyledDivBookmarkIconContainer>
 
