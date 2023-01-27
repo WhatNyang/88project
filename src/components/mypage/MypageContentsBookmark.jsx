@@ -28,10 +28,12 @@ export default function MypageContentsBookmark({ bookmark }) {
                   {item.place}
                 </Typography>
                 <Typography variant="body1" color="text.frimary">
-                  {item.address}
+                  {item.roadAddress
+                    ? `${item.address}  (${item.roadAddress})`
+                    : `${item.address} `}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Tel: {item.phone}
+                  {item.phone ? `Tel: ${item.phone}` : null}
                 </Typography>
               </CardContent>
             </StyledDivMainContainer>
