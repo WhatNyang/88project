@@ -34,7 +34,6 @@ export default function MypageContentsReview({ reviews, user }) {
     });
   };
 
-
   // const navigateDetail = function (item) {
   //   console.log("item", item);
   //   navigate(`../detail/${item.detailId}`);
@@ -59,7 +58,7 @@ export default function MypageContentsReview({ reviews, user }) {
               상세보기
             </button> */}
 
-            <ReviewCard onClick={navigateDetail}>
+            <ReviewCard>
               <div style={{ display: "flex" }}>
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>
