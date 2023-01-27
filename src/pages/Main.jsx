@@ -66,7 +66,7 @@ const Main = () => {
 
     if (map !== null) {
       setMarkers(searchMarkers);
-      // map.setBounds(searchBounds);
+      map.setBounds(searchBounds);
       console.log("지도", map);
       console.log("검색 범위", searchBounds);
     }
