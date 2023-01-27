@@ -11,8 +11,8 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
 
-  const sessionPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
-  const sessionKeyword = sessionStorage.getItem("SearchKeyword");
+  const searchPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
+  const searchKeyword = sessionStorage.getItem("SearchKeyword");
 
   const onResetPlace = () => {
     window.location.reload();
@@ -45,7 +45,11 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
       </Title>
       <form onSubmit={onSubmitHandler}>
         <Search>
-          <SearchInput value={text} onChange={(e) => setText(e.target.value)} />
+          <SearchInput
+            value={text}
+            placeholder="ex) 삼성역 안과"
+            onChange={(e) => setText(e.target.value)}
+          />
           <SearchBtn type="submit">
             <BiSearchAlt
               style={{
@@ -56,13 +60,13 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
           </SearchBtn>
         </Search>
       </form>
-      {sessionKeyword ? (
+      {searchKeyword ? (
         <Place>
-          <h2>'{sessionKeyword}' 결과</h2>
-          <PlaceCount>{sessionPlace?.length}</PlaceCount>
+          <h2>'{searchKeyword}' 결과</h2>
+          <PlaceCount>{searchPlace?.length}</PlaceCount>
         </Place>
       ) : null}
-      {sessionPlace?.map((item, i) => (
+      {searchPlace?.map((item, i) => (
         <PlaceList key={i} onClick={() => onFilteredMarker(item)}>
           <Bookmark item={item} />
           <PlaceName>{item.place_name}</PlaceName>
@@ -138,6 +142,10 @@ const SearchInput = styled.input`
   width: 80%;
   height: 25px;
   margin-bottom: 30px;
+  padding-left: 5px;
+  &:focus {
+    box-shadow: none;
+  }
 `;
 
 const SearchBtn = styled.button`
