@@ -229,7 +229,7 @@ const ProfileEditCancleButton = styled.button`
     transition: 0.5s;
   }
   :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
   }
 `;
 const ProfileEditButton = styled.button`
@@ -247,7 +247,7 @@ const ProfileEditButton = styled.button`
     transition: 0.5s;
   }
   :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
   }
 `;
 const ProfileNicknameEdit = styled.input`

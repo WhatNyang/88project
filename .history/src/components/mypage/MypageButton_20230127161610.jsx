@@ -44,7 +44,6 @@ const StyledDivTwo = styled.div`
     border: none;
     &:hover {
       color: white;
-      transition: 0.5s;
     }
   }
 
@@ -59,7 +58,6 @@ const StyledDivTwo = styled.div`
     font-size: 16px;
     &:hover {
       color: white;
-      transition: 0.5s;
     }
   }
 `;

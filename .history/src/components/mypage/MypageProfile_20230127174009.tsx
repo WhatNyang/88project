@@ -60,10 +60,8 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       };
     }
   };
-  // 프로필 수정을 취소하기
-  // const profileEditCancle =
 
-  // 프로필 수정을 완료 하기
+  // 프로필 수정 완료 하기
   const profileEditComplete = async () => {
     const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
 
@@ -154,7 +152,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       </ProfileList>
       {/* 내 프로필 수정, 완료 버튼*/}
       <div>
-        <ProfileEditCancleButton hidden={!editmode}>
+        <ProfileEditCancleButton type="reset" hidden={!editmode}>
           취소
         </ProfileEditCancleButton>
       </div>
@@ -184,7 +182,6 @@ const ProfileImage = styled.div<{ img: string }>`
   background-size: cover;
   background-image: url(${(props) => props.img});
   background-position: center center;
-  box-shadow: 2px 2px 1px ${POINT_COLOR};
 `;
 const ProfileImageLabel = styled.label`
   cursor: pointer;
@@ -229,7 +226,7 @@ const ProfileEditCancleButton = styled.button`
     transition: 0.5s;
   }
   :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
   }
 `;
 const ProfileEditButton = styled.button`
@@ -247,7 +244,7 @@ const ProfileEditButton = styled.button`
     transition: 0.5s;
   }
   :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
   }
 `;
 const ProfileNicknameEdit = styled.input`

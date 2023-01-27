@@ -60,10 +60,8 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       };
     }
   };
-  // 프로필 수정을 취소하기
-  // const profileEditCancle =
 
-  // 프로필 수정을 완료 하기
+  // 프로필 수정 완료 하기
   const profileEditComplete = async () => {
     const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
 
@@ -152,13 +150,12 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
           </ProfileListReview>
         </ProfileListBookmarkReview>
       </ProfileList>
-      {/* 내 프로필 수정, 완료 버튼*/}
-      <div>
-        <ProfileEditCancleButton hidden={!editmode}>
-          취소
-        </ProfileEditCancleButton>
-      </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
+      {/* 내 프로필 취소, 수정, 완료 버튼*/}
+      {editmode ? (
+        <ProfileEditCancleButton hidden>취소</ProfileEditCancleButton>
+      ) : (
+        <ProfileEditCancleButton>취소</ProfileEditCancleButton>
+      )}
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
           적용
@@ -184,7 +181,6 @@ const ProfileImage = styled.div<{ img: string }>`
   background-size: cover;
   background-image: url(${(props) => props.img});
   background-position: center center;
-  box-shadow: 2px 2px 1px ${POINT_COLOR};
 `;
 const ProfileImageLabel = styled.label`
   cursor: pointer;
@@ -219,7 +215,6 @@ const ProfileEditCancleButton = styled.button`
   text-align: center;
   border: 0;
   outline: 1px;
-  width: 60px;
   height: 25px;
   border-radius: 10px;
   margin-right: 2px;
@@ -229,7 +224,7 @@ const ProfileEditCancleButton = styled.button`
     transition: 0.5s;
   }
   :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
   }
 `;
 const ProfileEditButton = styled.button`
@@ -247,7 +242,7 @@ const ProfileEditButton = styled.button`
     transition: 0.5s;
   }
   :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
   }
 `;
 const ProfileNicknameEdit = styled.input`

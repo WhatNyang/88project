@@ -3,8 +3,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { updateProfile } from "firebase/auth";
 import { authService, storage } from "../../firebase";
 import { uploadString, getDownloadURL, ref } from "firebase/storage";
-import { POINT_COLOR, PROJECT_COLOR } from "../../color";
-
+// import { dbService } from "../../firebase";
 const imgProfile =
   "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
 
@@ -60,10 +59,8 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       };
     }
   };
-  // 프로필 수정을 취소하기
-  // const profileEditCancle =
 
-  // 프로필 수정을 완료 하기
+  // 프로필 수정 완료 하기
   const profileEditComplete = async () => {
     const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
 
@@ -153,18 +150,12 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         </ProfileListBookmarkReview>
       </ProfileList>
       {/* 내 프로필 수정, 완료 버튼*/}
-      <div>
-        <ProfileEditCancleButton hidden={!editmode}>
-          취소
-        </ProfileEditCancleButton>
-      </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
-          적용
+          완료하기
         </ProfileEditButton>
       ) : (
-        <ProfileEditButton onClick={profileEdit}>수정</ProfileEditButton>
+        <ProfileEditButton onClick={profileEdit}>수정하기</ProfileEditButton>
       )}
     </StyledDivOne>
   );
@@ -172,7 +163,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
 
 const StyledDivOne = styled.div`
   display: grid;
-  grid-template-columns: 10% 20% 5% 45% 10% 10%;
+  grid-template-columns: 10% 20% 5% 55% 10%;
   /* div {
     border: 1px solid black;
   } */
@@ -184,9 +175,13 @@ const ProfileImage = styled.div<{ img: string }>`
   background-size: cover;
   background-image: url(${(props) => props.img});
   background-position: center center;
-  box-shadow: 2px 2px 1px ${POINT_COLOR};
 `;
 const ProfileImageLabel = styled.label`
+  /* margin: 5px 0 20px 0;
+  font-weight: bold;
+  color: white;
+  background-color: #e37b58;
+  display: inline-block; */
   cursor: pointer;
   padding: 20px;
 `;
@@ -213,41 +208,18 @@ const ProfileListReview = styled.div`
   font-size: small;
   text-align: center;
 `;
-const ProfileEditCancleButton = styled.button`
-  cursor: pointer;
-  font-size: small;
-  text-align: center;
-  border: 0;
-  outline: 1px;
-  width: 60px;
-  height: 25px;
-  border-radius: 10px;
-  margin-right: 2px;
-  background-color: lightgray;
-  :hover {
-    color: white;
-    transition: 0.5s;
-  }
-  :active {
-    background-color: ${POINT_COLOR};
-  }
-`;
 const ProfileEditButton = styled.button`
   cursor: pointer;
   font-size: small;
   text-align: center;
   border: 0;
   outline: none;
+  width: 80px;
   height: 25px;
   border-radius: 10px;
-  margin-left: 2px;
-  background-color: lightgray;
   :hover {
-    color: white;
-    transition: 0.5s;
-  }
-  :active {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
+    transition: 0.7s;
   }
 `;
 const ProfileNicknameEdit = styled.input`
@@ -257,7 +229,7 @@ const ProfileNicknameEdit = styled.input`
   padding: 1px;
   :hover {
     background-color: #e37b58;
-    transition: 0.5s;
+    transition: 0.7s;
   }
   :focus {
     outline: none;
