@@ -88,7 +88,7 @@ const StyledInput = styled.textarea`
 `;
 const CreateBtn = styled.button`
   background-color: ${POINT_COLOR};
-  border-radius: 5px;
+  border-radius: nine;
   border-style: none;
   color: white;
   float: right;
