@@ -150,13 +150,13 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
           </ProfileListReview>
         </ProfileListBookmarkReview>
       </ProfileList>
-      {/* 내 프로필 수정, 완료 버튼*/}
+      {/* 내 프로필 취소, 수정, 완료 버튼*/}
       <div>
         <ProfileEditCancleButton hidden={!editmode}>
           취소
         </ProfileEditCancleButton>
       </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
+
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
           적용

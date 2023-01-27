@@ -151,12 +151,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         </ProfileListBookmarkReview>
       </ProfileList>
       {/* 내 프로필 수정, 완료 버튼*/}
-      <div>
-        <ProfileEditCancleButton hidden={!editmode}>
-          취소
-        </ProfileEditCancleButton>
-      </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
+      <ProfileEditCancleButton>취소</ProfileEditCancleButton>
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
           적용
@@ -171,9 +166,9 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
 const StyledDivOne = styled.div`
   display: grid;
   grid-template-columns: 10% 20% 5% 45% 10% 10%;
-  /* div {
+  div {
     border: 1px solid black;
-  } */
+  }
 `;
 const ProfileImage = styled.div<{ img: string }>`
   width: 100px;
@@ -216,10 +211,10 @@ const ProfileEditCancleButton = styled.button`
   text-align: center;
   border: 0;
   outline: 1px;
-  width: 60px;
+  width: 80px;
   height: 25px;
   border-radius: 10px;
-  margin-right: 2px;
+  margin-right: 10px;
   background-color: lightgray;
   :hover {
     color: white;
@@ -235,9 +230,9 @@ const ProfileEditButton = styled.button`
   text-align: center;
   border: 0;
   outline: none;
+  width: 80px;
   height: 25px;
   border-radius: 10px;
-  margin-left: 2px;
   background-color: lightgray;
   :hover {
     color: white;

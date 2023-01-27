@@ -150,13 +150,12 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
           </ProfileListReview>
         </ProfileListBookmarkReview>
       </ProfileList>
-      {/* 내 프로필 수정, 완료 버튼*/}
-      <div>
-        <ProfileEditCancleButton hidden={!editmode}>
-          취소
-        </ProfileEditCancleButton>
-      </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
+      {/* 내 프로필 취소, 수정, 완료 버튼*/}
+      {editmode ? (
+        <ProfileEditCancleButton>취소</ProfileEditCancleButton>
+      ) : (
+        <ProfileEditCancleButton hidden>취소</ProfileEditCancleButton>
+      )}
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
           적용
@@ -216,7 +215,6 @@ const ProfileEditCancleButton = styled.button`
   text-align: center;
   border: 0;
   outline: 1px;
-  width: 60px;
   height: 25px;
   border-radius: 10px;
   margin-right: 2px;

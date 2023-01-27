@@ -3,8 +3,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { updateProfile } from "firebase/auth";
 import { authService, storage } from "../../firebase";
 import { uploadString, getDownloadURL, ref } from "firebase/storage";
-import { POINT_COLOR, PROJECT_COLOR } from "../../color";
-
+// import { dbService } from "../../firebase";
 const imgProfile =
   "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
 
@@ -151,18 +150,12 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         </ProfileListBookmarkReview>
       </ProfileList>
       {/* 내 프로필 수정, 완료 버튼*/}
-      <div>
-        <ProfileEditCancleButton hidden={!editmode}>
-          취소
-        </ProfileEditCancleButton>
-      </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
-          적용
+          완료하기
         </ProfileEditButton>
       ) : (
-        <ProfileEditButton onClick={profileEdit}>수정</ProfileEditButton>
+        <ProfileEditButton onClick={profileEdit}>수정하기</ProfileEditButton>
       )}
     </StyledDivOne>
   );
@@ -170,7 +163,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
 
 const StyledDivOne = styled.div`
   display: grid;
-  grid-template-columns: 10% 20% 5% 45% 10% 10%;
+  grid-template-columns: 10% 20% 5% 55% 10%;
   /* div {
     border: 1px solid black;
   } */
@@ -210,41 +203,18 @@ const ProfileListReview = styled.div`
   font-size: small;
   text-align: center;
 `;
-const ProfileEditCancleButton = styled.button`
-  cursor: pointer;
-  font-size: small;
-  text-align: center;
-  border: 0;
-  outline: 1px;
-  width: 60px;
-  height: 25px;
-  border-radius: 10px;
-  margin-right: 2px;
-  background-color: lightgray;
-  :hover {
-    color: white;
-    transition: 0.5s;
-  }
-  :active {
-    background-color: #e37b58;
-  }
-`;
 const ProfileEditButton = styled.button`
   cursor: pointer;
   font-size: small;
   text-align: center;
   border: 0;
   outline: none;
+  width: 80px;
   height: 25px;
   border-radius: 10px;
-  margin-left: 2px;
-  background-color: lightgray;
   :hover {
-    color: white;
-    transition: 0.5s;
-  }
-  :active {
     background-color: #e37b58;
+    transition: 0.7s;
   }
 `;
 const ProfileNicknameEdit = styled.input`
@@ -252,9 +222,10 @@ const ProfileNicknameEdit = styled.input`
   width: 100px;
   height: 30px;
   padding: 1px;
+  background-color: lightgray;
   :hover {
     background-color: #e37b58;
-    transition: 0.5s;
+    transition: 0.7s;
   }
   :focus {
     outline: none;
