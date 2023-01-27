@@ -5,7 +5,6 @@ import MyMenu from "../components/MyMenu";
 import { Map } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
 import Markers from "../components/main/Markers";
-
 const { kakao } = window;
 
 const Main = () => {
@@ -16,11 +15,9 @@ const Main = () => {
   const [info, setInfo] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
-  const sessionKeyword = sessionStorage.getItem("SearchKeyword");
-  const sessionMarkers = JSON.parse(sessionStorage.getItem("SearchMarkers"));
-
-  const sessionLat = sessionMarkers ? sessionMarkers[0].position.lat : null;
-  const sessionLng = sessionMarkers ? sessionMarkers[0].position.lng : null;
+  const searchKeyword = sessionStorage.getItem("SearchKeyword");
+  const searchMarkers = JSON.parse(sessionStorage.getItem("SearchMarkers"));
+  const searchBounds = JSON.parse(sessionStorage.getItem("SearchBounds"));
 
   useEffect(() => {
     const ps = new kakao.maps.services.Places();
@@ -29,9 +26,6 @@ const Main = () => {
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();
         let markers = [];
-        // console.log(
-        //   data.filter((item) => item.address_name.substring(0, 2) === "서울")
-        // );
 
         for (var i = 0; i < data.length; i++) {
           markers.push({
@@ -49,7 +43,6 @@ const Main = () => {
             x: data[i].x,
             y: data[i].y,
           });
-          console.log(data);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
 
@@ -67,23 +60,53 @@ const Main = () => {
   }, [place]);
 
   useEffect(() => {
-    if (!sessionMarkers) return;
-    setMarkers(sessionMarkers);
-  }, [sessionKeyword]);
+    setMap(map);
+
+    if (!searchMarkers) return;
+
+    if (map !== null) {
+      setMarkers(searchMarkers);
+      map.setBounds(searchBounds);
+      console.log("지도", map);
+      console.log("검색 범위", searchBounds);
+    }
+  }, [map, searchKeyword]);
 
   return (
     <>
       <MyMenu />
       <Content>
         <Searchbar
-          setPlace={setPlace}
           places={places}
+          setPlace={setPlace}
           info={info}
           setInfo={setInfo}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
-        {sessionMarkers ? (
+        <Map
+          center={{
+            lat: 37.566826,
+            lng: 126.9786567,
+          }}
+          style={{
+            width: "70vw",
+            height: "100vh",
+            float: "right",
+            fontFamily: "GmarketSans",
+          }}
+          level={5}
+          onCreate={setMap}
+        >
+          <Markers
+            info={info}
+            setInfo={setInfo}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            markers={markers}
+          />
+        </Map>
+        {/* {searchMarkers ? (
           <Map
             center={{
               lat: sessionLat,
@@ -104,8 +127,7 @@ const Main = () => {
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               markers={markers}
-              sessionMarkers={sessionMarkers}
-            />
+              />
           </Map>
         ) : (
           <Map
@@ -119,7 +141,7 @@ const Main = () => {
               float: "right",
               fontFamily: "GmarketSans",
             }}
-            level={3}
+            level={5}
             onCreate={setMap}
           >
             <Markers
@@ -128,10 +150,9 @@ const Main = () => {
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               markers={markers}
-              sessionMarkers={sessionMarkers}
-            />
+              />
           </Map>
-        )}
+        )} */}
       </Content>
     </>
   );
