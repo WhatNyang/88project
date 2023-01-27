@@ -10,6 +10,7 @@ const ReviewForm = () => {
   const location = useLocation();
   const item = location.state;
   const queryClient = useQueryClient();
+  const [contents, setContents] = useState("");
 
   const addReview = async () => {
     await addDoc(collection(dbService, "reviews"), {
@@ -21,6 +22,7 @@ const ReviewForm = () => {
       date: new Date(),
       place_name: item.place_name,
       photoUrl: authService.currentUser?.photoURL,
+      isEdit: false,
     });
   };
 
@@ -43,12 +45,11 @@ const ReviewForm = () => {
     }
   };
 
-  const [contents, setContents] = useState("");
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 입력창이 비어있으면 alert
-    if (!contents) {
+    const word = contents.replace(/\s| /gi, "");
+    if (!word.length) {
       return getErrorMsg("blank", {});
     }
     // text와 닉네임 전달
@@ -83,8 +84,12 @@ const StyledInput = styled.textarea`
   width: 635px;
   height: 50px;
   margin: 10px;
+  margin-bottom: 0;
   border: none;
   resize: none;
+  :focus {
+    outline: none;
+  }
 `;
 const CreateBtn = styled.button`
   background-color: ${POINT_COLOR};
@@ -93,6 +98,7 @@ const CreateBtn = styled.button`
   color: white;
   float: right;
   margin: 10px;
+  margin-top: 0;
   width: 50px;
   height: 30px;
   cursor: pointer;

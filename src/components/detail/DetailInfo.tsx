@@ -4,6 +4,7 @@ import { BACKGROUND_COLOR } from "./../../color";
 import DetailMap from "./DetailMap";
 import { MdPhone, MdInfoOutline, MdHome } from "react-icons/md";
 import { FiMapPin } from "react-icons/fi";
+import Bookmark from "../Bookmark";
 
 const DetailInfo = () => {
   // navigate로 전달한 props받기
@@ -17,21 +18,24 @@ const DetailInfo = () => {
           <InfoTitle>{item.place_name}</InfoTitle>
           <StyledText>
             <FiMapPin />
-            &nbsp; {item.road_address_name} ({item.address_name})
+            &nbsp; {item.road_address_name} ( {item.address_name} )
           </StyledText>
           {item.phone ? (
             <StyledText>
-              <MdPhone /> {item.phone}
+              <MdPhone /> &nbsp;{item.phone}
             </StyledText>
           ) : null}
           {item.category_group_name ? (
             <StyledText>
-              <MdInfoOutline /> {item.category_group_name}
+              <MdInfoOutline /> &nbsp;{item.category_group_name}
             </StyledText>
           ) : null}
           {item.place_url ? (
             <StyledText>
-              <MdHome /> {item.place_url}
+              <MdHome /> &nbsp;
+              <a href={item.place_url} target="_blank">
+                {item.place_url}
+              </a>
             </StyledText>
           ) : null}
         </InfoTextBox>
