@@ -41,6 +41,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   // 프로필 수정하기
   const [editmode, setEdit] = useState(false);
   const profileEdit = () => {
+    localStorage.removeItem("imgURL");
     setEdit(!editmode);
   };
 
