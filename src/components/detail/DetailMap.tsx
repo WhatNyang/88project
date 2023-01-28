@@ -51,13 +51,6 @@ const DetailMap = () => {
     const marker = new window.kakao.maps.Marker({
       position: markerPosition,
     });
-    //
-    const infowindow = new window.kakao.maps.InfoWindow({
-      position: new window.kakao.maps.LatLng(location_y, location_x),
-      content: location.state.place_name,
-    });
-
-    infowindow.open(map, marker);
 
     // 마커가 지도 위에 표시되도록 설정
     marker.setMap(map);

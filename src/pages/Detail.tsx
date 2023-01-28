@@ -4,11 +4,11 @@ import MyMenu from "../components/MyMenu";
 
 const Detail = () => {
   return (
-    <div>
+    <>
       <MyMenu />
       <DetailInfo />
       <Reviews />
-    </div>
+    </>
   );
 };
 

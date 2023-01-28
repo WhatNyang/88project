@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { emailRegex, pwRegex, userNameRegex } from "../util";
 import styled from "styled-components";
 import { BACKGROUND_COLOR, POINT_COLOR } from "../color";
@@ -8,7 +8,6 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { logOut } from "../util";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate();

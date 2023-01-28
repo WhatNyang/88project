@@ -29,8 +29,6 @@ const Reviews = () => {
     return data;
   }, []);
 
-  console.log(reviews);
-
   return (
     <>
       {reviews?.map((item) => (

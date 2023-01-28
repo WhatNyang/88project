@@ -13,6 +13,9 @@ const DetailInfo = () => {
 
   return (
     <InfoContainer>
+      <BookmarkBox>
+        <Bookmark item={item} />
+      </BookmarkBox>
       <InfoBox>
         <InfoTextBox>
           <InfoTitle>{item.place_name}</InfoTitle>
@@ -55,19 +58,43 @@ const InfoContainer = styled.div`
   padding: 10px;
   background-color: ${BACKGROUND_COLOR};
   border-radius: 10px;
+  font-family: "GmarketSans";
+`;
+const BookmarkBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
+  cursor: pointer;
 `;
 const InfoBox = styled.div`
   width: 100%;
 `;
 const InfoTextBox = styled.div`
-  width: 100%;
+  width: 95%;
   height: 100%;
-  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
 `;
 const InfoTitle = styled.div`
-  margin-bottom: 20px;
+  margin: 10px 0 20px 0;
   font-size: 20px;
+  font-weight: 700;
 `;
 const StyledText = styled.div`
   margin-bottom: 10px;
+  a:link {
+    color: black;
+    text-decoration: none;
+  }
+  a:visited {
+    color: black;
+    text-decoration: none;
+  }
+  a:hover {
+    color: black;
+    text-decoration: underline;
+  }
 `;

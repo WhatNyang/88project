@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { BACKGROUND_COLOR, POINT_COLOR } from "../../color";

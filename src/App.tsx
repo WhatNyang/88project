@@ -2,6 +2,15 @@ import React from "react";
 import Router from "./shared/Router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "./App.css";
+import { createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import GlobalStyles from "./shared/GlobalStyled";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "GmarketSans",
+  },
+});
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,9 +22,12 @@ const queryClient = new QueryClient({
 
 const App: React.FC = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
+        <Router />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
 

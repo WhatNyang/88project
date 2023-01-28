@@ -12,8 +12,6 @@ const ReviewForm = () => {
   const queryClient = useQueryClient();
   const [contents, setContents] = useState("");
 
-  console.log(item);
-
   const addReview = async () => {
     await addDoc(collection(dbService, "reviews"), {
       contents,
@@ -90,7 +88,7 @@ const StyledForm = styled.form`
   margin: 20px;
 `;
 const StyledInput = styled.textarea`
-  width: 635px;
+  width: 600px;
   height: 50px;
   margin: 10px;
   margin-bottom: 0;

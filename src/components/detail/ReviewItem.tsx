@@ -42,8 +42,9 @@ const ReviewItem = () => {
       setReviews(newReviews);
     });
     return unsubscribe;
-  }, []);
+  }, [item.id]);
 
+  // 삭제
   const deleteReview = (id: string) => {
     return deleteDoc(doc(dbService, "reviews", id));
   };
@@ -60,8 +61,7 @@ const ReviewItem = () => {
   };
 
   // 수정
-  const editButtonHanler = function (item: any) {
-    console.log(item);
+  const editButtonHandler = function (item: any) {
     setThisItem(item);
     setIsEdit(!isEdit);
   };
@@ -99,7 +99,6 @@ const ReviewItem = () => {
               {thisItem === item.id && isEdit ? null : (
                 <ReviewContent>{item.contents}</ReviewContent>
               )}
-
               {authService.currentUser?.uid === item.userId ? (
                 <RightBox>
                   {thisItem === item.id && isEdit ? null : (
@@ -113,7 +112,7 @@ const ReviewItem = () => {
                         style={{ width: "15px", marginRight: "20px" }}
                         strokeWidth="1"
                         onClick={() => {
-                          editButtonHanler(item.id);
+                          editButtonHandler(item.id);
                         }}
                       >
                         수정
@@ -183,7 +182,7 @@ const CreateDate = styled.div`
   font-size: 13px;
 `;
 const ReviewContent = styled.div`
-  margin-left: 18px;
+  margin-left: 20px;
 `;
 const StyledPhoto = styled.img`
   margin: 20px;
@@ -206,6 +205,8 @@ const EditTextArea = styled.textarea`
   resize: none;
   margin-left: 20px;
   margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 10px;
 `;
 
 const ReviewEditBtn = styled.button`
