@@ -5,6 +5,7 @@ import MyMenu from "../components/MyMenu";
 import { Map } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
 import Markers from "../components/main/Markers";
+import { BACKGROUND_COLOR } from "../color";
 const { kakao } = window;
 
 const Main = () => {
@@ -79,7 +80,7 @@ const Main = () => {
   return (
     <>
       <MyMenu />
-      <Content>
+      <Container>
         <Searchbar
           places={places}
           setPlace={setPlace}
@@ -94,8 +95,8 @@ const Main = () => {
             lng: 126.9786567,
           }}
           style={{
-            width: "100vw",
-            height: "100vh",
+            width: "100%",
+            height: "100%",
             float: "right",
             fontFamily: "GmarketSans",
           }}
@@ -110,15 +111,18 @@ const Main = () => {
             markers={markers}
           />
         </Map>
-      </Content>
+      </Container>
     </>
   );
 };
 
 export default Main;
 
-const Content = styled.div`
+const Container = styled.div`
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  margin: 0 auto;
+  width: 80vw;
+  height: 70vh;
+  border: 40px solid ${BACKGROUND_COLOR};
+  border-radius: 20px;
 `;

@@ -5,15 +5,14 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
 
-  if (window.location.pathname === "/") return null;
   if (window.location.pathname === "/index") return null;
 
   return (
     <Nav>
       <Title
         onClick={() => {
-          navigate("/");
           sessionStorage.clear();
+          navigate("/");
         }}
       >
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>

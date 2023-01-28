@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 
 import AlertDialog from "./DeleteModal";
 export default function MypageContentsReview({ reviews, user }) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
@@ -30,10 +30,9 @@ export default function MypageContentsReview({ reviews, user }) {
     });
   };
 
-  // const navigateDetail = function (item) {
-  //   console.log("item", item);
-  //   navigate(`../detail/${item.detailId}`);
-  // };
+  const navigateDetail = function (item) {
+    navigate(`/detail/${item.detailId}`, { state: item });
+  };
 
   return (
     <>
@@ -46,15 +45,11 @@ export default function MypageContentsReview({ reviews, user }) {
                 src={user?.photoURL ? user?.photoURL : null}
               />
             </ReviewProfile>
-            {/* <button
+            <ReviewCard
               onClick={() => {
                 navigateDetail(item);
               }}
             >
-              상세보기
-            </button> */}
-
-            <ReviewCard>
               <div style={{ display: "flex" }}>
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>
