@@ -10,7 +10,8 @@ const Reviews = () => {
   const navigate = useNavigate();
 
   const onNavigate = (item) => {
-    navigate(`/detail/${item.id}`, { state: item });
+    console.log("메인 리뷰에서 접속시", item);
+    navigate(`/detail/${item.detailId}`, { state: item });
   };
 
   useEffect(() => {

@@ -13,12 +13,14 @@ const ReviewForm = () => {
   const [contents, setContents] = useState("");
 
   const addReview = async () => {
+    console.log("추가시 item", item);
     await addDoc(collection(dbService, "reviews"), {
       contents,
       createdAt: Date.now(),
       userId: authService.currentUser?.uid,
       userNickName: authService.currentUser?.displayName,
-      id: item.id,
+      // id: item.id,
+      detailId: location.pathname.slice(8),
       date: new Date(),
       place_name: item.place_name,
       photoUrl: authService.currentUser?.photoURL,

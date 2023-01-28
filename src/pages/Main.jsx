@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Searchbar from "../components/main/Searchbar";
-import MyMenu from "../components/MyMenu";
 import { Map } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
 import Markers from "../components/main/Markers";
@@ -79,7 +78,6 @@ const Main = () => {
 
   return (
     <>
-      <MyMenu />
       <Container>
         <Searchbar
           places={places}

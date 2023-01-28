@@ -6,11 +6,13 @@ import Mypage from "../pages/Mypage";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Filter from "../pages/Filter";
+import MyMenu from "../components/MyMenu";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Header />
+      <MyMenu />
       <Routes>
         <Route path="/index" element={<Home />} />
         <Route path="/" element={<Main />} />

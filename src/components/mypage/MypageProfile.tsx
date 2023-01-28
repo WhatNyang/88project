@@ -186,6 +186,7 @@ const ProfileImage = styled.div<{ img: string }>`
 const ProfileImageLabel = styled.label`
   cursor: pointer;
   padding: 20px;
+  font-family: "GmarketSans";
 `;
 const ProfileList = styled.div`
   display: grid;
@@ -213,6 +214,7 @@ const ProfileListReview = styled.div`
 const ProfileEditCancleButton = styled.button`
   cursor: pointer;
   font-size: small;
+  font-family: "GmarketSans";
   text-align: center;
   border: 0;
   outline: 1px;
@@ -232,6 +234,7 @@ const ProfileEditCancleButton = styled.button`
 const ProfileEditButton = styled.button`
   cursor: pointer;
   font-size: small;
+  font-family: "GmarketSans";
   text-align: center;
   border: 0;
   outline: none;
@@ -252,6 +255,7 @@ const ProfileNicknameEdit = styled.input`
   width: 100px;
   height: 30px;
   padding: 1px;
+  font-family: "GmarketSans";
   :hover {
     background-color: ${POINT_COLOR};
     transition: 0.5s;

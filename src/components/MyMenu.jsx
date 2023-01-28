@@ -8,6 +8,10 @@ const MyMenu = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
+  if (window.location.pathname === "/index") return null;
+  if (window.location.pathname === "/login") return null;
+  if (window.location.pathname === "/mypage") return null;
+
   const logout = () => {
     authService.signOut();
     navigate("/index");
@@ -66,6 +70,7 @@ const Menu = styled.div`
   text-align: center;
   color: white;
   font-family: GmarketSans;
+  z-index: 999;
 `;
 
 const MenuItem = styled.p`

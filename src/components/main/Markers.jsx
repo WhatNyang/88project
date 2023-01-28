@@ -23,19 +23,6 @@ const Markers = ({ info, setInfo, isOpen, setIsOpen, markers }) => {
           key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
           position={marker.position}
           onClick={() => onMarkerHandler(marker)}
-          // image={{
-          //   src: "img/marker.png",
-          //   size: {
-          //     width: 15,
-          //     height: 43,
-          //   },
-          //   options: {
-          //     offset: {
-          //       x: 10,
-          //       y: 69,
-          //     },
-          //   },
-          // }}
         >
           {info &&
             info.place_name === marker.place_name &&
