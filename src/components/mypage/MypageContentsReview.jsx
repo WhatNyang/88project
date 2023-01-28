@@ -9,6 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 
 import AlertDialog from "./DeleteModal";
+import { BACKGROUND_COLOR } from "../../color";
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
@@ -38,7 +39,7 @@ export default function MypageContentsReview({ reviews, user }) {
     <>
       {reviews.map((item) => {
         return (
-          <Container key={item.id}>
+          <Container key={item.date.seconds}>
             <ReviewProfile>
               <Avatar
                 alt="Avatar"
@@ -123,6 +124,10 @@ const Container = styled.div`
   border-radius: 10px;
   display: flex;
   margin: 0px 0px 20px 0px;
+  cursor: pointer;
+  &:hover {
+    background-color: #fbfbfb;
+  }
 `;
 
 const ReviewCard = styled.div`

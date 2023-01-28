@@ -91,7 +91,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNicknameEdit(e.target.value);
   };
-  console.log("nicknameEdit", nicknameEdit);
+
   return (
     <StyledDivOne>
       <div></div>
