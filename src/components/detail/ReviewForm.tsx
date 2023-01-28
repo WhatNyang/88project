@@ -12,6 +12,8 @@ const ReviewForm = () => {
   const queryClient = useQueryClient();
   const [contents, setContents] = useState("");
 
+  console.log(item);
+
   const addReview = async () => {
     await addDoc(collection(dbService, "reviews"), {
       contents,
@@ -23,6 +25,13 @@ const ReviewForm = () => {
       place_name: item.place_name,
       photoUrl: authService.currentUser?.photoURL,
       isEdit: false,
+      address_name: item.address_name,
+      road_address_name: item.road_address_name,
+      phone: item.phone,
+      category_group_name: item.category_group_name,
+      place_url: item.place_url,
+      x: item.x,
+      y: item.y,
     });
   };
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { BiSearchAlt } from "react-icons/bi";
-import { BACKGROUND_COLOR, POINT_COLOR, PROJECT_COLOR } from "../../color";
+import { BACKGROUND_COLOR, POINT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Bookmark";
 import Reviews from "./Reviews";
@@ -14,11 +14,6 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
 
   const searchPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
   const searchKeyword = sessionStorage.getItem("SearchKeyword");
-
-  const onResetPlace = () => {
-    window.location.reload();
-    sessionStorage.clear();
-  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -41,9 +36,6 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
 
   return (
     <List>
-      <Title onClick={onResetPlace}>
-        WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
-      </Title>
       <form onSubmit={onSubmitHandler}>
         <Search>
           <SearchInput
@@ -63,11 +55,11 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
       </form>
       {searchKeyword ? (
         <Place>
-          <h2>'{searchKeyword}' 결과</h2>
+          <PlaceCategory>'{searchKeyword}' 결과</PlaceCategory>
           <PlaceCount>{searchPlace?.length}</PlaceCount>
         </Place>
       ) : (
-        <h2>어디로 떠날지 고민되시나요?</h2>
+        <PlaceCategory>어디로 떠날지 고민되시나요?</PlaceCategory>
       )}
       {searchPlace ? (
         searchPlace.map((item, i) => (
@@ -115,6 +107,7 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
           letterSpacing: "20px",
           textAlign: "center",
           marginBottom: "30px",
+          textDecoration: "none",
         }}
       />
     </List>
@@ -124,25 +117,19 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
 export default Searchbar;
 
 const List = styled.div`
-  width: 23%;
-  height: 100vh;
-  box-shadow: 3px 3px 3px #dddddd;
+  width: 40%;
+  height: 100%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  padding: 0 40px;
+  padding: 0 25px;
   z-index: 999;
   overflow-y: auto;
   font-family: GmarketSans;
 `;
 
-const Title = styled.h1`
-  font-size: 40px;
-  font-weight: 900;
-  cursor: pointer;
-`;
-
 const Search = styled.div`
   width: 100%;
+  margin-top: 40px;
 `;
 
 const SearchInput = styled.input`
@@ -164,6 +151,11 @@ const SearchBtn = styled.button`
 const Place = styled.div`
   display: flex;
   align-items: center;
+  margin-top: -15px;
+`;
+
+const PlaceCategory = styled.h2`
+  font-size: 19px;
 `;
 
 const PlaceCount = styled.span`

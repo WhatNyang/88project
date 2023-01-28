@@ -3,9 +3,15 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { dbService } from "../../firebase";
 import { BACKGROUND_COLOR } from "../../color";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
+
+  const onNavigate = (item) => {
+    navigate(`/detail/${item.detailId}`, { state: item });
+  };
 
   useEffect(() => {
     const q = query(
@@ -23,10 +29,12 @@ const Reviews = () => {
     return data;
   }, []);
 
+  console.log(reviews);
+
   return (
     <>
-      {reviews?.map((item, i) => (
-        <ReviewCard key={i}>
+      {reviews?.map((item) => (
+        <ReviewCard key={item.id} onClick={() => onNavigate(item)}>
           <ReviewInfo>
             <ReviewInfoKeyword>{item.userNickName}</ReviewInfoKeyword>님은{" "}
             <ReviewInfoKeyword>{item.place_name}</ReviewInfoKeyword>에 대해

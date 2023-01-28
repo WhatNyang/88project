@@ -38,7 +38,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   // 프로필 수정하기
   const [editmode, setEdit] = useState(false);
   const profileEdit = () => {
-    localStorage.removeItem("imgURL");
     setEdit(!editmode);
   };
 
@@ -59,11 +58,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
     }
   };
   // 프로필 수정을 취소하기
-  const profileEditCancle = () => {
-    setImgFile(currentUser.photoURL);
-    setNicknameEdit(currentUser.displayName);
-    setEdit(!editmode);
-  };
+  // const profileEditCancle =
 
   // 프로필 수정을 완료 하기
   const profileEditComplete = async () => {
@@ -88,6 +83,8 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         console.log(error);
       });
   };
+
+  // console.log(authService.currentUser);
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNicknameEdit(e.target.value);
@@ -154,7 +151,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       </ProfileList>
       {/* 내 프로필 수정, 완료 버튼*/}
       <div>
-        <ProfileEditCancleButton hidden={!editmode} onClick={profileEditCancle}>
+        <ProfileEditCancleButton hidden={!editmode}>
           취소
         </ProfileEditCancleButton>
       </div>
@@ -173,6 +170,9 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
 const StyledDivOne = styled.div`
   display: grid;
   grid-template-columns: 10% 20% 5% 45% 10% 10%;
+  /* div {
+    border: 1px solid black;
+  } */
 `;
 const ProfileImage = styled.div<{ img: string }>`
   width: 100px;
@@ -253,7 +253,7 @@ const ProfileNicknameEdit = styled.input`
   height: 30px;
   padding: 1px;
   :hover {
-    background-color: ${POINT_COLOR};
+    background-color: #e37b58;
     transition: 0.5s;
   }
   :focus {
