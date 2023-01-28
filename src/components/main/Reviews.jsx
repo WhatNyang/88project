@@ -10,7 +10,7 @@ const Reviews = () => {
   const navigate = useNavigate();
 
   const onNavigate = (item) => {
-    navigate(`/detail/${item.detailId}`, { state: item });
+    navigate(`/detail/${item.id}`, { state: item });
   };
 
   useEffect(() => {
@@ -29,12 +29,10 @@ const Reviews = () => {
     return data;
   }, []);
 
-  console.log(reviews);
-
   return (
     <>
       {reviews?.map((item) => (
-        <ReviewCard key={item.id} onClick={() => onNavigate(item)}>
+        <ReviewCard key={item.createdAt} onClick={() => onNavigate(item)}>
           <ReviewInfo>
             <ReviewInfoKeyword>{item.userNickName}</ReviewInfoKeyword>님은{" "}
             <ReviewInfoKeyword>{item.place_name}</ReviewInfoKeyword>에 대해
@@ -56,6 +54,12 @@ const ReviewCard = styled.div`
   background-color: ${BACKGROUND_COLOR};
   padding: 1px 15px 15px 15px;
   margin-bottom: 15px;
+  transition: 0.1s ease-out;
+  cursor: pointer;
+  &:hover {
+    background-color: #f8e1c6;
+    transition: 0.1s ease-out;
+  }
 `;
 
 const ReviewInfo = styled.p`

@@ -32,7 +32,7 @@ const ReviewItem = () => {
       collection(dbService, "reviews"),
       orderBy("createdAt", "desc"),
       // 최근 작성한 순으로 불러오기
-      where("detailId", "==", item.id)
+      where("id", "==", item.id)
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newReviews: any = snapshot.docs.map((doc) => ({
@@ -61,7 +61,6 @@ const ReviewItem = () => {
 
   // 수정
   const editButtonHanler = function (item: any) {
-    console.log(item);
     setThisItem(item);
     setIsEdit(!isEdit);
   };
