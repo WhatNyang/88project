@@ -16,7 +16,8 @@ export default function Login() {
   const emailRef = useRef(null);
   const pwRef = useRef(null);
   const userNameRef = useRef(null);
-  const changeIsJoin = () => {
+  const changeIsJoin = (e) => {
+    e.preventDefault();
     setIsJoin((prev) => !prev);
     setEmail("");
     setPW("");
@@ -25,7 +26,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [pw, setPW] = useState("");
   const [userName, setUserName] = useState("");
-  const Login = () => {
+  const Login = (e) => {
+    e.preventDefault();
     // 1. 유효성 검사
     if (validLogInInput()) {
       return;
@@ -52,7 +54,8 @@ export default function Login() {
         }
       });
   };
-  const Join = () => {
+  const Join = (e) => {
+    e.preventDefault();
     //유효성검사
     if (validInput()) {
       return;
@@ -194,12 +197,13 @@ export default function Login() {
 }
 
 const Container = styled.div`
+  font-family: "GmarketSans";
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
 `;
-const LoginBox = styled.div`
+const LoginBox = styled.form`
   display: flex;
   width: 45%;
   height: 55vh;
@@ -220,8 +224,9 @@ const Label = styled.label`
   margin-bottom: 10px;
 `;
 const Input = styled.input`
+  padding-left: 10px;
   margin-bottom: 10px;
-  width: 350px;
+  width: 20vw;
   height: 35px;
   box-shadow: 255 255 255 3px;
   border-radius: 30px;
@@ -235,14 +240,19 @@ const ButtonWrap = styled.div`
   flex-direction: row;
 `;
 const Button = styled.button`
+  font-weight: bold;
+  font-family: "GmarketSans";
   background-color: ${POINT_COLOR};
-  width: 150px;
+  width: 10vw;
   height: 35px;
   border: none;
   margin-right: 50px;
   color: white;
   text-align: center;
   border-radius: 15px;
+  &: hover {
+    scale: 1.1;
+  }
 `;
 const JoinText = styled.div`
   display: flex;
