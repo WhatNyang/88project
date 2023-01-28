@@ -6,11 +6,10 @@ import { BACKGROUND_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<any[]>([]);
   const navigate = useNavigate();
 
-  const onNavigate = (item) => {
-    console.log("메인 리뷰에서 접속시", item);
+  const onNavigate = (item: { detailId: number }) => {
     navigate(`/detail/${item.detailId}`, { state: item });
   };
 
@@ -24,7 +23,6 @@ const Reviews = () => {
         id: doc.id,
         ...doc.data(),
       }));
-
       setReviews(newData);
     });
     return data;
@@ -74,4 +72,9 @@ const ReviewInfoKeyword = styled.span`
 
 const ReviewContent = styled.div`
   font-size: 15px;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;

@@ -13,13 +13,11 @@ const ReviewForm = () => {
   const [contents, setContents] = useState("");
 
   const addReview = async () => {
-    console.log("추가시 item", item);
     await addDoc(collection(dbService, "reviews"), {
       contents,
       createdAt: Date.now(),
       userId: authService.currentUser?.uid,
       userNickName: authService.currentUser?.displayName,
-      // id: item.id,
       detailId: location.pathname.slice(8),
       date: new Date(),
       place_name: item.place_name,
@@ -96,6 +94,7 @@ const StyledInput = styled.textarea`
   margin-bottom: 0;
   border: none;
   resize: none;
+  font-family: "GmarketSans";
   :focus {
     outline: none;
   }
@@ -111,4 +110,5 @@ const CreateBtn = styled.button`
   width: 50px;
   height: 30px;
   cursor: pointer;
+  font-family: "GmarketSans";
 `;

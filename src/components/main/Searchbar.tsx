@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { MdLocationOn } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
@@ -8,21 +8,30 @@ import { useNavigate } from "react-router-dom";
 import Bookmark from "../Bookmark";
 import Reviews from "./Reviews";
 
-const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
+interface MainProps {
+  info: any;
+  setInfo: Dispatch<SetStateAction<object[]>>;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  markers: object[];
+  setPlace: Dispatch<SetStateAction<string>>;
+}
+
+const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }: MainProps) => {
   const [text, setText] = useState("");
   const navigate = useNavigate();
 
-  const searchPlace = JSON.parse(sessionStorage.getItem("SearchPlace"));
+  const searchPlace = JSON.parse(`${sessionStorage.getItem("SearchPlace")}`);
   const searchKeyword = sessionStorage.getItem("SearchKeyword");
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setPlace(text);
     setText("");
   };
 
-  const onFilteredMarker = (item) => {
-    const filteredData = {
+  const onFilteredMarker = (item: any) => {
+    const filteredData: any = {
       position: {
         lat: item.y,
         lng: item.x,
@@ -62,7 +71,7 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }) => {
         <PlaceCategory>어디로 떠날지 고민되시나요?</PlaceCategory>
       )}
       {searchPlace ? (
-        searchPlace.map((item, i) => (
+        (searchPlace as Array<any>).map((item, i) => (
           <PlaceList key={i} onClick={() => onFilteredMarker(item)}>
             <Bookmark item={item} />
             <PlaceName>{item.place_name}</PlaceName>

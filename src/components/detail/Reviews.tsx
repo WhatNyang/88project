@@ -6,7 +6,7 @@ import ReviewItem from "./ReviewItem";
 const Reviews = () => {
   return (
     <StyledContainer>
-      <StyledTitle>후기</StyledTitle>
+      <StyledTitle>리뷰</StyledTitle>
       <ReviewForm />
       <ReviewItem />
     </StyledContainer>
@@ -24,8 +24,9 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-family: "GmarketSans";
 `;
 
 const StyledTitle = styled.div`
-  margin-left: 20px;
+  margin: 2px 0 -10px 22px;
 `;

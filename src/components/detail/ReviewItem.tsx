@@ -20,14 +20,13 @@ import { TfiPencilAlt } from "react-icons/tfi";
 const ReviewItem = () => {
   const location = useLocation();
   const item = location.state;
+  const filteredId = item.detailId ? item.detailId : item.id;
   const queryClient = useQueryClient();
-  const [reviews, setReviews] = useState<TypeReview[]>([]);
 
+  const [reviews, setReviews] = useState<TypeReview[]>([]);
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
-
-  const filteredId = item.detailId ? item.detailId : item.id;
 
   useEffect(() => {
     const q = query(
@@ -40,7 +39,6 @@ const ReviewItem = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("newReviews", newReviews);
       setReviews(newReviews);
     });
     return unsubscribe;
@@ -105,22 +103,19 @@ const ReviewItem = () => {
               {authService.currentUser?.uid === item.userId ? (
                 <RightBox>
                   {thisItem === item.id && isEdit ? null : (
-                    <>
+                    <ReviewBtn>
                       <RiDeleteBinLine
                         style={{ width: "19px", height: "19px" }}
                         onClick={() => handleDeleteBtn(item.id)}
-                        // 매개변수가 필요하기 때문에 콜백으로 넣어줘야한다
-                      ></RiDeleteBinLine>
+                      />
                       <TfiPencilAlt
                         style={{ width: "15px", marginRight: "20px" }}
                         strokeWidth="1"
                         onClick={() => {
                           editButtonHanler(item.id);
                         }}
-                      >
-                        수정
-                      </TfiPencilAlt>
-                    </>
+                      />
+                    </ReviewBtn>
                   )}
                   {thisItem === item.id && isEdit ? (
                     <>
@@ -167,7 +162,10 @@ const ItemBox = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
-const ContentBox = styled.div``;
+const ContentBox = styled.div`
+  padding: 10px 0;
+`;
+
 const InfoBox = styled.div`
   display: flex;
   width: 500px;
@@ -179,13 +177,18 @@ const RightBox = styled.div`
   align-items: center;
   margin: 0;
 `;
+
+const ReviewBtn = styled.div``;
+
 const CreateDate = styled.div`
   margin: 20px;
   color: darkgray;
   font-size: 13px;
 `;
 const ReviewContent = styled.div`
-  margin-left: 18px;
+  padding: 0 27px 0 18px;
+  font-size: 15px;
+  font-weight: 300;
 `;
 const StyledPhoto = styled.img`
   margin: 20px;
@@ -203,11 +206,13 @@ const ReviewEditor = styled.div`
   width: 100%;
 `;
 const EditTextArea = styled.textarea`
-  width: 300px;
+  width: 330px;
   height: 50px;
   resize: none;
   margin-left: 20px;
   margin-bottom: 10px;
+  font-family: GmarketSans;
+  font-weight: 300;
 `;
 
 const ReviewEditBtn = styled.button`

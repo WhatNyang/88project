@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BiSearchAlt } from "react-icons/bi";
+import { BsBuilding } from "react-icons/bs";
 import { POINT_COLOR, PROJECT_COLOR } from "../color";
 import { useNavigate } from "react-router-dom";
 
@@ -12,15 +12,15 @@ const Home = () => {
 
   return (
     <Container>
-      <CopyPhrase>반려동물도 호캉스도 놓치기 싫다면</CopyPhrase>
+      <CopyPhrase>유저들이 만들어가는 소셜 미디어 맵</CopyPhrase>
       <Title>
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
       </Title>
       <Btn onClick={goToLogin}>
-        <BiSearchAlt style={{ margin: "0 4px -4px 0" }} />
+        <BsBuilding style={{ margin: "0 7px -2.5px 0", fontSize: "22px" }} />
         어디로 갈까요?
       </Btn>
-      <Img src="img/image.jpg" />
+      <Img src="img/map.png" />
     </Container>
   );
 };
@@ -31,9 +31,11 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
-  margin-top: 60px;
   text-align: center;
   font-family: GmarketSans;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const CopyPhrase = styled.p`
@@ -48,11 +50,9 @@ const Title = styled.h1`
   margin: 10px 0;
 `;
 
-const Img = styled.img`
-  width: 100%;
-`;
-
 const Btn = styled.button`
+  width: 270px;
+  margin: 20px auto;
   font-size: 25px;
   font-weight: 500;
   padding: 10px 30px;
@@ -62,4 +62,8 @@ const Btn = styled.button`
   color: white;
   font-family: GmarketSans;
   cursor: pointer;
+`;
+const Img = styled.img`
+  width: 70%;
+  margin: 30px auto;
 `;

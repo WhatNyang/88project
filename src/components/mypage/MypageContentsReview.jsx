@@ -7,7 +7,6 @@ import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./DeleteModal";
-import { POINT_COLOR } from "../../color";
 
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
@@ -15,7 +14,8 @@ export default function MypageContentsReview({ reviews, user }) {
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
 
-  const editButtonHanler = function (item) {
+  const editButtonHanler = function (event, item) {
+    event.stopPropagation();
     setThisItem(item);
     setIsEdit(!isEdit);
   };
@@ -45,16 +45,14 @@ export default function MypageContentsReview({ reviews, user }) {
                 src={user?.photoURL ? user?.photoURL : null}
               />
             </ReviewProfile>
-            <ReviewCard>
+            <ReviewCard
+              onClick={() => {
+                navigateDetail(item);
+              }}
+            >
               <div style={{ display: "flex" }}>
                 <div>
-                  <ReviewInfo
-                    onClick={() => {
-                      navigateDetail(item);
-                    }}
-                  >
-                    {item.place_name}
-                  </ReviewInfo>
+                  <ReviewInfo>{item.place_name}</ReviewInfo>
                   <div>
                     <Typography variant="body2" color="text.secondary">
                       {new Date(item.createdAt)
@@ -68,16 +66,11 @@ export default function MypageContentsReview({ reviews, user }) {
                   <BiEdit
                     size={"30px"}
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      editButtonHanler(item.id);
+                    onClick={(event) => {
+                      editButtonHanler(event, item.id);
                     }}
                   />
                   <AlertDialog item={item} />
-                  {/* <BiTrash
-                    size={"30px"}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => deleteButtonConfirm(item.id)}
-                  /> */}
                 </ReviewBtnArea>
               </div>
               {thisItem === item.id && isEdit ? (
@@ -125,6 +118,12 @@ const Container = styled.div`
   border-radius: 10px;
   display: flex;
   margin: 0px 0px 20px 0px;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  &:hover {
+    background-color: #fcfcfc;
+    transition: 0.1s ease-out;
+  }
 `;
 
 const ReviewCard = styled.div`
@@ -141,11 +140,6 @@ const ReviewInfo = styled.div`
   font-weight: bold;
   font-size: 20px;
   cursor: pointer;
-  transition: 0.1s ease-out;
-  &:hover {
-    color: ${POINT_COLOR};
-    transition: 0.1s ease-out;
-  }
 `;
 
 const ReviewEditor = styled.div`
