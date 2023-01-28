@@ -18,7 +18,7 @@ const Home = () => {
       </Title>
       <Btn onClick={goToLogin}>
         <BiSearchAlt style={{ margin: "0 4px -4px 0" }} />
-        호텔 찾기
+        어디로 갈까요?
       </Btn>
       <Img src="img/image.jpg" />
     </Container>

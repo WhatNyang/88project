@@ -11,7 +11,9 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { dbService } from "../firebase";
+import { authService, dbService } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { POINT_COLOR } from "../color";
 export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
@@ -20,6 +22,14 @@ const Mypage = () => {
   const [reviews, setReviews] = useState([]);
   const bookmarkCount = bookmark.length;
   const reviewsCount = reviews.length;
+  const navigate = useNavigate();
+
+  const logout = () => {
+    authService.signOut();
+    navigate("/index");
+    sessionStorage.clear();
+  };
+
   useEffect(() => {
     onSnapshot(
       query(
@@ -54,6 +64,7 @@ const Mypage = () => {
 
   return (
     <StyledDivContainer>
+      <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
       <StyledDivMain>
         <MypageProfile
           bookmarkCount={bookmarkCount}
@@ -84,6 +95,24 @@ const StyledDivContainer = styled.div`
   /* height: 100%; */
   margin-top: 100px;
 `;
+
+const LogoutBtn = styled.button`
+  width: 100px;
+  height: 37.5px;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  background-color: ${POINT_COLOR};
+  border: none;
+  border-radius: 50px;
+  box-shadow: 1px 1px 1px ${POINT_COLOR};
+  text-align: center;
+  color: white;
+  font-size: 15px;
+  font-family: GmarketSans;
+  cursor: pointer;
+`;
+
 const StyledDivMain = styled.div`
   width: 700px;
   height: 100%;
