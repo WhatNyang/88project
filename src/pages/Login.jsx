@@ -37,7 +37,7 @@ export default function Login() {
       .then(() => {
         setEmail("");
         setPW("");
-        console.log(authService.currentUser);
+
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
         navigate("/");
       })
