@@ -1,8 +1,4 @@
-import { deleteDoc, doc } from "firebase/firestore";
-
 import styled from "styled-components";
-import { dbService } from "../../firebase";
-
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { FcBookmark } from "react-icons/fc";
@@ -49,7 +45,6 @@ const StyledDivMainContainer = styled.div`
   background-color: white;
   border-radius: 10px;
   display: flex;
-
   margin: 0px 0px 20px 0px;
 `;
 

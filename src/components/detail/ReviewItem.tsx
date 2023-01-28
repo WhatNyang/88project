@@ -27,18 +27,20 @@ const ReviewItem = () => {
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
 
+  const filteredId = item.detailId ? item.detailId : item.id;
+
   useEffect(() => {
     const q = query(
       collection(dbService, "reviews"),
       orderBy("createdAt", "desc"),
-      // 최근 작성한 순으로 불러오기
-      where("id", "==", item.id)
+      where("detailId", "==", filteredId)
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newReviews: any = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
+      console.log("newReviews", newReviews);
       setReviews(newReviews);
     });
     return unsubscribe;
@@ -61,6 +63,7 @@ const ReviewItem = () => {
 
   // 수정
   const editButtonHanler = function (item: any) {
+    console.log(item);
     setThisItem(item);
     setIsEdit(!isEdit);
   };

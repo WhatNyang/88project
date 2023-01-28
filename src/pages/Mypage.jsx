@@ -17,7 +17,7 @@ import { BACKGROUND_COLOR, POINT_COLOR } from "../color";
 export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
-  const [category, setCategory] = useState("bookmark"); // review, bookmark
+  const [category, setCategory] = useState("bookmark");
   const [bookmark, setBookmark] = useState([]);
   const [reviews, setReviews] = useState([]);
   const bookmarkCount = bookmark.length;
@@ -92,8 +92,8 @@ const StyledDivContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* height: 100%; */
   margin-top: 100px;
+  font-family: "GmarketSans";
 `;
 
 const LogoutBtn = styled.button`

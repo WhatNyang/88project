@@ -35,13 +35,15 @@ const StyledDivTwo = styled.div`
 
   button:nth-child(1) {
     margin-left: 10px;
-    width: 100px;
+    width: 110px;
     height: 40px;
     font-size: 15px;
     background: #e37b58;
     border-radius: 30px;
     padding: 10px 30px;
     border: none;
+    font-family: "GmarketSans";
+    cursor: pointer;
     &:hover {
       color: white;
       transition: 0.5s;
@@ -50,13 +52,15 @@ const StyledDivTwo = styled.div`
 
   button:nth-child(2) {
     margin-left: 10px;
-    width: 100px;
+    width: 110px;
     height: 40px;
     background: #ffffff;
     border-radius: 30px;
     padding: 10px 30px;
     border: none;
     font-size: 16px;
+    font-family: "GmarketSans";
+    cursor: pointer;
     &:hover {
       color: white;
       transition: 0.5s;

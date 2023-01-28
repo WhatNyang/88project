@@ -1,15 +1,14 @@
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { dbService } from "../../firebase";
-import { Avatar, Button } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useState } from "react";
-import { AiOutlineEdit } from "react-icons/ai";
-import { BiEdit, BiTrash } from "react-icons/bi";
-import { Navigate, useNavigate } from "react-router-dom";
+import { BiEdit } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-
 import AlertDialog from "./DeleteModal";
-import { BACKGROUND_COLOR } from "../../color";
+import { POINT_COLOR } from "../../color";
+
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
@@ -46,14 +45,16 @@ export default function MypageContentsReview({ reviews, user }) {
                 src={user?.photoURL ? user?.photoURL : null}
               />
             </ReviewProfile>
-            <ReviewCard
-              onClick={() => {
-                navigateDetail(item);
-              }}
-            >
+            <ReviewCard>
               <div style={{ display: "flex" }}>
                 <div>
-                  <ReviewInfo>{item.place_name}</ReviewInfo>
+                  <ReviewInfo
+                    onClick={() => {
+                      navigateDetail(item);
+                    }}
+                  >
+                    {item.place_name}
+                  </ReviewInfo>
                   <div>
                     <Typography variant="body2" color="text.secondary">
                       {new Date(item.createdAt)
@@ -124,10 +125,6 @@ const Container = styled.div`
   border-radius: 10px;
   display: flex;
   margin: 0px 0px 20px 0px;
-  cursor: pointer;
-  &:hover {
-    background-color: #fbfbfb;
-  }
 `;
 
 const ReviewCard = styled.div`
@@ -143,6 +140,12 @@ const ReviewInfo = styled.div`
   margin-bottom: 5px;
   font-weight: bold;
   font-size: 20px;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  &:hover {
+    color: ${POINT_COLOR};
+    transition: 0.1s ease-out;
+  }
 `;
 
 const ReviewEditor = styled.div`
