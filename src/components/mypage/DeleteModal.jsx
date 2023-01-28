@@ -4,23 +4,24 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { BiEdit, BiTrash } from "react-icons/bi";
-import { deleteDoc, doc } from "firebase/firestore";
-import { dbService } from "../../firebase";
+import { BiTrash } from "react-icons/bi";
 import { deletereview } from "../../data/review";
+
 export default function AlertDialog({ item }) {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (event) => {
+    event.stopPropagation();
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
+    event.stopPropagation();
     setOpen(false);
   };
 
-  const deleteReviewHandler = async (id) => {
+  const deleteReviewHandler = async (event, id) => {
+    event.stopPropagation();
     deletereview(id);
     handleClose(false);
   };
@@ -30,7 +31,7 @@ export default function AlertDialog({ item }) {
       <BiTrash
         size={"30px"}
         style={{ cursor: "pointer" }}
-        onClick={handleClickOpen}
+        onClick={(event) => handleClickOpen(event)}
       ></BiTrash>
 
       <Dialog
@@ -45,8 +46,11 @@ export default function AlertDialog({ item }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>취소</Button>
-          <Button onClick={() => deleteReviewHandler(item.id)} autoFocus>
+          <Button onClick={(event) => handleClose(event)}>취소</Button>
+          <Button
+            onClick={(event) => deleteReviewHandler(event, item.id)}
+            autoFocus
+          >
             삭제
           </Button>
         </DialogActions>

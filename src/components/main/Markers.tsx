@@ -1,26 +1,34 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { BACKGROUND_COLOR, POINT_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 
-const Markers = ({ info, setInfo, isOpen, setIsOpen, markers }) => {
+interface MainProps {
+  info: any;
+  setInfo: Dispatch<SetStateAction<object[]>>;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  markers: object[];
+}
+
+const Markers = ({ info, setInfo, isOpen, setIsOpen, markers }: MainProps) => {
   const navigate = useNavigate();
 
-  const onMarkerHandler = (marker) => {
+  const onMarkerHandler = (marker: object[]) => {
     setInfo(marker);
     setIsOpen(!isOpen);
   };
 
-  const onNavigate = (item) => {
+  const onNavigate = (item: { id: string }) => {
     navigate(`/detail/${item.id}`, { state: item });
   };
 
   return (
     <>
-      {markers.map((marker) => (
+      {markers.map((marker: any) => (
         <MapMarker
-          key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+          key={`marker-${marker.place_name}-${marker.position.lat},${marker.position.lng}`}
           position={marker.position}
           onClick={() => onMarkerHandler(marker)}
         >

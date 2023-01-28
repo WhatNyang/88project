@@ -5,8 +5,8 @@ import Detail from "../pages/Detail";
 import Mypage from "../pages/Mypage";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Filter from "../pages/Filter";
 import MyMenu from "../components/MyMenu";
+import Filter from "../pages/Filter";
 
 const Router = () => {
   return (
