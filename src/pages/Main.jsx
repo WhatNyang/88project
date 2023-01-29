@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { authService } from "../firebase";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Searchbar from "../components/main/Searchbar";
 import { Map } from "react-kakao-maps-sdk";
@@ -8,6 +10,12 @@ import { BACKGROUND_COLOR } from "../color";
 const { kakao } = window;
 
 const Main = () => {
+  const navigate = useNavigate();
+  authService.onAuthStateChanged((user) => {
+    if (!user) {
+      navigate("/index");
+    }
+  });
   const [place, setPlace] = useState("");
   const [places, setPlaces] = useState([]);
   const [markers, setMarkers] = useState([]);
