@@ -20,6 +20,7 @@ const Mypage = () => {
   const navigate = useNavigate();
   authService.onAuthStateChanged((item) => {
     if (!item) navigate("/index");
+
   });
   const [category, setCategory] = useState("bookmark");
   const [bookmark, setBookmark] = useState([]);

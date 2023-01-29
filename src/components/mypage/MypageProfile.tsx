@@ -4,6 +4,7 @@ import { updateProfile } from "firebase/auth";
 import { authService, storage } from "../../firebase";
 import { uploadString, getDownloadURL, ref } from "firebase/storage";
 import { POINT_COLOR } from "../../color";
+import { useNavigate } from "react-router-dom";
 
 const imgProfile =
   "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
@@ -19,9 +20,13 @@ type ProfileItemProps = {
   bookmark: number;
   review: number;
 };
-
+const currentUser = JSON.parse(localStorage.getItem("User") as string);
 function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
-  const currentUser = JSON.parse(localStorage.getItem("User") as string);
+  const navigate = useNavigate();
+  if (!currentUser) {
+    console.log("aa");
+    navigate("/index");
+  }
 
   const initialState = {
     nickname: currentUser.displayName,
