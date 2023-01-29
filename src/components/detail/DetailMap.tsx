@@ -30,8 +30,8 @@ const DetailMap = () => {
     map.setCenter(moveLatLon);
 
     map.panBy(100, 50);
-    // 중심 좌표를 지정한 픽셀 만큼 부드럽게 이동한다.
-    // 만약 이동할 거리가 지도 화면의 크기보다 클 경우 애니메이션 없이 이동한다.
+    // 중심 좌표를 지정한 픽셀 만큼 부드럽게 이동
+    // 만약 이동할 거리가 지도 화면의 크기보다 클 경우 애니메이션 없이 이동
 
     // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성
     const mapTypeControl = new window.kakao.maps.MapTypeControl();

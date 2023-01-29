@@ -11,8 +11,10 @@ const Header = () => {
     <Nav>
       <Title
         onClick={() => {
+
           sessionStorage.clear();
           navigate("/main");
+
         }}
       >
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>

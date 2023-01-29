@@ -79,75 +79,79 @@ const ReviewItem = () => {
 
   return (
     <>
-      {reviews.map((item) => {
-        return (
-          <ItemBox key={item.createdAt}>
-            {item.photoUrl ? (
-              <StyledPhoto src={item.photoUrl} />
-            ) : (
-              <StyledPhoto src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
-            )}
-            <ContentBox>
-              <InfoBox>
-                <StyledNickname>{item.userNickName}</StyledNickname>
-                <CreateDate>
-                  {new Date(item.createdAt)
-                    .toLocaleDateString()
-                    .replace(/\./g, "")
-                    .replace(/\s/g, " / ")}
-                </CreateDate>
-              </InfoBox>
-              {thisItem === item.id && isEdit ? null : (
-                <ReviewContent>{item.contents}</ReviewContent>
+      {reviews &&
+        reviews.map((item) => {
+          return (
+            <ItemBox key={item.createdAt}>
+              {item.photoUrl ? (
+                <StyledPhoto src={item.photoUrl} />
+              ) : (
+                <StyledPhoto src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
               )}
-              {authService.currentUser?.uid === item.userId ? (
-                <RightBox>
-                  {thisItem === item.id && isEdit ? null : (
-                    <ReviewBtn>
-                      <RiDeleteBinLine
-                        style={{ width: "19px", height: "19px" }}
-                        onClick={() => handleDeleteBtn(item.id)}
-                      />
-                      <TfiPencilAlt
-                        style={{ width: "15px", marginRight: "20px" }}
-                        strokeWidth="1"
-                        onClick={() => {
-                          editButtonHandler(item.id);
-                        }}
-                      />
-                    </ReviewBtn>
-                  )}
-                  {thisItem === item.id && isEdit ? (
-                    <>
-                      <ReviewEditor>
-                        <EditTextArea onChange={onChangeText}>
-                          {item.contents}
-                        </EditTextArea>
-                      </ReviewEditor>
-                      <ReviewEditBtn
-                        style={{ marginRight: "2px" }}
-                        onClick={() => {
-                          editReview(item.id);
-                          setIsEdit(false);
-                        }}
-                      >
-                        완료
-                      </ReviewEditBtn>
-                      <ReviewEditBtn
-                        onClick={() => {
-                          setIsEdit(false);
-                        }}
-                      >
-                        취소
-                      </ReviewEditBtn>
-                    </>
-                  ) : null}
-                </RightBox>
-              ) : null}
-            </ContentBox>
-          </ItemBox>
-        );
-      })}
+              <ContentBox>
+                <InfoBox>
+                  <StyledNickname>{item.userNickName}</StyledNickname>
+                  <CreateDate>
+                    {new Date(item.createdAt)
+                      .toLocaleDateString()
+                      .replace(/\./g, "")
+                      .replace(/\s/g, " / ")}
+                  </CreateDate>
+                </InfoBox>
+                {thisItem === item.id && isEdit ? null : (
+                  <ReviewContent>{item.contents}</ReviewContent>
+                )}
+                {authService.currentUser?.uid === item.userId ? (
+                  <RightBox>
+                    {thisItem === item.id && isEdit ? null : (
+                      <ReviewBtn>
+                        <RiDeleteBinLine
+                          style={{
+                            width: "19px",
+                            height: "19px",
+                          }}
+                          onClick={() => handleDeleteBtn(item.id)}
+                        />
+                        <TfiPencilAlt
+                          style={{ width: "15px", marginRight: "20px" }}
+                          strokeWidth="1"
+                          onClick={() => {
+                            editButtonHandler(item.id);
+                          }}
+                        />
+                      </ReviewBtn>
+                    )}
+                    {thisItem === item.id && isEdit ? (
+                      <>
+                        <ReviewEditor>
+                          <EditTextArea onChange={onChangeText}>
+                            {item.contents}
+                          </EditTextArea>
+                        </ReviewEditor>
+                        <ReviewEditBtn
+                          style={{ marginRight: "2px" }}
+                          onClick={() => {
+                            editReview(item.id);
+                            setIsEdit(false);
+                          }}
+                        >
+                          완료
+                        </ReviewEditBtn>
+                        <ReviewEditBtn
+                          onClick={() => {
+                            setIsEdit(false);
+                          }}
+                        >
+                          취소
+                        </ReviewEditBtn>
+                      </>
+                    ) : null}
+                  </RightBox>
+                ) : null}
+              </ContentBox>
+            </ItemBox>
+          );
+        })}
     </>
   );
 };
@@ -179,7 +183,10 @@ const RightBox = styled.div`
   margin: 0;
 `;
 
-const ReviewBtn = styled.div``;
+const ReviewBtn = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const CreateDate = styled.div`
   margin: 20px;

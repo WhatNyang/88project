@@ -15,7 +15,8 @@ const MyMenu = () => {
   const logout = () => {
     authService.signOut();
     navigate("/index");
-    sessionStorage.clear();
+    // sessionStorage.clear();
+    localStorage.clear();
   };
 
   return (
