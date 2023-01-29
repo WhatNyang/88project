@@ -21,9 +21,10 @@ import { POINT_COLOR, TEXTBOX_COLOR } from "../../color";
 const ReviewItem = () => {
   const location = useLocation();
   const item = location.state;
+  const filteredId = item.detailId ? item.detailId : item.id;
   const queryClient = useQueryClient();
-  const [reviews, setReviews] = useState<TypeReview[]>([]);
 
+  const [reviews, setReviews] = useState<TypeReview[]>([]);
   const [isEdit, setIsEdit] = useState(false);
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
@@ -32,8 +33,7 @@ const ReviewItem = () => {
     const q = query(
       collection(dbService, "reviews"),
       orderBy("createdAt", "desc"),
-      // 최근 작성한 순으로 불러오기
-      where("detailId", "==", item.id)
+      where("detailId", "==", filteredId)
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newReviews: any = snapshot.docs.map((doc) => ({
@@ -103,22 +103,19 @@ const ReviewItem = () => {
               {authService.currentUser?.uid === item.userId ? (
                 <RightBox>
                   {thisItem === item.id && isEdit ? null : (
-                    <>
+                    <ReviewBtn>
                       <RiDeleteBinLine
                         style={{ width: "19px", height: "19px" }}
                         onClick={() => handleDeleteBtn(item.id)}
-                        // 매개변수가 필요하기 때문에 콜백으로 넣어줘야한다
-                      ></RiDeleteBinLine>
+                      />
                       <TfiPencilAlt
                         style={{ width: "15px", marginRight: "20px" }}
                         strokeWidth="1"
                         onClick={() => {
                           editButtonHandler(item.id);
                         }}
-                      >
-                        수정
-                      </TfiPencilAlt>
-                    </>
+                      />
+                    </ReviewBtn>
                   )}
                   {thisItem === item.id && isEdit ? (
                     <>
@@ -166,7 +163,10 @@ const ItemBox = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
-const ContentBox = styled.div``;
+const ContentBox = styled.div`
+  padding: 10px 0;
+`;
+
 const InfoBox = styled.div`
   display: flex;
   width: 500px;
@@ -178,6 +178,9 @@ const RightBox = styled.div`
   align-items: center;
   margin: 0;
 `;
+
+const ReviewBtn = styled.div``;
+
 const CreateDate = styled.div`
   margin: 20px;
   color: darkgray;
@@ -202,7 +205,7 @@ const ReviewEditor = styled.div`
   width: 100%;
 `;
 const EditTextArea = styled.textarea`
-  width: 300px;
+  width: 330px;
   height: 50px;
   resize: none;
   margin-left: 20px;

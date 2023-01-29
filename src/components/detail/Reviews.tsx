@@ -6,7 +6,7 @@ import ReviewItem from "./ReviewItem";
 const Reviews = () => {
   return (
     <StyledContainer>
-      <StyledTitle>후기</StyledTitle>
+      <StyledTitle>리뷰</StyledTitle>
       <ReviewForm />
       <ReviewItem />
     </StyledContainer>

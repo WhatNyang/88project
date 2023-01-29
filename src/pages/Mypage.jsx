@@ -13,11 +13,11 @@ import {
 } from "firebase/firestore";
 import { authService, dbService } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { POINT_COLOR } from "../color";
+import { BACKGROUND_COLOR, POINT_COLOR } from "../color";
 export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
-  const [category, setCategory] = useState("bookmark"); // review, bookmark
+  const [category, setCategory] = useState("bookmark");
   const [bookmark, setBookmark] = useState([]);
   const [reviews, setReviews] = useState([]);
   const bookmarkCount = bookmark.length;
@@ -92,8 +92,8 @@ const StyledDivContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* height: 100%; */
   margin-top: 100px;
+  font-family: "GmarketSans";
 `;
 
 const LogoutBtn = styled.button`
@@ -118,7 +118,7 @@ const StyledDivMain = styled.div`
   height: 100%;
   left: 225px;
   top: 167px;
-  background: #fef6ec;
+  background: ${BACKGROUND_COLOR};
   border-radius: 30px;
   padding: 50px;
 `;

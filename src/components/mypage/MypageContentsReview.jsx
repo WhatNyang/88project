@@ -6,7 +6,6 @@ import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-
 import AlertDialog from "./DeleteModal";
 import { POINT_COLOR } from "../../color";
 export default function MypageContentsReview({ reviews, user }) {
@@ -15,7 +14,8 @@ export default function MypageContentsReview({ reviews, user }) {
   const [editText, setEditText] = useState("");
   const [thisItem, setThisItem] = useState();
 
-  const editButtonHanler = function (item) {
+  const editButtonHanler = function (event, item) {
+    event.stopPropagation();
     setThisItem(item);
     setIsEdit(!isEdit);
   };
@@ -38,7 +38,7 @@ export default function MypageContentsReview({ reviews, user }) {
     <>
       {reviews.map((item) => {
         return (
-          <Container key={item.id}>
+          <Container key={item.date.seconds}>
             <ReviewProfile>
               <Avatar
                 alt="Avatar"
@@ -62,16 +62,11 @@ export default function MypageContentsReview({ reviews, user }) {
                   <BiEdit
                     size={"30px"}
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      editButtonHanler(item.id);
+                    onClick={(event) => {
+                      editButtonHanler(event, item.id);
                     }}
                   />
                   <AlertDialog item={item} />
-                  {/* <BiTrash
-                    size={"30px"}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => deleteButtonConfirm(item.id)}
-                  /> */}
                 </ReviewBtnArea>
                 <GoToDetailBtn
                   onClick={() => {
@@ -125,6 +120,12 @@ const Container = styled.div`
   background-color: white;
   border-radius: 10px;
   display: flex;
+  margin: 0px 0px 20px 0px;
+  cursor: pointer;
+  transition: 0.1s ease-out;
+  &:hover {
+    background-color: #fcfcfc;
+    transition: 0.1s ease-out;
 `;
 
 const ReviewCard = styled.div`
@@ -140,6 +141,7 @@ const ReviewInfo = styled.div`
   margin-bottom: 5px;
   font-weight: bold;
   font-size: 20px;
+  cursor: pointer;
 `;
 
 const ReviewEditor = styled.div`

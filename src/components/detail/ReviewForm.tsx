@@ -18,7 +18,7 @@ const ReviewForm = () => {
       createdAt: Date.now(),
       userId: authService.currentUser?.uid,
       userNickName: authService.currentUser?.displayName,
-      detailId: item.id,
+      detailId: location.pathname.slice(8),
       date: new Date(),
       place_name: item.place_name,
       photoUrl: authService.currentUser?.photoURL,
@@ -94,6 +94,7 @@ const StyledInput = styled.textarea`
   margin-bottom: 0;
   border: none;
   resize: none;
+  font-family: "GmarketSans";
   :focus {
     outline: none;
   }
@@ -110,4 +111,5 @@ const CreateBtn = styled.button`
   width: 50px;
   height: 30px;
   cursor: pointer;
+  font-family: "GmarketSans";
 `;
