@@ -36,12 +36,12 @@ const firebaseConfig = {
   appId: "1:412199444502:web:b5b06bdc61f234a843d537",
   measurementId: "G-WM0WC6YDE3",
   //진수
-  apiKey: "AIzaSyA7urirbxoXBsC8h7DHN1LDxa1IDoei4MM",
-  authDomain: "fir-dd60a.firebaseapp.com",
-  projectId: "fir-dd60a",
-  storageBucket: "fir-dd60a.appspot.com",
-  messagingSenderId: "487503040464",
-  appId: "1:487503040464:web:c2de2dc22f763be3bbb3d5",
+  // apiKey: "AIzaSyA7urirbxoXBsC8h7DHN1LDxa1IDoei4MM",
+  // authDomain: "fir-dd60a.firebaseapp.com",
+  // projectId: "fir-dd60a",
+  // storageBucket: "fir-dd60a.appspot.com",
+  // messagingSenderId: "487503040464",
+  // appId: "1:487503040464:web:c2de2dc22f763be3bbb3d5",
 };
 
 export const app = initializeApp(firebaseConfig);
