@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TfiPencilAlt } from "react-icons/tfi";
+import { POINT_COLOR, TEXTBOX_COLOR } from "../../color";
 
 const ReviewItem = () => {
   const location = useLocation();
@@ -42,8 +43,9 @@ const ReviewItem = () => {
       setReviews(newReviews);
     });
     return unsubscribe;
-  }, []);
+  }, [item.id]);
 
+  // 삭제
   const deleteReview = (id: string) => {
     return deleteDoc(doc(dbService, "reviews", id));
   };
@@ -60,8 +62,7 @@ const ReviewItem = () => {
   };
 
   // 수정
-  const editButtonHanler = function (item: any) {
-    console.log(item);
+  const editButtonHandler = function (item: any) {
     setThisItem(item);
     setIsEdit(!isEdit);
   };
@@ -99,7 +100,6 @@ const ReviewItem = () => {
               {thisItem === item.id && isEdit ? null : (
                 <ReviewContent>{item.contents}</ReviewContent>
               )}
-
               {authService.currentUser?.uid === item.userId ? (
                 <RightBox>
                   {thisItem === item.id && isEdit ? null : (
@@ -112,7 +112,7 @@ const ReviewItem = () => {
                         style={{ width: "15px", marginRight: "20px" }}
                         strokeWidth="1"
                         onClick={() => {
-                          editButtonHanler(item.id);
+                          editButtonHandler(item.id);
                         }}
                       />
                     </ReviewBtn>
@@ -155,8 +155,9 @@ const ReviewItem = () => {
 export default ReviewItem;
 
 const ItemBox = styled.div`
-  background-color: white;
+  background-color: ${TEXTBOX_COLOR};
   border-radius: 10px;
+  border: 2px solid ${POINT_COLOR};
   margin: 20px;
   display: flex;
   justify-content: center;
@@ -186,9 +187,7 @@ const CreateDate = styled.div`
   font-size: 13px;
 `;
 const ReviewContent = styled.div`
-  padding: 0 27px 0 18px;
-  font-size: 15px;
-  font-weight: 300;
+  margin-left: 20px;
 `;
 const StyledPhoto = styled.img`
   margin: 20px;
@@ -211,8 +210,8 @@ const EditTextArea = styled.textarea`
   resize: none;
   margin-left: 20px;
   margin-bottom: 10px;
-  font-family: GmarketSans;
-  font-weight: 300;
+  border-radius: 10px;
+  padding: 10px;
 `;
 
 const ReviewEditBtn = styled.button`

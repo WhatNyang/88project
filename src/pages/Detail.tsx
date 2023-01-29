@@ -3,10 +3,11 @@ import Reviews from "../components/detail/Reviews";
 
 const Detail = () => {
   return (
-    <div>
+    <>
+      <MyMenu />
       <DetailInfo />
       <Reviews />
-    </div>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ export default function MypageButton({ category, setCategory }) {
         style={{
           backgroundColor: category === "bookmark" ? "#e37b58" : "lightgrey",
           color: category === "bookmark" ? "white" : null,
+          width: "110px",
         }}
       >
         북마크
@@ -21,6 +22,7 @@ export default function MypageButton({ category, setCategory }) {
         style={{
           backgroundColor: category === "review" ? "#e37b58" : "lightgrey",
           color: category === "review" ? "white" : null,
+          width: "110px",
         }}
       >
         리뷰

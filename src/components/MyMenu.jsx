@@ -70,7 +70,9 @@ const Menu = styled.div`
   text-align: center;
   color: white;
   font-family: GmarketSans;
-  z-index: 999;
+
+  z-index: 6000;
+
 `;
 
 const MenuItem = styled.p`

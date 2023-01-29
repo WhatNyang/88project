@@ -16,9 +16,9 @@ const Reviews = () => {
 export default Reviews;
 
 const StyledContainer = styled.div`
-  width: 700px;
+  width: 750px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 30px;
   background-color: ${BACKGROUND_COLOR};
   border-radius: 10px;
   display: flex;
@@ -28,5 +28,6 @@ const StyledContainer = styled.div`
 `;
 
 const StyledTitle = styled.div`
-  margin: 2px 0 -10px 22px;
+  margin: 10px 0 0 20px;
+  font-weight: 500;
 `;

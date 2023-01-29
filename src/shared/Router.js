@@ -6,7 +6,6 @@ import Mypage from "../pages/Mypage";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyMenu from "../components/MyMenu";
-import Filter from "../pages/Filter";
 
 const Router = () => {
   return (
@@ -19,7 +18,6 @@ const Router = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/filter" element={<Filter />} />
       </Routes>
     </BrowserRouter>
   );

@@ -7,7 +7,7 @@ import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import AlertDialog from "./DeleteModal";
-
+import { POINT_COLOR } from "../../color";
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
@@ -45,11 +45,7 @@ export default function MypageContentsReview({ reviews, user }) {
                 src={user?.photoURL ? user?.photoURL : null}
               />
             </ReviewProfile>
-            <ReviewCard
-              onClick={() => {
-                navigateDetail(item);
-              }}
-            >
+            <ReviewCard>
               <div style={{ display: "flex" }}>
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>
@@ -72,9 +68,16 @@ export default function MypageContentsReview({ reviews, user }) {
                   />
                   <AlertDialog item={item} />
                 </ReviewBtnArea>
+                <GoToDetailBtn
+                  onClick={() => {
+                    navigateDetail(item);
+                  }}
+                >
+                  상세페이지
+                </GoToDetailBtn>
               </div>
               {thisItem === item.id && isEdit ? (
-                <>
+                <RightBox>
                   <ReviewEditor>
                     <ReviewTextArea onChange={onChangeText}>
                       {item.contents}
@@ -100,7 +103,7 @@ export default function MypageContentsReview({ reviews, user }) {
                   >
                     취소
                   </ReviewEditBtn>
-                </>
+                </RightBox>
               ) : (
                 <p>{item.contents}</p>
               )}
@@ -113,7 +116,7 @@ export default function MypageContentsReview({ reviews, user }) {
 }
 
 const Container = styled.div`
-  padding: 20px 0px 20px 0px;
+  padding-top: 15px;
   background-color: white;
   border-radius: 10px;
   display: flex;
@@ -123,7 +126,6 @@ const Container = styled.div`
   &:hover {
     background-color: #fcfcfc;
     transition: 0.1s ease-out;
-  }
 `;
 
 const ReviewCard = styled.div`
@@ -154,6 +156,30 @@ const ReviewBtnArea = styled.div`
 const ReviewTextArea = styled.textarea`
   width: 100%;
   height: 50px;
+  resize: none;
+  border-radius: 10px;
+`;
+const RightBox = styled.div`
+  display: flex;
 `;
 
-const ReviewEditBtn = styled.button``;
+const ReviewEditBtn = styled.button`
+  background-color: #e37b58;
+  border-radius: 5px;
+  border-style: none;
+  color: white;
+  width: 50px;
+  height: 25px;
+  margin: 0 20px 10px 5px;
+`;
+
+const GoToDetailBtn = styled.button`
+  width: 110px;
+  height: 30px;
+  background-color: ${POINT_COLOR};
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 14px;
+  margin-right: 15px;
+`;

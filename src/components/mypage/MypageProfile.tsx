@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { updateProfile } from "firebase/auth";
 import { authService, storage } from "../../firebase";
 import { uploadString, getDownloadURL, ref } from "firebase/storage";
@@ -92,7 +92,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNicknameEdit(e.target.value);
   };
-
   return (
     <StyledDivOne>
       <div></div>

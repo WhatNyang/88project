@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import { FcBookmark } from "react-icons/fc";
 import { deleteBookmark } from "../../data/bookmark";
 
@@ -18,19 +17,16 @@ export default function MypageContentsBookmark({ bookmark }) {
                   onClick={() => deleteBookmark(item.id)}
                 />
               </StyledDivBookmarkIconContainer>
-
               <CardContent>
-                <Typography gutterBottom variant="h4">
-                  {item.place}
-                </Typography>
-                <Typography variant="body1" color="text.frimary">
+                <PlaceName>{item.place}</PlaceName>
+                <RoadAddress>
                   {item.roadAddress
                     ? `${item.address}  (${item.roadAddress})`
                     : `${item.address} `}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
+                </RoadAddress>
+                <Telephone>
                   {item.phone ? `Tel: ${item.phone}` : null}
-                </Typography>
+                </Telephone>
               </CardContent>
             </StyledDivMainContainer>
           </div>
@@ -41,14 +37,25 @@ export default function MypageContentsBookmark({ bookmark }) {
 }
 
 const StyledDivMainContainer = styled.div`
-  padding: 20px 0px 20px 0px;
   background-color: white;
   border-radius: 10px;
   display: flex;
-  margin: 0px 0px 20px 0px;
 `;
 
 const StyledDivBookmarkIconContainer = styled.div`
-  padding-left: 30px;
-  padding-top: 15px;
+  padding: 15px 0 0 10px;
+`;
+
+const PlaceName = styled.div`
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 20px;
+`;
+const RoadAddress = styled.div`
+  color: gray;
+  margin-top: 10px;
+`;
+const Telephone = styled.div`
+  color: gray;
+  margin-top: 10px;
 `;
