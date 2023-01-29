@@ -72,7 +72,6 @@ const Menu = styled.div`
   font-family: GmarketSans;
 
   z-index: 6000;
-
 `;
 
 const MenuItem = styled.p`

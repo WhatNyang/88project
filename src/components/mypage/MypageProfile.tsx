@@ -4,6 +4,7 @@ import { updateProfile } from "firebase/auth";
 import { authService, storage } from "../../firebase";
 import { uploadString, getDownloadURL, ref } from "firebase/storage";
 import { POINT_COLOR } from "../../color";
+import { useNavigate } from "react-router-dom";
 
 const imgProfile =
   "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
@@ -19,9 +20,13 @@ type ProfileItemProps = {
   bookmark: number;
   review: number;
 };
-
+const currentUser = JSON.parse(localStorage.getItem("User") as string);
 function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
-  const currentUser = JSON.parse(localStorage.getItem("User") as string);
+  const navigate = useNavigate();
+  if (!currentUser) {
+    console.log("aa");
+    navigate("/index");
+  }
 
   const initialState = {
     nickname: currentUser.displayName,

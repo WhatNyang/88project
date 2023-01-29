@@ -17,12 +17,17 @@ import { BACKGROUND_COLOR, POINT_COLOR } from "../color";
 export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
+  const navigate = useNavigate();
+  authService.onAuthStateChanged((user) => {
+    if (!user) {
+      navigate("/index");
+    }
+  });
   const [category, setCategory] = useState("bookmark");
   const [bookmark, setBookmark] = useState([]);
   const [reviews, setReviews] = useState([]);
   const bookmarkCount = bookmark.length;
   const reviewsCount = reviews.length;
-  const navigate = useNavigate();
 
   const logout = () => {
     authService.signOut();
