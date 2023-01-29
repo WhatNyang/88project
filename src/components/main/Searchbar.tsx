@@ -113,10 +113,12 @@ const Searchbar = ({ setInfo, isOpen, setIsOpen, setPlace }: MainProps) => {
         style={{
           fontSize: "25px",
           fontWeight: "bold",
+          fontFamily: "GmarketSans",
           letterSpacing: "20px",
           textAlign: "center",
           marginBottom: "30px",
           textDecoration: "none",
+          color: "inherit",
         }}
       />
     </List>

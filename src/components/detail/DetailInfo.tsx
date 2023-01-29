@@ -7,18 +7,17 @@ import { FiMapPin } from "react-icons/fi";
 import Bookmark from "../Bookmark";
 
 const DetailInfo = () => {
-  // navigate로 전달한 props받기
   const location = useLocation();
   const item = location.state;
 
   return (
     <InfoContainer>
-      <BookmarkBox>
-        <Bookmark item={item} />
-      </BookmarkBox>
       <InfoBox>
         <InfoTextBox>
-          <InfoTitle>{item.place_name}</InfoTitle>
+          <InfoTitleBox>
+            <Bookmark item={item} />
+            <InfoTitle>{item.place_name}</InfoTitle>
+          </InfoTitleBox>
           <StyledText>
             <FiMapPin style={{ marginBottom: "-2px" }} />
             &nbsp; {item.road_address_name} ( {item.address_name} )
@@ -61,12 +60,14 @@ const InfoContainer = styled.div`
   border-radius: 10px;
   font-family: "GmarketSans";
 `;
-const BookmarkBox = styled.div`
+const InfoTitleBox = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-right: 15px;
-  margin-bottom: 10px;
+  height: 40px;
+  align-items: center;
   cursor: pointer;
+  border-bottom: 1px solid gray;
+  margin-bottom: 10px;
+  padding-bottom: 3px;
 `;
 const InfoBox = styled.div`
   width: 100%;
@@ -82,11 +83,9 @@ const InfoTextBox = styled.div`
   padding: 10px;
 `;
 const InfoTitle = styled.div`
-  margin: 10px 0 20px 0;
   font-size: 20px;
   font-weight: 700;
-  border-bottom: 1px solid gray;
-  padding: 5px;
+  margin: 0 0 -4px 2px;
 `;
 const StyledText = styled.div`
   margin-bottom: 10px;

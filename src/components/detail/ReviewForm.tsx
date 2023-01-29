@@ -42,7 +42,6 @@ const ReviewForm = () => {
     },
   });
 
-  // 에러메세지
   const getErrorMsg = (errorCode: any, params: any) => {
     switch (errorCode) {
       case "blank":
@@ -54,12 +53,11 @@ const ReviewForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 입력창이 비어있으면 alert
     const word = contents.replace(/\s| /gi, "");
     if (!word.length) {
       return getErrorMsg("blank", {});
     }
-    // text와 닉네임 전달
+
     const newReview: any = {
       contents,
       userNickName: authService.currentUser?.displayName,

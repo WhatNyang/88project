@@ -30,6 +30,8 @@ const Mypage = () => {
     sessionStorage.clear();
   };
 
+  console.log(user);
+
   useEffect(() => {
     onSnapshot(
       query(

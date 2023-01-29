@@ -41,14 +41,16 @@ const StyledDivMainContainer = styled.div`
   background-color: white;
   border-radius: 10px;
   display: flex;
+  margin-bottom: 20px;
+  height: 119.5px;
 `;
 
 const StyledDivBookmarkIconContainer = styled.div`
-  padding: 15px 0 0 10px;
+  padding: 15px 0 0 15px;
 `;
 
 const PlaceName = styled.div`
-  margin-bottom: 5px;
+  margin: -1px 0 0 -1px;
   font-weight: bold;
   font-size: 20px;
 `;

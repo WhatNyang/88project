@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { POINT_COLOR } from "../color";
@@ -19,13 +19,17 @@ const MyMenu = () => {
     localStorage.clear();
   };
 
+  if (window.location.pathname === "/index") return null;
+  if (window.location.pathname === "/login") return null;
+  if (window.location.pathname === "/mypage") return null;
+
   return (
     <>
       <Profile onClick={() => setIsOpen(!isOpen)}>
         {authService.currentUser?.photoURL ? (
           <ProfileImg src={authService.currentUser?.photoURL} />
         ) : (
-          <ProfileImg src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
+          <ProfileImg src="img/profile.png" />
         )}
       </Profile>
       {isOpen === true ? (

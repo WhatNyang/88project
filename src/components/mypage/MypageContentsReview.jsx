@@ -37,18 +37,24 @@ export default function MypageContentsReview({ reviews, user }) {
 
   return (
     <>
-      {reviews &&
-        reviews.map((item) => {
-          return (
-            <Container key={item.date.seconds}>
-              <ReviewProfile>
-                <Avatar
-                  alt="Avatar"
-                  src={user?.photoURL ? user?.photoURL : null}
-                />
-              </ReviewProfile>
-              <ReviewCard>
-                <div style={{ display: "flex" }}>
+      {reviews.map((item) => {
+        return (
+          <Container key={item.date.seconds}>
+            <ReviewProfile>
+              <Avatar
+                alt="Avatar"
+                src={user?.photoURL ? user?.photoURL : null}
+              />
+            </ReviewProfile>
+            <ReviewCard
+              onClick={() => {
+                navigateDetail(item);
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                <div>
+                  <ReviewInfo>{item.place_name}</ReviewInfo>
+
                   <div>
                     <ReviewInfo>{item.place_name}</ReviewInfo>
                     <div>
@@ -78,41 +84,52 @@ export default function MypageContentsReview({ reviews, user }) {
                     />
                   </ReviewBtnArea>
                 </div>
-                {thisItem === item.id && isEdit ? (
-                  <RightBox>
-                    <ReviewEditor>
-                      <ReviewTextArea onChange={onChangeText}>
-                        {item.contents}
-                      </ReviewTextArea>
-                    </ReviewEditor>
-                    <ReviewEditBtn
-                      variant="contained"
-                      color="success"
-                      style={{ marginRight: "2px" }}
-                      onClick={() => {
-                        editReview(item.id);
-                        setIsEdit(false);
-                      }}
-                    >
-                      수정
-                    </ReviewEditBtn>
-                    <ReviewEditBtn
-                      variant="contained"
-                      color="warning"
-                      onClick={() => {
-                        setIsEdit(false);
-                      }}
-                    >
-                      취소
-                    </ReviewEditBtn>
-                  </RightBox>
-                ) : (
-                  <p>{item.contents}</p>
-                )}
-              </ReviewCard>
-            </Container>
-          );
-        })}
+                <ReviewBtnArea>
+                  <BiEdit
+                    size={"20px"}
+                    style={{ cursor: "pointer" }}
+                    onClick={(event) => {
+                      editButtonHanler(event, item.id);
+                    }}
+                  />
+                  <AlertDialog item={item} />
+                </ReviewBtnArea>
+              </div>
+              {thisItem === item.id && isEdit ? (
+                <RightBox>
+                  <ReviewEditor>
+                    <ReviewTextArea onChange={onChangeText}>
+                      {item.contents}
+                    </ReviewTextArea>
+                  </ReviewEditor>
+                  <ReviewEditBtn
+                    variant="contained"
+                    color="success"
+                    style={{ marginRight: "2px" }}
+                    onClick={() => {
+                      editReview(item.id);
+                      setIsEdit(false);
+                    }}
+                  >
+                    수정
+                  </ReviewEditBtn>
+                  <ReviewEditBtn
+                    variant="contained"
+                    color="warning"
+                    onClick={() => {
+                      setIsEdit(false);
+                    }}
+                  >
+                    취소
+                  </ReviewEditBtn>
+                </RightBox>
+              ) : (
+                <ReviewContent>{item.contents}</ReviewContent>
+              )}
+            </ReviewCard>
+          </Container>
+        );
+      })}
     </>
   );
 }
@@ -139,6 +156,7 @@ const ReviewProfile = styled.div`
   margin-right: 20px;
   margin-left: 20px;
 `;
+
 const ReviewDate = styled.div`
   color: gray;
   margin-top: 10px;
@@ -150,6 +168,11 @@ const ReviewInfo = styled.div`
   cursor: pointer;
 `;
 
+const ReviewContent = styled.div`
+  padding: 10px 30px 20px 0;
+  line-height: 23px;
+`;
+
 const ReviewEditor = styled.div`
   width: 100%;
 `;
@@ -157,6 +180,7 @@ const ReviewEditor = styled.div`
 const ReviewBtnArea = styled.div`
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
 `;
 
 const ReviewTextArea = styled.textarea`
@@ -173,7 +197,7 @@ const RightBox = styled.div`
 `;
 
 const ReviewEditBtn = styled.button`
-  background-color: #e37b58;
+  background: ${POINT_COLOR};
   border-radius: 5px;
   border-style: none;
   color: white;
