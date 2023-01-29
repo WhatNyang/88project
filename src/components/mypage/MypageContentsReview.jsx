@@ -48,7 +48,9 @@ export default function MypageContentsReview({ reviews, user }) {
             </ReviewProfile>
             <ReviewCard
               onClick={() => {
-                navigateDetail(item);
+                if (isEdit === false) {
+                  navigateDetail(item);
+                }
               }}
             >
               <div style={{ display: "flex" }}>

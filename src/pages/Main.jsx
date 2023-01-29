@@ -126,7 +126,7 @@ const Container = styled.div`
   display: flex;
   margin: 0 auto;
   width: 80vw;
-  height: 70vh;
+  height: 80vh;
   border: 40px solid ${BACKGROUND_COLOR};
   border-radius: 20px;
 `;
