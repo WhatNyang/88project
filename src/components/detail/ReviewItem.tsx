@@ -184,7 +184,10 @@ const RightBox = styled.div`
   margin: 0;
 `;
 
-const ReviewBtn = styled.div``;
+const ReviewBtn = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const CreateDate = styled.div`
   margin-top: 20px;

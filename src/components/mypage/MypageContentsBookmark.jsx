@@ -6,32 +6,33 @@ import { deleteBookmark } from "../../data/bookmark";
 export default function MypageContentsBookmark({ bookmark }) {
   return (
     <>
-      {bookmark.map((item) => {
-        return (
-          <div key={item.id}>
-            <StyledDivMainContainer>
-              <StyledDivBookmarkIconContainer>
-                <FcBookmark
-                  size={"50px"}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => deleteBookmark(item.id)}
-                />
-              </StyledDivBookmarkIconContainer>
-              <CardContent>
-                <PlaceName>{item.place}</PlaceName>
-                <RoadAddress>
-                  {item.roadAddress
-                    ? `${item.address}  (${item.roadAddress})`
-                    : `${item.address} `}
-                </RoadAddress>
-                <Telephone>
-                  {item.phone ? `Tel: ${item.phone}` : null}
-                </Telephone>
-              </CardContent>
-            </StyledDivMainContainer>
-          </div>
-        );
-      })}
+      {bookmark &&
+        bookmark.map((item) => {
+          return (
+            <div key={item.id}>
+              <StyledDivMainContainer>
+                <StyledDivBookmarkIconContainer>
+                  <FcBookmark
+                    size={"50px"}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => deleteBookmark(item.id)}
+                  />
+                </StyledDivBookmarkIconContainer>
+                <CardContent>
+                  <PlaceName>{item.place}</PlaceName>
+                  <RoadAddress>
+                    {item.roadAddress
+                      ? `${item.address}  (${item.roadAddress})`
+                      : `${item.address} `}
+                  </RoadAddress>
+                  <Telephone>
+                    {item.phone ? `Tel: ${item.phone}` : null}
+                  </Telephone>
+                </CardContent>
+              </StyledDivMainContainer>
+            </div>
+          );
+        })}
     </>
   );
 }

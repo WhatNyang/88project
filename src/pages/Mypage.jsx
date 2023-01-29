@@ -26,7 +26,7 @@ const Mypage = () => {
 
   const logout = () => {
     authService.signOut();
-    navigate("/index");
+    navigate("/");
     sessionStorage.clear();
   };
 

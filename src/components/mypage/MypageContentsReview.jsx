@@ -7,6 +7,8 @@ import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import AlertDialog from "./DeleteModal";
 import { POINT_COLOR } from "../../color";
+import { TbListSearch } from "react-icons/tb";
+
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
@@ -52,14 +54,35 @@ export default function MypageContentsReview({ reviews, user }) {
               <div style={{ display: "flex" }}>
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>
+
                   <div>
-                    <ReviewDate>
-                      {new Date(item.createdAt)
-                        .toLocaleDateString()
-                        .replace(/\./g, "")
-                        .replace(/\s/g, " / ")}
-                    </ReviewDate>
+                    <ReviewInfo>{item.place_name}</ReviewInfo>
+                    <div>
+                      <ReviewDate>
+                        {new Date(item.createdAt)
+                          .toLocaleDateString()
+                          .replace(/\./g, "")
+                          .replace(/\s/g, " / ")}
+                      </ReviewDate>
+                    </div>
                   </div>
+                  <ReviewBtnArea>
+                    <BiEdit
+                      size={"30px"}
+                      style={{ cursor: "pointer" }}
+                      onClick={(event) => {
+                        editButtonHanler(event, item.id);
+                      }}
+                    />
+                    <AlertDialog item={item} />
+                    <TbListSearch
+                      size={"30px"}
+                      style={{ marginRight: "10px" }}
+                      onClick={() => {
+                        navigateDetail(item);
+                      }}
+                    />
+                  </ReviewBtnArea>
                 </div>
                 <ReviewBtnArea>
                   <BiEdit

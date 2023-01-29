@@ -8,10 +8,15 @@ const MyMenu = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
+  if (window.location.pathname === "/") return null;
+  if (window.location.pathname === "/login") return null;
+  if (window.location.pathname === "/mypage") return null;
+
   const logout = () => {
     authService.signOut();
     navigate("/index");
-    sessionStorage.clear();
+    // sessionStorage.clear();
+    localStorage.clear();
   };
 
   if (window.location.pathname === "/index") return null;

@@ -39,7 +39,7 @@ export default function Login() {
         setPW("");
 
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
-        navigate("/");
+        navigate("/main");
       })
       .catch((error) => {
         console.log("error message: ", error.message);
@@ -249,9 +249,9 @@ const Button = styled.button`
   color: white;
   text-align: center;
   border-radius: 15px;
-  &: hover {
+  /* &: hover {
     scale: 1.1;
-  }
+  } */
 `;
 const JoinText = styled.div`
   display: flex;
