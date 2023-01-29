@@ -17,7 +17,7 @@ const Markers = ({ info, setInfo, isOpen, setIsOpen, markers }) => {
 
   return (
     <>
-      {markers.map((marker) => (
+      {markers?.map((marker) => (
         <MapMarker
           key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
           position={marker.position}
