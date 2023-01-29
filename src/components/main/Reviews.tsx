@@ -6,10 +6,10 @@ import { BACKGROUND_COLOR } from "../../color";
 import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<any[]>([]);
   const navigate = useNavigate();
 
-  const onNavigate = (item) => {
+  const onNavigate = (item: { detailId: number }) => {
     navigate(`/detail/${item.detailId}`, { state: item });
   };
 
@@ -23,7 +23,6 @@ const Reviews = () => {
         id: doc.id,
         ...doc.data(),
       }));
-
       setReviews(newData);
     });
     return data;
@@ -32,7 +31,7 @@ const Reviews = () => {
   return (
     <>
       {reviews?.map((item) => (
-        <ReviewCard key={item.id} onClick={() => onNavigate(item)}>
+        <ReviewCard key={item.createdAt} onClick={() => onNavigate(item)}>
           <ReviewInfo>
             <ReviewInfoKeyword>{item.userNickName}</ReviewInfoKeyword>님은{" "}
             <ReviewInfoKeyword>{item.place_name}</ReviewInfoKeyword>에 대해
@@ -54,6 +53,12 @@ const ReviewCard = styled.div`
   background-color: ${BACKGROUND_COLOR};
   padding: 1px 15px 15px 15px;
   margin-bottom: 15px;
+  transition: 0.1s ease-out;
+  cursor: pointer;
+  &:hover {
+    background-color: #f8e1c6;
+    transition: 0.1s ease-out;
+  }
 `;
 
 const ReviewInfo = styled.p`
@@ -67,4 +72,9 @@ const ReviewInfoKeyword = styled.span`
 
 const ReviewContent = styled.div`
   font-size: 15px;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
