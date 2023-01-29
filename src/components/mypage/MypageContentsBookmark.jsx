@@ -41,7 +41,7 @@ const StyledDivMainContainer = styled.div`
   border-radius: 10px;
   display: flex;
   margin-bottom: 20px;
-  height: 117px;
+  height: 119.5px;
 `;
 
 const StyledDivBookmarkIconContainer = styled.div`
@@ -49,7 +49,7 @@ const StyledDivBookmarkIconContainer = styled.div`
 `;
 
 const PlaceName = styled.div`
-  margin-bottom: 5px;
+  margin: -1px 0 0 -1px;
   font-weight: bold;
   font-size: 20px;
 `;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { POINT_COLOR } from "../color";
@@ -8,17 +8,15 @@ const MyMenu = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log("마이메뉴", isOpen);
-
-  if (window.location.pathname === "/index") return null;
-  if (window.location.pathname === "/login") return null;
-  if (window.location.pathname === "/mypage") return null;
-
   const logout = () => {
     authService.signOut();
     navigate("/index");
     sessionStorage.clear();
   };
+
+  if (window.location.pathname === "/index") return null;
+  if (window.location.pathname === "/login") return null;
+  if (window.location.pathname === "/mypage") return null;
 
   return (
     <>

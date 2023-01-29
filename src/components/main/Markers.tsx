@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import styled from "styled-components";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { BACKGROUND_COLOR, POINT_COLOR } from "../../color";
@@ -23,6 +23,14 @@ const Markers = ({ info, setInfo, isOpen, setIsOpen, markers }: MainProps) => {
   const onNavigate = (item: { id: string }) => {
     navigate(`/detail/${item.id}`, { state: item });
   };
+
+  useEffect(() => {
+    const closeMarker = () => {
+      setIsOpen(false);
+    };
+
+    document.addEventListener("mousedown", closeMarker);
+  }, []);
 
   return (
     <>
@@ -50,13 +58,11 @@ export default Markers;
 
 const InfoWindow = styled.div`
   cursor: pointer;
-  width: 150px;
+  width: 148px;
   text-align: center;
   padding: 10px;
   font-size: 16px;
-  background-color: ${BACKGROUND_COLOR};
   color: ${POINT_COLOR};
-  border: none;
   transition: 0.1s ease-out;
   &:hover {
     transition: 0.1s ease-out;
