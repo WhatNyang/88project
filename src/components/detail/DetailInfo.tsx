@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 import styled from "styled-components";
-import { BACKGROUND_COLOR } from "./../../color";
+import { BACKGROUND_COLOR, POINT_COLOR, TEXTBOX_COLOR } from "./../../color";
 import DetailMap from "./DetailMap";
 import { MdPhone, MdInfoOutline, MdHome } from "react-icons/md";
 import { FiMapPin } from "react-icons/fi";
@@ -51,11 +51,11 @@ const DetailInfo = () => {
 export default DetailInfo;
 
 const InfoContainer = styled.div`
-  max-width: 700px;
+  max-width: 750px;
   width: 100%;
   margin: 0 auto;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 30px;
   background-color: ${BACKGROUND_COLOR};
   border-radius: 10px;
   font-family: "GmarketSans";
@@ -64,6 +64,7 @@ const BookmarkBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: 15px;
+  margin-bottom: 10px;
   cursor: pointer;
 `;
 const InfoBox = styled.div`
@@ -72,16 +73,19 @@ const InfoBox = styled.div`
 const InfoTextBox = styled.div`
   width: 95%;
   height: 100%;
-  background-color: #fff;
+  background-color: ${TEXTBOX_COLOR};
   border-radius: 10px;
-  margin-left: 15px;
-  margin-bottom: 10px;
+  border: 3px solid ${POINT_COLOR};
+  margin: 0 auto;
+  margin-bottom: 20px;
   padding: 10px;
 `;
 const InfoTitle = styled.div`
   margin: 10px 0 20px 0;
   font-size: 20px;
   font-weight: 700;
+  border-bottom: 1px solid gray;
+  padding: 5px;
 `;
 const StyledText = styled.div`
   margin-bottom: 10px;

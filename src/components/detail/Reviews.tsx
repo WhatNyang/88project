@@ -16,9 +16,9 @@ const Reviews = () => {
 export default Reviews;
 
 const StyledContainer = styled.div`
-  width: 700px;
+  width: 750px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 30px;
   background-color: ${BACKGROUND_COLOR};
   border-radius: 10px;
   display: flex;

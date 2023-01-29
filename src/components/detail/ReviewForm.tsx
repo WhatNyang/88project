@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { addDoc, collection } from "firebase/firestore";
 import { authService, dbService } from "../../firebase";
 import { useLocation } from "react-router-dom";
-import { POINT_COLOR } from "../../color";
+import { POINT_COLOR, TEXTBOX_COLOR } from "../../color";
 
 const ReviewForm = () => {
   const location = useLocation();
@@ -83,7 +83,7 @@ const ReviewForm = () => {
 export default ReviewForm;
 
 const StyledForm = styled.form`
-  background-color: white;
+  background-color: ${TEXTBOX_COLOR};
   border-radius: 10px;
   margin: 20px;
 `;
@@ -97,12 +97,13 @@ const StyledInput = styled.textarea`
   :focus {
     outline: none;
   }
+  background-color: ${TEXTBOX_COLOR};
 `;
 const CreateBtn = styled.button`
   background-color: ${POINT_COLOR};
   border-radius: 5px;
   border-style: none;
-  color: white;
+  color: ${TEXTBOX_COLOR};
   float: right;
   margin: 10px;
   margin-top: 0;

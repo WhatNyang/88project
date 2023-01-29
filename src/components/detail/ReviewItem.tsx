@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TfiPencilAlt } from "react-icons/tfi";
+import { POINT_COLOR, TEXTBOX_COLOR } from "../../color";
 
 const ReviewItem = () => {
   const location = useLocation();
@@ -157,8 +158,9 @@ const ReviewItem = () => {
 export default ReviewItem;
 
 const ItemBox = styled.div`
-  background-color: white;
+  background-color: ${TEXTBOX_COLOR};
   border-radius: 10px;
+  border: 2px solid ${POINT_COLOR};
   margin: 20px;
   display: flex;
   justify-content: center;
