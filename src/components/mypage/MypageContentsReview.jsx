@@ -53,8 +53,6 @@ export default function MypageContentsReview({ reviews, user }) {
             >
               <div style={{ display: "flex" }}>
                 <div>
-                  <ReviewInfo>{item.place_name}</ReviewInfo>
-
                   <div>
                     <ReviewInfo>{item.place_name}</ReviewInfo>
                     <div>
@@ -66,23 +64,6 @@ export default function MypageContentsReview({ reviews, user }) {
                       </ReviewDate>
                     </div>
                   </div>
-                  <ReviewBtnArea>
-                    <BiEdit
-                      size={"30px"}
-                      style={{ cursor: "pointer" }}
-                      onClick={(event) => {
-                        editButtonHanler(event, item.id);
-                      }}
-                    />
-                    <AlertDialog item={item} />
-                    <TbListSearch
-                      size={"30px"}
-                      style={{ marginRight: "10px" }}
-                      onClick={() => {
-                        navigateDetail(item);
-                      }}
-                    />
-                  </ReviewBtnArea>
                 </div>
                 <ReviewBtnArea>
                   <BiEdit

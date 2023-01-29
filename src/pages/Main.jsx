@@ -28,11 +28,7 @@ const Main = () => {
     );
   }
 
-  console.log("useEffect 밖", map);
-
   useEffect(() => {
-    console.log("useEffect 안", map);
-
     const ps = new kakao.maps.services.Places();
 
     ps.keywordSearch(place, (data, status, _pagination) => {
