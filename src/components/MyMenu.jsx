@@ -5,9 +5,10 @@ import { POINT_COLOR } from "../color";
 import { authService } from "../firebase";
 
 const MyMenu = () => {
+  const currentUser = JSON.parse(localStorage.getItem("User"));
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const currentUser = JSON.parse(localStorage.getItem("User"));
+
   if (window.location.pathname === "/index") return null;
   if (window.location.pathname === "/login") return null;
   if (window.location.pathname === "/mypage") return null;
@@ -21,7 +22,11 @@ const MyMenu = () => {
   return (
     <>
       <Profile onClick={() => setIsOpen(!isOpen)}>
-        <ProfileImg src={currentUser.photoURL} />
+        {authService.currentUser?.photoURL ? (
+          <ProfileImg src={authService.currentUser?.photoURL} />
+        ) : (
+          <ProfileImg src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
+        )}
       </Profile>
       {isOpen === true ? (
         <Menu>
