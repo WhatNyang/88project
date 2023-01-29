@@ -4,17 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const move = () => {
+    if (window.location.pathname === "/login") return;
+    sessionStorage.clear();
+    navigate("/");
+  };
   if (window.location.pathname === "/index") return null;
-
   return (
     <Nav>
-      <Title
-        onClick={() => {
-          sessionStorage.clear();
-          navigate("/");
-        }}
-      >
+      <Title onClick={move}>
         WHAT<span style={{ color: PROJECT_COLOR }}>NYANG</span>
       </Title>
     </Nav>
