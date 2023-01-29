@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { POINT_COLOR } from "../color";
@@ -7,6 +7,10 @@ import { authService } from "../firebase";
 const MyMenu = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+
+  if (window.location.pathname === "/index") return null;
+  if (window.location.pathname === "/login") return null;
+  if (window.location.pathname === "/mypage") return null;
 
   const logout = () => {
     authService.signOut();
@@ -66,7 +70,9 @@ const Menu = styled.div`
   text-align: center;
   color: white;
   font-family: GmarketSans;
+
   z-index: 6000;
+
 `;
 
 const MenuItem = styled.p`

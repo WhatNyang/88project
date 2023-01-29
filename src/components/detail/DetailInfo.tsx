@@ -20,25 +20,26 @@ const DetailInfo = () => {
         <InfoTextBox>
           <InfoTitle>{item.place_name}</InfoTitle>
           <StyledText>
-            <FiMapPin />
+            <FiMapPin style={{ marginBottom: "-2px" }} />
             &nbsp; {item.road_address_name} ( {item.address_name} )
           </StyledText>
           {item.phone ? (
             <StyledText>
-              <MdPhone /> &nbsp;{item.phone}
+              <MdPhone style={{ marginBottom: "-2px" }} /> &nbsp;{item.phone}
             </StyledText>
           ) : null}
           {item.category_group_name ? (
             <StyledText>
-              <MdInfoOutline /> &nbsp;{item.category_group_name}
+              <MdInfoOutline style={{ marginBottom: "-2px" }} /> &nbsp;
+              {item.category_group_name}
             </StyledText>
           ) : null}
           {item.place_url ? (
             <StyledText>
-              <MdHome /> &nbsp;
-              <a href={item.place_url} target="_blank">
-                {item.place_url}
-              </a>
+              <MdHome style={{ marginBottom: "-2px" }} /> &nbsp;
+              <Link href={item.place_url} target="_blank">
+                홈페이지 바로가기
+              </Link>
             </StyledText>
           ) : null}
         </InfoTextBox>
@@ -100,5 +101,14 @@ const StyledText = styled.div`
   a:hover {
     color: black;
     text-decoration: underline;
+  }
+`;
+const Link = styled.a`
+  text-decoration: none;
+  color: inherit;
+  transition: 0.1s ease-out;
+  &:hover {
+    color: ${POINT_COLOR};
+    transition: 0.1s ease-out;
   }
 `;
