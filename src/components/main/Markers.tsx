@@ -26,22 +26,23 @@ const Markers = ({ info, setInfo, isOpen, setIsOpen, markers }: MainProps) => {
 
   return (
     <>
-      {markers.map((marker: any) => (
-        <MapMarker
-          key={`marker-${marker.place_name}-${marker.position.lat},${marker.position.lng}`}
-          position={marker.position}
-          onClick={() => onMarkerHandler(marker)}
-        >
-          {info &&
-            info.place_name === marker.place_name &&
-            info.address_name === marker.address_name &&
-            (isOpen ? (
-              <InfoWindow onClick={() => onNavigate(marker)}>
-                {marker.place_name}
-              </InfoWindow>
-            ) : null)}
-        </MapMarker>
-      ))}
+      {markers &&
+        markers.map((marker: any) => (
+          <MapMarker
+            key={`marker-${marker.place_name}-${marker.position.lat},${marker.position.lng}`}
+            position={marker.position}
+            onClick={() => onMarkerHandler(marker)}
+          >
+            {info &&
+              info.place_name === marker.place_name &&
+              info.address_name === marker.address_name &&
+              (isOpen ? (
+                <InfoWindow onClick={() => onNavigate(marker)}>
+                  {marker.place_name}
+                </InfoWindow>
+              ) : null)}
+          </MapMarker>
+        ))}
     </>
   );
 };
