@@ -12,6 +12,7 @@ const Header = () => {
       <Title
         onClick={() => {
           sessionStorage.clear();
+          // localStorage.clear()
           navigate("/");
         }}
       >
