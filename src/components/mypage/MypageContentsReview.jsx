@@ -7,6 +7,8 @@ import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import AlertDialog from "./DeleteModal";
 import { POINT_COLOR } from "../../color";
+import { TbListSearch } from "react-icons/tb";
+
 export default function MypageContentsReview({ reviews, user }) {
   const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState(false);
@@ -35,81 +37,82 @@ export default function MypageContentsReview({ reviews, user }) {
 
   return (
     <>
-      {reviews.map((item) => {
-        return (
-          <Container key={item.date.seconds}>
-            <ReviewProfile>
-              <Avatar
-                alt="Avatar"
-                src={user?.photoURL ? user?.photoURL : null}
-              />
-            </ReviewProfile>
-            <ReviewCard>
-              <div style={{ display: "flex" }}>
-                <div>
-                  <ReviewInfo>{item.place_name}</ReviewInfo>
+      {reviews &&
+        reviews.map((item) => {
+          return (
+            <Container key={item.date.seconds}>
+              <ReviewProfile>
+                <Avatar
+                  alt="Avatar"
+                  src={user?.photoURL ? user?.photoURL : null}
+                />
+              </ReviewProfile>
+              <ReviewCard>
+                <div style={{ display: "flex" }}>
                   <div>
-                    <ReviewDate>
-                      {new Date(item.createdAt)
-                        .toLocaleDateString()
-                        .replace(/\./g, "")
-                        .replace(/\s/g, " / ")}
-                    </ReviewDate>
+                    <ReviewInfo>{item.place_name}</ReviewInfo>
+                    <div>
+                      <ReviewDate>
+                        {new Date(item.createdAt)
+                          .toLocaleDateString()
+                          .replace(/\./g, "")
+                          .replace(/\s/g, " / ")}
+                      </ReviewDate>
+                    </div>
                   </div>
+                  <ReviewBtnArea>
+                    <BiEdit
+                      size={"30px"}
+                      style={{ cursor: "pointer" }}
+                      onClick={(event) => {
+                        editButtonHanler(event, item.id);
+                      }}
+                    />
+                    <AlertDialog item={item} />
+                    <TbListSearch
+                      size={"30px"}
+                      style={{ marginRight: "10px" }}
+                      onClick={() => {
+                        navigateDetail(item);
+                      }}
+                    />
+                  </ReviewBtnArea>
                 </div>
-                <ReviewBtnArea>
-                  <BiEdit
-                    size={"30px"}
-                    style={{ cursor: "pointer" }}
-                    onClick={(event) => {
-                      editButtonHanler(event, item.id);
-                    }}
-                  />
-                  <AlertDialog item={item} />
-                </ReviewBtnArea>
-                <GoToDetailBtn
-                  onClick={() => {
-                    navigateDetail(item);
-                  }}
-                >
-                  상세페이지
-                </GoToDetailBtn>
-              </div>
-              {thisItem === item.id && isEdit ? (
-                <RightBox>
-                  <ReviewEditor>
-                    <ReviewTextArea onChange={onChangeText}>
-                      {item.contents}
-                    </ReviewTextArea>
-                  </ReviewEditor>
-                  <ReviewEditBtn
-                    variant="contained"
-                    color="success"
-                    style={{ marginRight: "2px" }}
-                    onClick={() => {
-                      editReview(item.id);
-                      setIsEdit(false);
-                    }}
-                  >
-                    수정
-                  </ReviewEditBtn>
-                  <ReviewEditBtn
-                    variant="contained"
-                    color="warning"
-                    onClick={() => {
-                      setIsEdit(false);
-                    }}
-                  >
-                    취소
-                  </ReviewEditBtn>
-                </RightBox>
-              ) : (
-                <p>{item.contents}</p>
-              )}
-            </ReviewCard>
-          </Container>
-        );
-      })}
+                {thisItem === item.id && isEdit ? (
+                  <RightBox>
+                    <ReviewEditor>
+                      <ReviewTextArea onChange={onChangeText}>
+                        {item.contents}
+                      </ReviewTextArea>
+                    </ReviewEditor>
+                    <ReviewEditBtn
+                      variant="contained"
+                      color="success"
+                      style={{ marginRight: "2px" }}
+                      onClick={() => {
+                        editReview(item.id);
+                        setIsEdit(false);
+                      }}
+                    >
+                      수정
+                    </ReviewEditBtn>
+                    <ReviewEditBtn
+                      variant="contained"
+                      color="warning"
+                      onClick={() => {
+                        setIsEdit(false);
+                      }}
+                    >
+                      취소
+                    </ReviewEditBtn>
+                  </RightBox>
+                ) : (
+                  <p>{item.contents}</p>
+                )}
+              </ReviewCard>
+            </Container>
+          );
+        })}
     </>
   );
 }
@@ -177,15 +180,4 @@ const ReviewEditBtn = styled.button`
   width: 50px;
   height: 25px;
   margin: 20px 20px 10px 5px;
-`;
-
-const GoToDetailBtn = styled.button`
-  width: 110px;
-  height: 30px;
-  background-color: ${POINT_COLOR};
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 14px;
-  margin-right: 15px;
 `;
