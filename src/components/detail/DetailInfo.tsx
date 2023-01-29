@@ -88,6 +88,21 @@ const InfoTitle = styled.div`
   border-bottom: 1px solid gray;
   padding: 5px;
 `;
+const StyledText = styled.div`
+  margin-bottom: 10px;
+  a:link {
+    color: black;
+    text-decoration: none;
+  }
+  a:visited {
+    color: black;
+    text-decoration: none;
+  }
+  a:hover {
+    color: black;
+    text-decoration: underline;
+  }
+`;
 const Link = styled.a`
   text-decoration: none;
   color: inherit;

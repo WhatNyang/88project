@@ -5,7 +5,6 @@ import { Avatar } from "@mui/material";
 import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import Typography from "@mui/material/Typography";
 import AlertDialog from "./DeleteModal";
 import { POINT_COLOR } from "../../color";
 export default function MypageContentsReview({ reviews, user }) {
@@ -50,12 +49,12 @@ export default function MypageContentsReview({ reviews, user }) {
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>
                   <div>
-                    <Typography variant="body2" color="text.secondary">
+                    <ReviewDate>
                       {new Date(item.createdAt)
                         .toLocaleDateString()
                         .replace(/\./g, "")
                         .replace(/\s/g, " / ")}
-                    </Typography>
+                    </ReviewDate>
                   </div>
                 </div>
                 <ReviewBtnArea>
@@ -126,6 +125,7 @@ const Container = styled.div`
   &:hover {
     background-color: #fcfcfc;
     transition: 0.1s ease-out;
+  }
 `;
 
 const ReviewCard = styled.div`
@@ -136,7 +136,10 @@ const ReviewProfile = styled.div`
   margin-right: 20px;
   margin-left: 20px;
 `;
-
+const ReviewDate = styled.div`
+  color: gray;
+  margin-top: 10px;
+`;
 const ReviewInfo = styled.div`
   margin-bottom: 5px;
   font-weight: bold;
@@ -154,10 +157,13 @@ const ReviewBtnArea = styled.div`
 `;
 
 const ReviewTextArea = styled.textarea`
-  width: 100%;
-  height: 50px;
+  width: 95%;
+  height: 70px;
   resize: none;
   border-radius: 10px;
+  margin: 20px;
+  margin-left: 0;
+  padding: 10px;
 `;
 const RightBox = styled.div`
   display: flex;
@@ -170,7 +176,7 @@ const ReviewEditBtn = styled.button`
   color: white;
   width: 50px;
   height: 25px;
-  margin: 0 20px 10px 5px;
+  margin: 20px 20px 10px 5px;
 `;
 
 const GoToDetailBtn = styled.button`
