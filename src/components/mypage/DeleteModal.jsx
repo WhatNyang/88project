@@ -29,7 +29,7 @@ export default function AlertDialog({ item }) {
   return (
     <div>
       <BiTrash
-        size={"30px"}
+        size={"20px"}
         style={{ cursor: "pointer" }}
         onClick={(event) => handleClickOpen(event)}
       ></BiTrash>

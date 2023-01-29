@@ -8,6 +8,8 @@ const MyMenu = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log("마이메뉴", isOpen);
+
   if (window.location.pathname === "/index") return null;
   if (window.location.pathname === "/login") return null;
   if (window.location.pathname === "/mypage") return null;
@@ -24,7 +26,7 @@ const MyMenu = () => {
         {authService.currentUser?.photoURL ? (
           <ProfileImg src={authService.currentUser?.photoURL} />
         ) : (
-          <ProfileImg src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
+          <ProfileImg src="img/profile.png" />
         )}
       </Profile>
       {isOpen === true ? (
@@ -72,7 +74,6 @@ const Menu = styled.div`
   font-family: GmarketSans;
 
   z-index: 6000;
-
 `;
 
 const MenuItem = styled.p`

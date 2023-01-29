@@ -6,7 +6,7 @@ import { uploadString, getDownloadURL, ref } from "firebase/storage";
 import { POINT_COLOR } from "../../color";
 
 const imgProfile =
-  "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000";
+  "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
 
 interface propsType {
   bookmarkCount: number;
@@ -35,7 +35,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
     currentUser.displayName
   );
 
-  // 프로필 수정하기
   const [editmode, setEdit] = useState(false);
   const profileEdit = () => {
     localStorage.removeItem("imgURL");
@@ -45,7 +44,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const imgRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
-  // 프로필 사진 업로드 변경사항 유지하기
   const saveImgFile = () => {
     if (imgRef.current?.files) {
       const file = imgRef.current.files[0];
@@ -58,14 +56,13 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
       };
     }
   };
-  // 프로필 수정을 취소하기
+
   const profileEditCancle = () => {
     setImgFile(currentUser.photoURL);
     setNicknameEdit(currentUser.displayName);
     setEdit(!editmode);
   };
 
-  // 프로필 수정을 완료 하기
   const profileEditComplete = async () => {
     const imgRef = ref(storage, `${authService.currentUser?.uid}${Date.now()}`);
 
@@ -95,7 +92,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   return (
     <StyledDivOne>
       <div></div>
-      {/* 내 프로필 사진 변경 */}
       <div>
         <>
           <ProfileImage
@@ -123,7 +119,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         </>
       </div>
       <div></div>
-      {/* 내 프로필 닉네임 */}
       <ProfileList>
         {editmode ? (
           <ProfileNicknameEdit
@@ -141,7 +136,6 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
         <ProfileListBookmarkReview>
           <ProfileListBookmark>
             <div></div>
-            {/* 내 프로필 관심, 리뷰*/}
             <div>북마크</div>
             <div>{bookmarkCount}</div>
           </ProfileListBookmark>
@@ -151,13 +145,11 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
           </ProfileListReview>
         </ProfileListBookmarkReview>
       </ProfileList>
-      {/* 내 프로필 수정, 완료 버튼*/}
       <div>
         <ProfileEditCancleButton hidden={!editmode} onClick={profileEditCancle}>
           취소
         </ProfileEditCancleButton>
       </div>
-      {/* 내 프로필 수정, 완료 버튼*/}
       {editmode ? (
         <ProfileEditButton onClick={profileEditComplete}>
           적용
@@ -180,7 +172,6 @@ const ProfileImage = styled.div<{ img: string }>`
   background-size: cover;
   background-image: url(${(props) => props.img});
   background-position: center center;
-  box-shadow: 2px 2px 1px ${POINT_COLOR};
 `;
 const ProfileImageLabel = styled.label`
   cursor: pointer;

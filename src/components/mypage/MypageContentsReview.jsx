@@ -44,7 +44,11 @@ export default function MypageContentsReview({ reviews, user }) {
                 src={user?.photoURL ? user?.photoURL : null}
               />
             </ReviewProfile>
-            <ReviewCard>
+            <ReviewCard
+              onClick={() => {
+                navigateDetail(item);
+              }}
+            >
               <div style={{ display: "flex" }}>
                 <div>
                   <ReviewInfo>{item.place_name}</ReviewInfo>
@@ -59,7 +63,7 @@ export default function MypageContentsReview({ reviews, user }) {
                 </div>
                 <ReviewBtnArea>
                   <BiEdit
-                    size={"30px"}
+                    size={"20px"}
                     style={{ cursor: "pointer" }}
                     onClick={(event) => {
                       editButtonHanler(event, item.id);
@@ -67,13 +71,6 @@ export default function MypageContentsReview({ reviews, user }) {
                   />
                   <AlertDialog item={item} />
                 </ReviewBtnArea>
-                <GoToDetailBtn
-                  onClick={() => {
-                    navigateDetail(item);
-                  }}
-                >
-                  상세페이지
-                </GoToDetailBtn>
               </div>
               {thisItem === item.id && isEdit ? (
                 <RightBox>
@@ -104,7 +101,7 @@ export default function MypageContentsReview({ reviews, user }) {
                   </ReviewEditBtn>
                 </RightBox>
               ) : (
-                <p>{item.contents}</p>
+                <ReviewContent>{item.contents}</ReviewContent>
               )}
             </ReviewCard>
           </Container>
@@ -136,6 +133,7 @@ const ReviewProfile = styled.div`
   margin-right: 20px;
   margin-left: 20px;
 `;
+
 const ReviewDate = styled.div`
   color: gray;
   margin-top: 10px;
@@ -147,6 +145,11 @@ const ReviewInfo = styled.div`
   cursor: pointer;
 `;
 
+const ReviewContent = styled.div`
+  padding: 10px 30px 20px 0;
+  line-height: 23px;
+`;
+
 const ReviewEditor = styled.div`
   width: 100%;
 `;
@@ -154,6 +157,7 @@ const ReviewEditor = styled.div`
 const ReviewBtnArea = styled.div`
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
 `;
 
 const ReviewTextArea = styled.textarea`
@@ -170,22 +174,11 @@ const RightBox = styled.div`
 `;
 
 const ReviewEditBtn = styled.button`
-  background-color: #e37b58;
+  background: ${POINT_COLOR};
   border-radius: 5px;
   border-style: none;
   color: white;
   width: 50px;
   height: 25px;
   margin: 20px 20px 10px 5px;
-`;
-
-const GoToDetailBtn = styled.button`
-  width: 110px;
-  height: 30px;
-  background-color: ${POINT_COLOR};
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 14px;
-  margin-right: 15px;
 `;

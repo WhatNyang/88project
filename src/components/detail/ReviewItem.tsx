@@ -45,7 +45,6 @@ const ReviewItem = () => {
     return unsubscribe;
   }, [item.id]);
 
-  // 삭제
   const deleteReview = (id: string) => {
     return deleteDoc(doc(dbService, "reviews", id));
   };
@@ -61,7 +60,6 @@ const ReviewItem = () => {
     mutation.mutate(id);
   };
 
-  // 수정
   const editButtonHandler = function (item: any) {
     setThisItem(item);
     setIsEdit(!isEdit);
@@ -85,7 +83,7 @@ const ReviewItem = () => {
             {item.photoUrl ? (
               <StyledPhoto src={item.photoUrl} />
             ) : (
-              <StyledPhoto src="https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000" />
+              <StyledPhoto src="img/profile.png" />
             )}
             <ContentBox>
               <InfoBox>
@@ -105,11 +103,15 @@ const ReviewItem = () => {
                   {thisItem === item.id && isEdit ? null : (
                     <ReviewBtn>
                       <RiDeleteBinLine
-                        style={{ width: "19px", height: "19px" }}
+                        style={{
+                          fontSize: "20px",
+                          margin: "0 5px -2px 0",
+                          cursor: "pointer",
+                        }}
                         onClick={() => handleDeleteBtn(item.id)}
                       />
                       <TfiPencilAlt
-                        style={{ width: "15px", marginRight: "20px" }}
+                        style={{ fontSize: "16px", cursor: "pointer" }}
                         strokeWidth="1"
                         onClick={() => {
                           editButtonHandler(item.id);
@@ -162,9 +164,12 @@ const ItemBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+
+  padding-bottom: 20px;
 `;
 const ContentBox = styled.div`
-  padding: 10px 0;
+  height: inherit;
+  width: 500px;
 `;
 
 const InfoBox = styled.div`
@@ -182,24 +187,26 @@ const RightBox = styled.div`
 const ReviewBtn = styled.div``;
 
 const CreateDate = styled.div`
-  margin: 20px;
+  margin-top: 20px;
   color: darkgray;
   font-size: 13px;
 `;
 const ReviewContent = styled.div`
   margin-left: 20px;
+  line-height: 23px;
 `;
 const StyledPhoto = styled.img`
-  margin: 20px;
-  width: 95px;
+  margin: 20px 15px 0 0px;
+  width: 70px;
   height: 70px;
+  border-radius: 50px;
+  object-fit: cover;
 `;
 const StyledNickname = styled.div`
   margin: 20px;
   color: darkgray;
   font-size: 13px;
 `;
-//
 
 const ReviewEditor = styled.div`
   width: 100%;

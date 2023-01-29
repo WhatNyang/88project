@@ -40,10 +40,12 @@ const StyledDivMainContainer = styled.div`
   background-color: white;
   border-radius: 10px;
   display: flex;
+  margin-bottom: 20px;
+  height: 117px;
 `;
 
 const StyledDivBookmarkIconContainer = styled.div`
-  padding: 15px 0 0 10px;
+  padding: 15px 0 0 15px;
 `;
 
 const PlaceName = styled.div`
