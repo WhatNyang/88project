@@ -18,10 +18,9 @@ export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
   const navigate = useNavigate();
-  authService.onAuthStateChanged((user) => {
-    if (!user) {
-      navigate("/index");
-    }
+  authService.onAuthStateChanged((item) => {
+    if (!item) navigate("/index");
+
   });
   const [category, setCategory] = useState("bookmark");
   const [bookmark, setBookmark] = useState([]);
@@ -31,7 +30,7 @@ const Mypage = () => {
 
   const logout = () => {
     authService.signOut();
-    navigate("/");
+    navigate("/index");
     sessionStorage.clear();
   };
 

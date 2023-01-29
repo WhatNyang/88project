@@ -7,14 +7,17 @@ import { Map } from "react-kakao-maps-sdk";
 import { displayPagination } from "../data/kakao";
 import Markers from "../components/main/Markers";
 import { BACKGROUND_COLOR } from "../color";
+import { authService } from "../firebase";
+import { useNavigate } from "react-router-dom";
 const { kakao } = window;
 
 const Main = () => {
   const navigate = useNavigate();
   authService.onAuthStateChanged((user) => {
-    if (!user) {
-      navigate("/index");
-    }
+
+    if (!user) navigate("/index");
+
+
   });
   const [place, setPlace] = useState("");
   const [places, setPlaces] = useState([]);

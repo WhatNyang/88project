@@ -39,7 +39,7 @@ export default function Login() {
         setPW("");
 
         localStorage.setItem("User", JSON.stringify(authService.currentUser));
-        navigate("/main");
+        navigate("/");
       })
       .catch((error) => {
         console.log("error message: ", error.message);

@@ -7,7 +7,7 @@ import { authService } from "../firebase";
 const MyMenu = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
+  const currentUser = JSON.parse(localStorage.getItem("User"));
   if (window.location.pathname === "/index") return null;
   if (window.location.pathname === "/login") return null;
   if (window.location.pathname === "/mypage") return null;
@@ -18,18 +18,10 @@ const MyMenu = () => {
     localStorage.clear();
   };
 
-  if (window.location.pathname === "/index") return null;
-  if (window.location.pathname === "/login") return null;
-  if (window.location.pathname === "/mypage") return null;
-
   return (
     <>
       <Profile onClick={() => setIsOpen(!isOpen)}>
-        {authService.currentUser?.photoURL ? (
-          <ProfileImg src={authService.currentUser?.photoURL} />
-        ) : (
-          <ProfileImg src="img/profile.png" />
-        )}
+        <ProfileImg src={currentUser.photoURL} />
       </Profile>
       {isOpen === true ? (
         <Menu>
