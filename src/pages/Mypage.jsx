@@ -14,13 +14,12 @@ import {
 import { authService, dbService } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { BACKGROUND_COLOR, POINT_COLOR } from "../color";
-export const user = JSON.parse(localStorage.getItem("User"));
 
 const Mypage = () => {
+  const user = JSON.parse(localStorage.getItem("User"));
   const navigate = useNavigate();
   authService.onAuthStateChanged((item) => {
     if (!item) navigate("/index");
-
   });
   const [category, setCategory] = useState("bookmark");
   const [bookmark, setBookmark] = useState([]);

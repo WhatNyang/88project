@@ -61,25 +61,26 @@ export default function Login() {
     }
     //회원가입
     createUserWithEmailAndPassword(authService, email, pw)
-      .then(() => {
-        updateProfile(authService.currentUser, {
+      .then((data) => {
+        updateProfile(data.user, {
           displayName: userName,
           photoURL:
             "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000",
-        })
-          .then(() => {
-            localStorage.setItem(
-              "User",
-              JSON.stringify(authService.currentUser)
-            );
-            navigate("/");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        setEmail("");
-        setPW("");
-        setUserName("");
+        });
+        return data.user;
+      })
+      .then((item) => {
+        console.log(item);
+        const userData = {
+          photoURL:
+            "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000",
+          uid: item.uid,
+          displayName: userName,
+          email: item.email,
+        };
+        console.log(userData);
+        localStorage.setItem("User", JSON.stringify(userData));
+        navigate("/");
       })
       .catch((error) => {
         console.log("error.message: ", error.message);

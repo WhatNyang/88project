@@ -23,13 +23,14 @@ type ProfileItemProps = {
 
 function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const currentUser = JSON.parse(localStorage.getItem("User") as string);
+  console.log(currentUser);
   const navigate = useNavigate();
   if (!currentUser) {
     navigate("/index");
   }
 
   const initialState = {
-    nickname: currentUser.displayName,
+    nickname: currentUser?.displayName,
     image: imgProfile,
     bookmark: 10,
     review: 2,
@@ -129,7 +130,7 @@ function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
           <ProfileNicknameEdit
             onChange={handleNicknameChange}
             ref={nameRef}
-            value={nicknameEdit || profile.nickname}
+            value={nicknameEdit}
           />
         ) : (
           <>
