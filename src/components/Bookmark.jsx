@@ -6,13 +6,16 @@ import { addBookmark, deleteBookmark } from "../data/bookmark";
 import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
 import Snackbar from "@mui/material/Snackbar";
 import { POINT_COLOR } from "../color";
-import { user } from "../pages/Mypage";
+// import { user } from "../pages/Mypage";
 
 const Bookmark = ({ item }) => {
+  const user = JSON.parse(localStorage.getItem("User"));
   const [list, setList] = useState([]);
   const [open, setOpen] = React.useState(false);
 
-  const userId = authService.currentUser ? authService.currentUser.uid : user;
+  const userId = authService.currentUser
+    ? authService.currentUser.uid
+    : user.uid;
 
   const handleClick = () => {
     setOpen(true);

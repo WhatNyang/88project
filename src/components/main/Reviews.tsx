@@ -47,7 +47,7 @@ const Reviews = () => {
 export default Reviews;
 
 const ReviewCard = styled.div`
-  width: 90%;
+  width: 100%;
   height: auto;
   border-radius: 10px;
   background-color: ${BACKGROUND_COLOR};

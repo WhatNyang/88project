@@ -24,7 +24,6 @@ type ProfileItemProps = {
 function MypageProfile({ bookmarkCount, reviewsCount }: propsType) {
   const currentUser = JSON.parse(localStorage.getItem("User") as string);
   console.log(currentUser);
-  console.log(authService.currentUser);
   const navigate = useNavigate();
   if (!currentUser) {
     navigate("/index");

@@ -71,8 +71,15 @@ export default function Login() {
       })
       .then((item) => {
         console.log(item);
-        localStorage.removeItem("User");
-        localStorage.setItem("User", JSON.stringify(item));
+        const userData = {
+          photoURL:
+            "https://img.freepik.com/free-photo/closeup-shot-fluffy-ginger-domestic-cat-looking-directly-white-background_181624-46543.jpg?w=2000",
+          uid: item.uid,
+          displayName: userName,
+          email: item.email,
+        };
+        console.log(userData);
+        localStorage.setItem("User", JSON.stringify(userData));
         navigate("/");
       })
       .catch((error) => {
